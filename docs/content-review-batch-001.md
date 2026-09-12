@@ -118,7 +118,7 @@ A = afirmația trebuie marcată Adevărat · F = Fals · OK = cheie + text în r
 | q047 | A | OK | Iona 1–3 |
 | q048 | F | OK | n-a slujit idolul ca să scape |
 | q049 | A | OK | Dan 3 |
-| q050 | F | OK | Persia / Suza, nu planetă-jucărie |
+| q050 | F | OK | Persia / Suza, nu o planetă îndepărtată |
 | q051 | A | OK | Est 4–8 |
 | q052 | F | OK | ziduri de piatră (Neh 2–6) |
 | q053 | A | OK | Mt 3; Mc 1 |
