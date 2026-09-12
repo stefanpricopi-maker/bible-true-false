@@ -106,11 +106,11 @@ A = afirmația trebuie marcată Adevărat · F = Fals · OK = cheie + text în r
 | q035 | A | OK | Rut 1:16–17 |
 | q036 | F | retuș | auzit ca băiat, de mai multe ori (1 Sam 3) |
 | q037 | A | OK | 1 Sam 16 |
-| q038 | F | OK | praștie, nu sabie de aur (1 Sam 17) |
+| q038 | F | OK | praștie, nu sabie de lemn (1 Sam 17) |
 | q039 | A | OK | 1 Sam 17 |
 | q040 | F | OK | Saul vs filisteni, nu prieten cu Goliat |
 | q041 | A | OK | 1 Împ 3; 2 Sam 12:24 |
-| q042 | F | OK | piatră/lemn/aur, nu înghețată |
+| q042 | F | OK | piatră/lemn/aur, nu sticlă |
 | q043 | A | OK | 1 Împ 18 |
 | q044 | F | OK | car de foc, nu autobuz (2 Împ 2) |
 | q045 | A | OK | 1 Împ 19; 2 Împ 2 |

@@ -476,7 +476,7 @@
     {
       "id": "q042",
       "correct": false,
-      "promptText": "Templul din Ierusalim a fost construit din înghețată.",
+      "promptText": "Templul din Ierusalim a fost construit din sticlă.",
       "audio": {
         "question": "audio/q042-question.mp3"
       }
@@ -540,7 +540,7 @@
     {
       "id": "q050",
       "correct": false,
-      "promptText": "Estera a fost regină pe o planetă de jucărie.",
+      "promptText": "Estera a fost regină pe o planetă îndepărtată.",
       "audio": {
         "question": "audio/q050-question.mp3"
       }
