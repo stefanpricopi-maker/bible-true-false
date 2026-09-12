@@ -6,7 +6,7 @@
 - Locale: `ro`
 - Dificultate: povești biblice familiare pentru copii (același nivel ca q001–q010 din demo)
 - **`reviewStatus`:** reviewed 2026-09-12 — vezi [`docs/content-review-batch-001.md`](content-review-batch-001.md)
-- Cablat în pack-ul de joc (`demo-v1`). Regenerare audio încă necesară pentru **q036, q076, q091** după retușurile de review.
+- Cablat în pack-ul de joc (`demo-v1`). Audio regenerat 2026-09-12 pentru textele retușate: q002, q014, q018, q026, q032, q036, q038, q042, q050, q076, q091.
 
 ## Schema pe întrebare
 
@@ -71,13 +71,11 @@ Fiecare clip VO/feedback are **mai multe texte** (`texts[]`); la generare apar `
 
 ## După review (2026-09-12)
 
-Review: [`docs/content-review-batch-001.md`](content-review-batch-001.md). Cheile T/F sunt corecte; 3 texte retușate.
+Review: [`docs/content-review-batch-001.md`](content-review-batch-001.md). Cheile T/F sunt corecte; texte retușate + audio regenerat pentru:
 
-1. Regenerare audio cu `--force --ids` pentru **q036, q076, q091**.
+`q002, q014, q018, q026, q032, q036, q038, q042, q050, q076, q091`
 
 ```bash
-npm run gen:questions -- --force --ids q036,q076,q091
+npm run gen:questions -- --force --ids q002,q014,q018,q026,q032,q036,q038,q042,q050,q076,q091
 npm run sync:batch
 ```
-2. `npm run sync:batch` ca MP3-urile din pack să urmeze textele noi.
-3. Spot-check MP3 vs `promptText` (checklist: `docs/ship-checklist.md`).

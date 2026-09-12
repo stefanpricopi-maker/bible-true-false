@@ -16,7 +16,7 @@ Bible True/False kids quiz (name TBD). Greenfield. Evidence: `docs/brief.md`, fo
 
 1. Single-device dual-player turn/scoring — **R1 / R2 buzz / R3 dual-answer + reveal** in engine
 2. Kids T/F UI + audio — color UI + etichete Fals/Adevărat pe cerc
-3. Question + audio asset pack — batch-001 + system VO; content review 2026-09-12 (`docs/content-review-batch-001.md`); regen audio q036/q076/q091
+3. Question + audio asset pack — batch-001 + system VO; content review 2026-09-12 (`docs/content-review-batch-001.md`); audio regen for wording edits
 4. Client/platform — **PWA first**; IAP later
 5. QA round picker — **dev only** (`import.meta.env.DEV`)
 

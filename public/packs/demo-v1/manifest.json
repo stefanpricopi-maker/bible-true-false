@@ -2,7 +2,7 @@
   "id": "demo-v1",
   "title": "Întrebări din Biblie — Adevărat sau Fals?",
   "locale": "ro",
-  "note": "Questions from content/batch-001.json. Content review 2026-09-12: docs/content-review-batch-001.md. Regen audio for q036, q076, q091. Engine draws random 10 per round.",
+  "note": "Questions from content/batch-001.json. Content review: reviewed-2026-09-12 — kids-level biblical narrative (see docs/content-review-batch-001.md); audio regen 2026-09-12 for wording edits. Engine draws random 10 per round.",
   "rounds": {
     "questionsPerPlayer": 5,
     "questionsPerRound": 10,
