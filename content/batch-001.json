@@ -2,7 +2,7 @@
   "id": "batch-001",
   "locale": "ro",
   "difficulty": "kids-familiar-stories",
-  "reviewStatus": "PLACEHOLDER — pending human biblical review",
+  "reviewStatus": "reviewed-2026-09-12 — kids-level biblical narrative (see docs/content-review-batch-001.md); regen audio for q036 q076 q091",
   "voiceNote": "Same kids-warm Romanian voice as round 1 VO",
   "questions": [
     {
@@ -253,7 +253,7 @@
     {
       "id": "q036",
       "correct": false,
-      "promptText": "Samuel a auzit vocea lui Dumnezeu doar o singură dată în viață, la bătrânețe.",
+      "promptText": "Samuel a auzit vocea lui Dumnezeu abia când era bătrân.",
       "audioFile": "q036-question.mp3",
       "topic": "samuel"
     },
@@ -533,7 +533,7 @@
     {
       "id": "q076",
       "correct": false,
-      "promptText": "Isus S-a înălțat la cer în fața soldaților romani, în Ierusalim.",
+      "promptText": "Isus S-a înălțat la cer în fața soldaților romani.",
       "audioFile": "q076-question.mp3",
       "topic": "isus"
     },
@@ -638,7 +638,7 @@
     {
       "id": "q091",
       "correct": true,
-      "promptText": "David a cântat la harpă și a scris multe psalmi.",
+      "promptText": "David a cântat la harpă și a scris mulți psalmi.",
       "audioFile": "q091-question.mp3",
       "topic": "david"
     },

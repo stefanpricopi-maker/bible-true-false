@@ -2,7 +2,7 @@
   "id": "demo-v1",
   "title": "Întrebări din Biblie — Adevărat sau Fals?",
   "locale": "ro",
-  "note": "Questions from content/batch-001.json (PLACEHOLDER pending human review). Engine draws random 10 per round.",
+  "note": "Questions from content/batch-001.json. Content review 2026-09-12: docs/content-review-batch-001.md. Regen audio for q036, q076, q091. Engine draws random 10 per round.",
   "rounds": {
     "questionsPerPlayer": 5,
     "questionsPerRound": 10,
@@ -428,7 +428,7 @@
     {
       "id": "q036",
       "correct": false,
-      "promptText": "Samuel a auzit vocea lui Dumnezeu doar o singură dată în viață, la bătrânețe.",
+      "promptText": "Samuel a auzit vocea lui Dumnezeu abia când era bătrân.",
       "audio": {
         "question": "audio/q036-question.mp3"
       }
@@ -748,7 +748,7 @@
     {
       "id": "q076",
       "correct": false,
-      "promptText": "Isus S-a înălțat la cer în fața soldaților romani, în Ierusalim.",
+      "promptText": "Isus S-a înălțat la cer în fața soldaților romani.",
       "audio": {
         "question": "audio/q076-question.mp3"
       }
@@ -868,7 +868,7 @@
     {
       "id": "q091",
       "correct": true,
-      "promptText": "David a cântat la harpă și a scris multe psalmi.",
+      "promptText": "David a cântat la harpă și a scris mulți psalmi.",
       "audio": {
         "question": "audio/q091-question.mp3"
       }

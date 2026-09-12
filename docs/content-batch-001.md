@@ -5,8 +5,8 @@
 - Fișier: [`content/batch-001.json`](../content/batch-001.json)
 - Locale: `ro`
 - Dificultate: povești biblice familiare pentru copii (același nivel ca q001–q010 din demo)
-- **`reviewStatus`:** PLACEHOLDER — pending human biblical review
-- Nu este încă cablat în pack-ul de joc (`demo-v1`); audio-ul generat stă separat până la review
+- **`reviewStatus`:** reviewed 2026-09-12 — vezi [`docs/content-review-batch-001.md`](content-review-batch-001.md)
+- Cablat în pack-ul de joc (`demo-v1`). Regenerare audio încă necesară pentru **q036, q076, q091** după retușurile de review.
 
 ## Schema pe întrebare
 
@@ -52,7 +52,7 @@ Motorul trage **10 întrebări random pe rundă** din pool-ul **deblocat** (impl
 npm run gen:questions -- --force
 ```
 
-Output: `generated/batch-001/audio/*.mp3` (nu atinge MP3-urile din `public/packs/demo-v1/audio/` până la review).
+Output: `generated/batch-001/audio/*.mp3`. După review, copiază în pack cu `npm run sync:batch`.
 
 ### VO de sistem + feedback (aceeași voce)
 
@@ -69,8 +69,10 @@ Clipuri Runda 2 (race): `vo/race-round-start.mp3`, `feedback/buzz-timeout.mp3` �
 
 Fiecare clip VO/feedback are **mai multe texte** (`texts[]`); la generare apar `base.mp3`, `base-2.mp3`, … iar jocul alege **random** la fiecare redare.
 
-## După review uman
+## După review (2026-09-12)
 
-1. Corectează `promptText` / `correct` în JSON dacă e nevoie.
-2. Regenerare audio cu `--force` pentru ID-urile schimbate.
-3. Copiere în pack + actualizare `manifest.json` + eventual mărirea pool-ului în engine (pas separat).
+Review: [`docs/content-review-batch-001.md`](content-review-batch-001.md). Cheile T/F sunt corecte; 3 texte retușate.
+
+1. Regenerare audio cu `--force` pentru **q036, q076, q091**.
+2. `npm run sync:batch` ca MP3-urile din pack să urmeze textele noi.
+3. Spot-check MP3 vs `promptText` (checklist: `docs/ship-checklist.md`).
