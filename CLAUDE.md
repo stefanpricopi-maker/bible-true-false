@@ -10,7 +10,7 @@ Greenfield kids quiz: biblical culture, True/False, audio, points. Local multi-a
 - **Do not copy** 2Wheel Tracker or mobilcab-cad (roles, phases, commands, stack).
 - Prefer small, explicit docs under `docs/`. Separate facts / inferences / recommendations / unknowns / blockers.
 - Application code is allowed after conditional go in `docs/decisions/orchestrator-merge.md` (done). First screen UI must follow `docs/setup-screen.md` + mockup.
-- Keep PLACEHOLDER content labeled until a human content review.
+- Batch-001 content review: `docs/content-review-batch-001.md` (2026-09-12). Keep PLACEHOLDER on any *new* unverified claims.
 - **Modular packs / unlocks:** see `docs/monetization-packs.md`. Shell + content-packs + entitlements; deploy PWA first (`docs/deploy.md`); store IAP later (`docs/capacitor-iap.md`).
 
 ## Source of truth

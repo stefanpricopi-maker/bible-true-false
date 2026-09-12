@@ -2,7 +2,7 @@
   "id": "demo-v1",
   "title": "Întrebări din Biblie — Adevărat sau Fals?",
   "locale": "ro",
-  "note": "Questions from content/batch-001.json (PLACEHOLDER pending human review). Engine draws random 10 per round.",
+  "note": "Questions from content/batch-001.json. Content review: reviewed-2026-09-12 — kids-level biblical narrative (see docs/content-review-batch-001.md); audio regen 2026-09-12 for wording edits. Engine draws random 10 per round.",
   "rounds": {
     "questionsPerPlayer": 5,
     "questionsPerRound": 10,
@@ -156,7 +156,7 @@
     {
       "id": "q002",
       "correct": false,
-      "promptText": "Iona a fost înghițit de un elefant.",
+      "promptText": "Iona a fost înghițit de un rechin.",
       "audio": {
         "question": "audio/q002-question.mp3"
       }
@@ -252,7 +252,7 @@
     {
       "id": "q014",
       "correct": false,
-      "promptText": "Șarpele din grădină i-a dat lui Adam o înghețată.",
+      "promptText": "Șarpele din grădină i-a dat lui Adam o pară.",
       "audio": {
         "question": "audio/q014-question.mp3"
       }
@@ -284,7 +284,7 @@
     {
       "id": "q018",
       "correct": false,
-      "promptText": "Turnul Babel a fost făcut din bomboane.",
+      "promptText": "Turnul Babel a fost făcut din fier.",
       "audio": {
         "question": "audio/q018-question.mp3"
       }
@@ -348,7 +348,7 @@
     {
       "id": "q026",
       "correct": false,
-      "promptText": "Moise a vorbit cu Dumnezeu dintr-un copac de argint.",
+      "promptText": "Moise a vorbit cu Dumnezeu dintr-un copac de plastic.",
       "audio": {
         "question": "audio/q026-question.mp3"
       }
@@ -396,7 +396,7 @@
     {
       "id": "q032",
       "correct": false,
-      "promptText": "Samson avea putere pentru că mânca numai zahăr.",
+      "promptText": "Samson avea putere pentru că mânca numai miere.",
       "audio": {
         "question": "audio/q032-question.mp3"
       }
@@ -428,7 +428,7 @@
     {
       "id": "q036",
       "correct": false,
-      "promptText": "Samuel a auzit vocea lui Dumnezeu doar o singură dată în viață, la bătrânețe.",
+      "promptText": "Samuel a auzit vocea lui Dumnezeu abia când era bătrân.",
       "audio": {
         "question": "audio/q036-question.mp3"
       }
@@ -444,7 +444,7 @@
     {
       "id": "q038",
       "correct": false,
-      "promptText": "David l-a învins pe Goliat cu o sabie mare de aur.",
+      "promptText": "David l-a învins pe Goliat cu o sabie mare de lemn.",
       "audio": {
         "question": "audio/q038-question.mp3"
       }
@@ -476,7 +476,7 @@
     {
       "id": "q042",
       "correct": false,
-      "promptText": "Templul din Ierusalim a fost construit din înghețată.",
+      "promptText": "Templul din Ierusalim a fost construit din sticlă.",
       "audio": {
         "question": "audio/q042-question.mp3"
       }
@@ -540,7 +540,7 @@
     {
       "id": "q050",
       "correct": false,
-      "promptText": "Estera a fost regină pe o planetă de jucărie.",
+      "promptText": "Estera a fost regină pe o planetă îndepărtată.",
       "audio": {
         "question": "audio/q050-question.mp3"
       }
@@ -620,7 +620,7 @@
     {
       "id": "q060",
       "correct": false,
-      "promptText": "Isus a mers pe apă cu rolele.",
+      "promptText": "Isus a mers pe apă pentru că știa să înoate.",
       "audio": {
         "question": "audio/q060-question.mp3"
       }
@@ -748,7 +748,7 @@
     {
       "id": "q076",
       "correct": false,
-      "promptText": "Isus S-a înălțat la cer în fața soldaților romani, în Ierusalim.",
+      "promptText": "Isus S-a înălțat la cer în fața soldaților romani.",
       "audio": {
         "question": "audio/q076-question.mp3"
       }
@@ -868,7 +868,7 @@
     {
       "id": "q091",
       "correct": true,
-      "promptText": "David a cântat la harpă și a scris multe psalmi.",
+      "promptText": "David a cântat la harpă și a scris mulți psalmi.",
       "audio": {
         "question": "audio/q091-question.mp3"
       }

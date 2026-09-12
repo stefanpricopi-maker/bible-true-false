@@ -158,7 +158,7 @@ Adevărat sau fals?
 **Fișier:** `audio/q002-question.mp3` · **Răspuns corect: FALS**
 
 ```text
-Iona a fost înghițit de un elefant.
+Iona a fost înghițit de un rechin.
 Adevărat sau fals?
 ```
 
@@ -249,7 +249,7 @@ Copiază în ordine în ElevenLabs ca **playlist de verificare**, sau folosește
 | 5 | Q1 | `q001-question` | Noe a construit… |
 | 6 | După răspuns | `correct` **sau** `incorrect` | Bravo!… / Greșit! Nu-i nimic!… |
 | 7 | Înainte Q2 | `next-turn-galben` | E rândul jucătorului galben. |
-| 8 | Q2 | `q002-question` | Iona… elefant… |
+| 8 | Q2 | `q002-question` | Iona… rechin… |
 | 9 | Feedback | `correct` / `incorrect` | … |
 | 10 | Înainte Q3 | `next-turn-albastru` | … |
 | 11 | Q3 | `q003-question` | David… |
@@ -318,7 +318,7 @@ Runda unu s-a terminat. Hai la runda doi!
 
 ### Întrebări R1
 12. `Noe a construit o arcă mare, ca să salveze familia lui și animalele de potop. Adevărat sau fals?`
-13. `Iona a fost înghițit de un elefant. Adevărat sau fals?`
+13. `Iona a fost înghițit de un rechin. Adevărat sau fals?`
 14. `David era un păstor și mai târziu a devenit rege. Adevărat sau fals?`
 15. `Moise a despărțit apele Mării Negre. Adevărat sau fals?`
 16. `Isus a hrănit o mulțime de oameni cu pâini și pești. Adevărat sau fals?`

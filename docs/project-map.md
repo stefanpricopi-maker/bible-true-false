@@ -16,7 +16,7 @@ Bible True/False kids quiz (name TBD). Greenfield. Evidence: `docs/brief.md`, fo
 
 1. Single-device dual-player turn/scoring — **R1 / R2 buzz / R3 dual-answer + reveal** in engine
 2. Kids T/F UI + audio — color UI + etichete Fals/Adevărat pe cerc
-3. Question + audio asset pack — batch-001 + system VO; PLACEHOLDER pending review
+3. Question + audio asset pack — batch-001 + system VO; content review 2026-09-12 (`docs/content-review-batch-001.md`); audio regen for wording edits
 4. Client/platform — **PWA first**; IAP later
 5. QA round picker — **dev only** (`import.meta.env.DEV`)
 
@@ -56,9 +56,9 @@ See `.claude/workflows/feedback-loops.md`.
 | Platform (web / PWA / native) | unknown — web/PWA **recommended** |
 | Language | unknown (RO inferred) |
 | Audio delivery | bundled pack **recommended** |
-| Question authorship model | static repo pack **recommended**; accuracy process unknown |
+| Question authorship model | static repo pack **recommended**; kids-level review process: `docs/content-review-batch-001.md` |
 | Target age, N, tie/skip | unknown — **interim defaults in merge** |
-| Content accuracy sign-off | **blocker for content release**, not shell |
+| Content accuracy sign-off | kids-level review done (`docs/content-review-batch-001.md`); optional pastor spot-check |
 | Empty repo before setup | resolved |
 | Plan cascade | resolved |
 
