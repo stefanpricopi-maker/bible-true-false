@@ -94,7 +94,7 @@ A = afirmația trebuie marcată Adevărat · F = Fals · OK = cheie + text în r
 | q023 | A | OK | Gen 37; 39 |
 | q024 | F | OK | vaci/spice, nu ploi de aur (Gen 41) |
 | q025 | A | OK | Ex 2 |
-| q026 | F | OK | rug aprins, nu copac de argint (Ex 3) |
+| q026 | F | OK | rug aprins, nu copac de plastic (Ex 3) |
 | q027 | A | OK | Ex 20; Deut 5 |
 | q028 | F | OK | pe uscat prin mare, nu cu bicicleta |
 | q029 | A | OK | Ex 16 |
