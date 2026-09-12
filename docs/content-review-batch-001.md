@@ -33,7 +33,7 @@ Trei texte au fost retușate la review (q036, q076, q091). Restul e OK la nivel 
 | **q076** | „în Ierusalim” e neclar: înălțarea e de pe Muntele Măslinilor, lângă cetate (Fapte 1:12) | Scos locul; rămâne pretinderea falsă „în fața soldaților romani” |
 | **q091** | Acord greșit: „multe psalmi” | „mulți psalmi” |
 
-Audio regenerat 2026-09-12 (aceeași voce ElevenLabs) pentru: q002, q014, q018, q026, q032, q036, q038, q042, q050, q076, q091.
+Audio regenerat 2026-09-12 (aceeași voce ElevenLabs) pentru: q002, q014, q018, q026, q032, q036, q038, q042, q050, q060, q076, q091.
 
 ## Observații (fără schimbare de text)
 
@@ -123,7 +123,7 @@ A = afirmația trebuie marcată Adevărat · F = Fals · OK = cheie + text în r
 | q057 | A | OK | Mt 2:11 |
 | q058 | F | OK | tâmplar, nu pilot (Mt 13:55) |
 | q059 | A | OK | Mt 3 |
-| q060 | F | OK | pe apă, fără role (Mt 14) |
+| q060 | F | OK | minune, nu pentru că știa să înoate (Mt 14) |
 | q061 | A | OK | Mt 14:22–33 |
 | q062 | F | OK | a vindecat și săraci / leproși |
 | q063 | A | OK | evanghelii |
