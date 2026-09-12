@@ -1,0 +1,231 @@
+{
+  "id": "system-vo",
+  "locale": "ro",
+  "reviewStatus": "system VO — warm kids tone; multi-variant",
+  "voiceNote": "Same ELEVENLABS_VOICE_ID as content/batch-001 questions",
+  "clips": [
+    {
+      "id": "welcome-setup",
+      "audioFile": "vo/welcome-setup.mp3",
+      "manifestKey": "voiceover.welcome",
+      "texts": [
+        "Bine ați venit, copii! Astăzi vom învăța lucruri minunate din Biblie, jucându-ne de-a Adevărat sau Fals. Sunteți doi jucători. Alegeți-vă fiecare o culoare frumoasă, apăsând pe pătrățel. La întrebări, butonul Verde înseamnă „Adevărat”, iar butonul Roșu înseamnă „Fals”. Când amândoi sunteți gata, vom începe!",
+        "Ce bucurie că sunteți aici! Haideți să descoperim împreună întâmplări din Biblie. Sunteți doi jucători. Alegeți fiecare câte o culoare. Verde înseamnă „Adevărat”, iar roșu înseamnă „Fals”. Când amândoi ați apăsat, pornim la drum!",
+        "Bun venit, copii isteți! Avem doi jucători și două culori. Apăsați pe pătrățelul vostru. Pătrățelul Verde înseamnă „da, așa este”, iar cel Roșu înseamnă „nu, nu este așa”. Sunteți gata amândoi? Să începem!",
+        "Bine ați venit la jocul nostru despre Biblie! Fiecare jucător își alege o culoare preferată. Verde înseamnă adevărat, iar roșu înseamnă fals. Când sunteți gata, să pornim cu bucurie!",
+        "Salutare, copii dragi! Alegeți fiecare culoarea pe care o doriți. Țineți minte: verde înseamnă adevărat, roșu înseamnă fals. Amândoi ați apăsat? Perfect, ne putem juca!"
+      ]
+    },
+    {
+      "id": "setup-nudge",
+      "audioFile": "vo/setup-nudge.mp3",
+      "manifestKey": null,
+      "texts": [
+        "Alege-ți și tu o culoare, ca să te poți juca alături de prietenul tău!",
+        "Te așteptăm cu drag! Apasă pe o culoare și apoi vom începe jocul amândoi.",
+        "Mai avem nevoie de o culoare. Apasă cu încredere pe pătrățelul tău!",
+        "Haide să alegem o culoare! Apoi îl așteptăm cuminți pe prietenul nostru să fie gata.",
+        "Doar un jucător a ales. Te așteptăm și pe tine să apeși pe pătrățel!"
+      ]
+    },
+    {
+      "id": "game-start",
+      "audioFile": "vo/game-start.mp3",
+      "manifestKey": "voiceover.gameStart",
+      "texts": [
+        "Gata! Haideți să începem prima parte a jocului. Fiecare dintre voi va răspunde la cinci întrebări. Verde este adevărat, roșu este fals. Mult succes!",
+        "Să începem prima parte! Vom avea câte cinci întrebări din Biblie pentru fiecare copil. Țineți minte, verde este adevărat, roșu este fals. Ascultați cu atenție!",
+        "Culorile au fost alese. Să începem! Pregătiți-vă degețelele. Verde înseamnă „da”, roșu înseamnă „nu”.",
+        "Suntem gata! În prima parte, ascultăm și ne gândim bine la cinci întrebări. Verde înseamnă adevărat, roșu înseamnă fals.",
+        "Haideți să vedem ce am reținut din Biblie! Începe prima parte. Ascultați întrebarea, gândiți-vă bine și apoi alegeți, verde sau roșu!"
+      ]
+    },
+    {
+      "id": "round-1-start",
+      "audioFile": "vo/round-1-start.mp3",
+      "manifestKey": "voiceover.round1Start",
+      "texts": [
+        "Prima parte a jocului începe chiar acum!",
+        "Atenție... sunteți gata? Să începem!",
+        "Să fim atenți! Începe prima serie de întrebări.",
+        "Să pornim cu bucurie în prima parte a jocului!"
+      ]
+    },
+    {
+      "id": "first-question-cue",
+      "audioFile": "vo/first-question-cue.mp3",
+      "manifestKey": "voiceover.firstQuestionCue",
+      "texts": [
+        "Iată prima întrebare din Biblie. Ascultă cu mare atenție.",
+        "Urmează prima întrebare! Să fim ochi și urechi!",
+        "Să ascultăm prima întrebare!",
+        "Fiți foarte atenți, copii! Prima întrebare este aici.",
+        "Să ne pregătim! Acum vom auzi prima întrebare."
+      ]
+    },
+    {
+      "id": "next-turn-albastru",
+      "audioFile": "feedback/next-turn-albastru.mp3",
+      "manifestKey": "feedback.nextTurnByColor.#3b82f6",
+      "texts": [
+        "Este rândul jucătorului albastru.",
+        "Acum este rândul culorii albastre. Ascultă cu atenție!",
+        "Jucătorul cu culoarea albastră este la rând!",
+        "Să vedem ce ne răspunde jucătorul albastru!",
+        "Culoarea albastră, ești pregătit? E rândul tău!"
+      ]
+    },
+    {
+      "id": "next-turn-galben",
+      "audioFile": "feedback/next-turn-galben.mp3",
+      "manifestKey": "feedback.nextTurnByColor.#f5c542",
+      "texts": [
+        "Este rândul jucătorului galben.",
+        "Acum este rândul culorii galbene. Ascultă cu atenție!",
+        "Jucătorul cu culoarea galbenă este la rând!",
+        "Să vedem ce ne răspunde jucătorul galben!",
+        "Culoarea galbenă, ești pregătit? E rândul tău!"
+      ]
+    },
+    {
+      "id": "next-turn-roz",
+      "audioFile": "feedback/next-turn-roz.mp3",
+      "manifestKey": "feedback.nextTurnByColor.#ec4899",
+      "texts": [
+        "Este rândul jucătorului roz.",
+        "Acum este rândul culorii roz. Ascultă cu atenție!",
+        "Jucătorul cu culoarea roz este la rând!",
+        "Să vedem ce ne răspunde jucătorul roz!",
+        "Culoarea roz, ești pregătit? E rândul tău!"
+      ]
+    },
+    {
+      "id": "next-turn-mov",
+      "audioFile": "feedback/next-turn-mov.mp3",
+      "manifestKey": "feedback.nextTurnByColor.#8b5cf6",
+      "texts": [
+        "Este rândul jucătorului mov.",
+        "Acum este rândul culorii mov. Ascultă cu atenție!",
+        "Jucătorul cu culoarea mov este la rând!",
+        "Să vedem ce ne răspunde jucătorul mov!",
+        "Culoarea mov, ești pregătit? E rândul tău!"
+      ]
+    },
+    {
+      "id": "next-turn",
+      "audioFile": "feedback/next-turn.mp3",
+      "manifestKey": "feedback.nextTurn",
+      "texts": [
+        "Acum este rândul tău!",
+        "Fii atent, acum tu trebuie să răspunzi!",
+        "Este rândul tău să ne arăți ce ai învățat!",
+        "Bucură-te, a venit rândul tău!",
+        "Acum este rândul tău să alegi răspunsul!"
+      ]
+    },
+    {
+      "id": "correct",
+      "audioFile": "feedback/correct.mp3",
+      "manifestKey": "feedback.correct",
+      "texts": [
+        "Foarte bine! Ai răspuns corect.",
+        "Adevărat! Cunoști foarte bine această întâmplare din Biblie!",
+        "Așa este! Ai dat răspunsul bun. Bravo!",
+        "Răspuns perfect! Mă bucur că ai fost atent!",
+        "Minunat! Ai răspuns exact cum trebuie!"
+      ]
+    },
+    {
+      "id": "incorrect",
+      "audioFile": "feedback/incorrect.mp3",
+      "manifestKey": "feedback.incorrect",
+      "texts": [
+        "Nu este chiar așa! Nu-i nimic, vei ști mai bine data viitoare!",
+        "Răspunsul nu este corect. Dar ne bucurăm că ai încercat!",
+        "Acest răspuns a fost greșit. La următoarea întrebare va fi mult mai bine!",
+        "Nu este acesta răspunsul. Fii puțin mai atent la următoarea poveste!",
+        "Ai greșit de data aceasta. Nu te întrista, jocul continuă!"
+      ]
+    },
+    {
+      "id": "round-break",
+      "audioFile": "feedback/round-break.mp3",
+      "manifestKey": "feedback.roundBreak",
+      "texts": [
+        "Prima parte s-a terminat! Sunteți pregătiți pentru partea a doua?",
+        "Am încheiat prima parte! Acum urmează partea a doua, unde ne vom juca un pic diferit!",
+        "V-ați descurcat minunat! Acum urmează partea a doua. Sunteți gata să apăsați pe butoane?",
+        "A trecut prima parte a jocului. Trecem cu bucurie la partea a doua!",
+        "Am adunat primele puncte! Să vedem cum ne descurcăm în partea a doua a jocului. Haideți!"
+      ]
+    },
+    {
+      "id": "race-round-start",
+      "audioFile": "vo/race-round-start.mp3",
+      "manifestKey": "voiceover.raceRoundStart",
+      "texts": [
+        "Partea a doua! Acum, oricare dintre voi poate să răspundă. Cine știe primul, apasă repede pe culoarea lui, apoi alege adevărat sau fals. Un răspuns corect aduce două puncte, iar dacă greșiți, celălalt prieten primește un punct.",
+        "Să fim iuți! În partea a doua, cine știe primul răspunsul, apasă pe culoarea sa. Apoi alegeți verde sau roșu. Răspunsul corect vă aduce două puncte. Dacă greșiți, un punct merge la prietenul vostru.",
+        "Reguli noi! Acum trebuie să fiți atenți și rapizi. Primul care apasă pătrățelul are voie să răspundă. Primiți două puncte pentru un răspuns bun, dar dacă greșiți, prietenul primește un punct.",
+        "Atenție mare! Apăsați pe culoarea voastră imediat ce știți răspunsul! Apoi apăsați adevărat sau fals. Răspundeți corect, primiți două puncte. Răspundeți greșit, un punct merge la celălalt copil.",
+        "Partea a doua! Țineți degețelele pregătite. Cine este primul, răspunde. Un răspuns corect înseamnă două puncte. Un răspuns greșit înseamnă un punct pentru prietenul tău. Mult succes amândurora!"
+      ]
+    },
+    {
+      "id": "buzz-timeout",
+      "audioFile": "feedback/buzz-timeout.mp3",
+      "manifestKey": "feedback.buzzTimeout",
+      "texts": [
+        "Timpul s-a terminat pentru această întrebare! Haideți să fim un pic mai rapizi la următoarea!",
+        "Timpul s-a scurs și nimeni nu a apăsat pe buton. Vă aștept cu drag la următoarea întrebare!",
+        "Se pare că ne-am gândit prea mult și timpul a trecut. Nu-i nimic, mergem la următoarea poveste!",
+        "S-a scurs timpul pentru acest răspuns. Să fim mai atenți la întrebarea care urmează!",
+        "Timpul a expirat. Nimeni nu a primit puncte acum, dar jocul continuă! Să fim pe fază!"
+      ]
+    },
+    {
+      "id": "round-break-to-3",
+      "audioFile": "feedback/round-break-to-3.mp3",
+      "manifestKey": "feedback.roundBreakTo3",
+      "texts": [
+        "Partea a doua s-a terminat! Sunteți gata pentru partea a treia?",
+        "Am încheiat partea cu viteză! Acum urmează partea a treia, cu o regulă nouă!",
+        "Bravo până aici! Trecem la partea a treia a jocului. Haideți!",
+        "Partea a doua e gata. Pregătiți-vă pentru ultima parte!",
+        "Am adunat multe puncte! Acum vine partea a treia. Sunteți gata?"
+      ]
+    },
+    {
+      "id": "round-3-start",
+      "audioFile": "vo/round-3-start.mp3",
+      "manifestKey": "voiceover.round3Start",
+      "texts": [
+        "Partea a treia! Ascultăm o întrebare. Răspunde primul jucător, apoi celălalt, la aceeași întrebare — fără să aflați încă dacă e adevărat sau fals. La final spunem răspunsul și fiecare răspuns corect aduce un punct. Mult succes!",
+        "Regulă nouă! Aceeași întrebare pentru amândoi. Mai întâi unul alege, apoi celălalt. Abia după amândoi aflăm dacă e adevărat sau fals. Un punct pentru fiecare răspuns bun!",
+        "Partea a treia: o întrebare, doi răspunsuri pe rând, apoi aflăm împreună. Verde este adevărat, roșu este fals. Corect înseamnă un punct.",
+        "Ultima parte! După întrebare, răspunde un jucător, apoi celălalt. Nu spunem încă soluția. La final: răspunsul este adevărat sau fals, și punctele.",
+        "Partea a treia începe! Aceeași întrebare din Biblie pentru amândoi. Pe rând, fără spoil. Apoi aflăm împreună. Haideți!"
+      ]
+    },
+    {
+      "id": "answer-is-true",
+      "audioFile": "vo/answer-is-true.mp3",
+      "manifestKey": "voiceover.answerIsTrue",
+      "texts": [
+        "Răspunsul este adevărat!",
+        "Soluția: este adevărat!",
+        "Adevărat! Acesta este răspunsul corect."
+      ]
+    },
+    {
+      "id": "answer-is-false",
+      "audioFile": "vo/answer-is-false.mp3",
+      "manifestKey": "voiceover.answerIsFalse",
+      "texts": [
+        "Răspunsul este fals!",
+        "Soluția: este fals!",
+        "Fals! Acesta este răspunsul corect."
+      ]
+    }
+  ]
+}

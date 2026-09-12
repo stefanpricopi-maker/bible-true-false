@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "shellPackId": "demo-v1",
+  "packs": [
+    {
+      "id": "free-start",
+      "title": "Start gratuit",
+      "priceTier": "free",
+      "description": "30 de întrebări — destul pentru runda 1, 2 și 3",
+      "questionIds": [
+        "q001", "q002", "q003", "q004", "q005", "q006", "q007", "q008", "q009", "q010",
+        "q011", "q012", "q013", "q014", "q015", "q016", "q017", "q018", "q019", "q020",
+        "q021", "q022", "q023", "q024", "q025", "q026", "q027", "q028", "q029", "q030"
+      ]
+    },
+    {
+      "id": "batch-001",
+      "title": "Pachet 100 întrebări",
+      "priceTier": "unlock",
+      "description": "Toate întrebările din batch-001",
+      "productId": "pack_batch_001",
+      "allFromShell": true
+    }
+  ]
+}

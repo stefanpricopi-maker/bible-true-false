@@ -1,0 +1,38 @@
+{
+  "id": "system-vo-r3-reveal",
+  "locale": "ro",
+  "clips": [
+    {
+      "id": "round-3-start",
+      "audioFile": "vo/round-3-start.mp3",
+      "manifestKey": "voiceover.round3Start",
+      "texts": [
+        "Partea a treia! Ascultăm o întrebare. Răspunde primul jucător, apoi celălalt, la aceeași întrebare — fără să aflați încă dacă e adevărat sau fals. La final spunem răspunsul și fiecare răspuns corect aduce un punct. Mult succes!",
+        "Regulă nouă! Aceeași întrebare pentru amândoi. Mai întâi unul alege, apoi celălalt. Abia după amândoi aflăm dacă e adevărat sau fals. Un punct pentru fiecare răspuns bun!",
+        "Partea a treia: o întrebare, doi răspunsuri pe rând, apoi aflăm împreună. Verde este adevărat, roșu este fals. Corect înseamnă un punct.",
+        "Ultima parte! După întrebare, răspunde un jucător, apoi celălalt. Nu spunem încă soluția. La final: răspunsul este adevărat sau fals, și punctele.",
+        "Partea a treia începe! Aceeași întrebare din Biblie pentru amândoi. Pe rând, fără spoil. Apoi aflăm împreună. Haideți!"
+      ]
+    },
+    {
+      "id": "answer-is-true",
+      "audioFile": "vo/answer-is-true.mp3",
+      "manifestKey": "voiceover.answerIsTrue",
+      "texts": [
+        "Răspunsul este adevărat!",
+        "Soluția: este adevărat!",
+        "Adevărat! Acesta este răspunsul corect."
+      ]
+    },
+    {
+      "id": "answer-is-false",
+      "audioFile": "vo/answer-is-false.mp3",
+      "manifestKey": "voiceover.answerIsFalse",
+      "texts": [
+        "Răspunsul este fals!",
+        "Soluția: este fals!",
+        "Fals! Acesta este răspunsul corect."
+      ]
+    }
+  ]
+}

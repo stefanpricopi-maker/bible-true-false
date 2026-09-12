@@ -1,0 +1,949 @@
+{
+  "id": "demo-v1",
+  "title": "Întrebări din Biblie — Adevărat sau Fals?",
+  "locale": "ro",
+  "note": "Questions from content/batch-001.json (PLACEHOLDER pending human review). Engine draws random 10 per round.",
+  "rounds": {
+    "questionsPerPlayer": 5,
+    "questionsPerRound": 10,
+    "totalRounds": 3
+  },
+  "voiceover": {
+    "welcome": [
+      "vo/welcome-setup.mp3",
+      "vo/welcome-setup-2.mp3",
+      "vo/welcome-setup-3.mp3",
+      "vo/welcome-setup-4.mp3",
+      "vo/welcome-setup-5.mp3"
+    ],
+    "gameStart": [
+      "vo/game-start.mp3",
+      "vo/game-start-2.mp3",
+      "vo/game-start-3.mp3",
+      "vo/game-start-4.mp3",
+      "vo/game-start-5.mp3"
+    ],
+    "firstQuestionCue": [
+      "vo/first-question-cue.mp3",
+      "vo/first-question-cue-2.mp3",
+      "vo/first-question-cue-3.mp3",
+      "vo/first-question-cue-4.mp3",
+      "vo/first-question-cue-5.mp3"
+    ],
+    "raceRoundStart": [
+      "vo/race-round-start.mp3",
+      "vo/race-round-start-2.mp3",
+      "vo/race-round-start-3.mp3",
+      "vo/race-round-start-4.mp3",
+      "vo/race-round-start-5.mp3"
+    ],
+    "round1Start": [
+      "vo/round-1-start.mp3",
+      "vo/round-1-start-2.mp3",
+      "vo/round-1-start-3.mp3",
+      "vo/round-1-start-4.mp3"
+    ],
+    "round3Start": [
+      "vo/round-3-start.mp3",
+      "vo/round-3-start-2.mp3",
+      "vo/round-3-start-3.mp3",
+      "vo/round-3-start-4.mp3",
+      "vo/round-3-start-5.mp3"
+    ],
+    "answerIsTrue": [
+      "vo/answer-is-true.mp3",
+      "vo/answer-is-true-2.mp3",
+      "vo/answer-is-true-3.mp3"
+    ],
+    "answerIsFalse": [
+      "vo/answer-is-false.mp3",
+      "vo/answer-is-false-2.mp3",
+      "vo/answer-is-false-3.mp3"
+    ]
+  },
+  "feedback": {
+    "correct": [
+      "feedback/correct.mp3",
+      "feedback/correct-2.mp3",
+      "feedback/correct-3.mp3",
+      "feedback/correct-4.mp3",
+      "feedback/correct-5.mp3"
+    ],
+    "incorrect": [
+      "feedback/incorrect.mp3",
+      "feedback/incorrect-2.mp3",
+      "feedback/incorrect-3.mp3",
+      "feedback/incorrect-4.mp3",
+      "feedback/incorrect-5.mp3"
+    ],
+    "roundBreak": [
+      "feedback/round-break.mp3",
+      "feedback/round-break-2.mp3",
+      "feedback/round-break-3.mp3",
+      "feedback/round-break-4.mp3",
+      "feedback/round-break-5.mp3"
+    ],
+    "buzzTimeout": [
+      "feedback/buzz-timeout.mp3",
+      "feedback/buzz-timeout-2.mp3",
+      "feedback/buzz-timeout-3.mp3",
+      "feedback/buzz-timeout-4.mp3",
+      "feedback/buzz-timeout-5.mp3"
+    ],
+    "nextTurnByColor": {
+      "#3b82f6": [
+        "feedback/next-turn-albastru.mp3",
+        "feedback/next-turn-albastru-2.mp3",
+        "feedback/next-turn-albastru-3.mp3",
+        "feedback/next-turn-albastru-4.mp3",
+        "feedback/next-turn-albastru-5.mp3"
+      ],
+      "#f5c542": [
+        "feedback/next-turn-galben.mp3",
+        "feedback/next-turn-galben-2.mp3",
+        "feedback/next-turn-galben-3.mp3",
+        "feedback/next-turn-galben-4.mp3",
+        "feedback/next-turn-galben-5.mp3"
+      ],
+      "#ec4899": [
+        "feedback/next-turn-roz.mp3",
+        "feedback/next-turn-roz-2.mp3",
+        "feedback/next-turn-roz-3.mp3",
+        "feedback/next-turn-roz-4.mp3",
+        "feedback/next-turn-roz-5.mp3"
+      ],
+      "#8b5cf6": [
+        "feedback/next-turn-mov.mp3",
+        "feedback/next-turn-mov-2.mp3",
+        "feedback/next-turn-mov-3.mp3",
+        "feedback/next-turn-mov-4.mp3",
+        "feedback/next-turn-mov-5.mp3"
+      ]
+    },
+    "nextTurn": [
+      "feedback/next-turn.mp3",
+      "feedback/next-turn-2.mp3",
+      "feedback/next-turn-3.mp3",
+      "feedback/next-turn-4.mp3",
+      "feedback/next-turn-5.mp3"
+    ],
+    "roundBreakTo3": [
+      "feedback/round-break-to-3.mp3",
+      "feedback/round-break-to-3-2.mp3",
+      "feedback/round-break-to-3-3.mp3",
+      "feedback/round-break-to-3-4.mp3",
+      "feedback/round-break-to-3-5.mp3"
+    ]
+  },
+  "sfx": {
+    "colorSelect": "sfx/pop.mp3",
+    "answerTap": "sfx/click.mp3",
+    "correct": "sfx/chime.mp3",
+    "incorrect": "sfx/buzz.mp3",
+    "roundBreak": "sfx/fanfara.mp3",
+    "victory": "sfx/victory.mp3",
+    "waiting": "sfx/waiting.mp3"
+  },
+  "questions": [
+    {
+      "id": "q001",
+      "correct": true,
+      "promptText": "Noe a construit o arcă mare, ca să salveze familia lui și animalele de potop.",
+      "audio": {
+        "question": "audio/q001-question.mp3"
+      }
+    },
+    {
+      "id": "q002",
+      "correct": false,
+      "promptText": "Iona a fost înghițit de un elefant.",
+      "audio": {
+        "question": "audio/q002-question.mp3"
+      }
+    },
+    {
+      "id": "q003",
+      "correct": true,
+      "promptText": "David era un păstor și mai târziu a devenit rege.",
+      "audio": {
+        "question": "audio/q003-question.mp3"
+      }
+    },
+    {
+      "id": "q004",
+      "correct": false,
+      "promptText": "Moise a despărțit apele Mării Negre.",
+      "audio": {
+        "question": "audio/q004-question.mp3"
+      }
+    },
+    {
+      "id": "q005",
+      "correct": true,
+      "promptText": "Isus a hrănit o mulțime de oameni cu pâini și pești.",
+      "audio": {
+        "question": "audio/q005-question.mp3"
+      }
+    },
+    {
+      "id": "q006",
+      "correct": false,
+      "promptText": "Adam și Eva au locuit într-un castel de aur.",
+      "audio": {
+        "question": "audio/q006-question.mp3"
+      }
+    },
+    {
+      "id": "q007",
+      "correct": true,
+      "promptText": "Daniel a fost aruncat în groapa leilor, dar Dumnezeu l-a ocrotit.",
+      "audio": {
+        "question": "audio/q007-question.mp3"
+      }
+    },
+    {
+      "id": "q008",
+      "correct": false,
+      "promptText": "Iosif a avut o haină cu o singură culoare: negru.",
+      "audio": {
+        "question": "audio/q008-question.mp3"
+      }
+    },
+    {
+      "id": "q009",
+      "correct": true,
+      "promptText": "Maria a fost mama lui Isus.",
+      "audio": {
+        "question": "audio/q009-question.mp3"
+      }
+    },
+    {
+      "id": "q010",
+      "correct": false,
+      "promptText": "Corabia lui Noe a plutit pe un râu mic, lângă casă.",
+      "audio": {
+        "question": "audio/q010-question.mp3"
+      }
+    },
+    {
+      "id": "q011",
+      "correct": true,
+      "promptText": "Dumnezeu a creat lumea în șase zile, iar în a șaptea s-a odihnit.",
+      "audio": {
+        "question": "audio/q011-question.mp3"
+      }
+    },
+    {
+      "id": "q012",
+      "correct": false,
+      "promptText": "Adam a fost făcut din ciocolată.",
+      "audio": {
+        "question": "audio/q012-question.mp3"
+      }
+    },
+    {
+      "id": "q013",
+      "correct": true,
+      "promptText": "Eva a fost prima femeie creată de Dumnezeu.",
+      "audio": {
+        "question": "audio/q013-question.mp3"
+      }
+    },
+    {
+      "id": "q014",
+      "correct": false,
+      "promptText": "Șarpele din grădină i-a dat lui Adam o înghețată.",
+      "audio": {
+        "question": "audio/q014-question.mp3"
+      }
+    },
+    {
+      "id": "q015",
+      "correct": true,
+      "promptText": "Cain și Abel au fost fiii lui Adam și ai Evei.",
+      "audio": {
+        "question": "audio/q015-question.mp3"
+      }
+    },
+    {
+      "id": "q016",
+      "correct": false,
+      "promptText": "Noe a luat în arcă doar pisici și câini.",
+      "audio": {
+        "question": "audio/q016-question.mp3"
+      }
+    },
+    {
+      "id": "q017",
+      "correct": true,
+      "promptText": "După potop, Dumnezeu a pus un curcubeu pe cer ca semn al făgăduinței Lui.",
+      "audio": {
+        "question": "audio/q017-question.mp3"
+      }
+    },
+    {
+      "id": "q018",
+      "correct": false,
+      "promptText": "Turnul Babel a fost făcut din bomboane.",
+      "audio": {
+        "question": "audio/q018-question.mp3"
+      }
+    },
+    {
+      "id": "q019",
+      "correct": true,
+      "promptText": "Avraam a crezut în Dumnezeu și a plecat într-o țară nouă.",
+      "audio": {
+        "question": "audio/q019-question.mp3"
+      }
+    },
+    {
+      "id": "q020",
+      "correct": false,
+      "promptText": "Sara, soția lui Avraam, a fost sora lui Moise.",
+      "audio": {
+        "question": "audio/q020-question.mp3"
+      }
+    },
+    {
+      "id": "q021",
+      "correct": true,
+      "promptText": "Isaac a fost fiul lui Avraam și al Sarei.",
+      "audio": {
+        "question": "audio/q021-question.mp3"
+      }
+    },
+    {
+      "id": "q022",
+      "correct": false,
+      "promptText": "Iacov a avut doar un singur fiu.",
+      "audio": {
+        "question": "audio/q022-question.mp3"
+      }
+    },
+    {
+      "id": "q023",
+      "correct": true,
+      "promptText": "Iosif a fost vândut de frații lui și a ajuns în Egipt.",
+      "audio": {
+        "question": "audio/q023-question.mp3"
+      }
+    },
+    {
+      "id": "q024",
+      "correct": false,
+      "promptText": "Iosif a interpretat visele faraonului despre ploi de aur.",
+      "audio": {
+        "question": "audio/q024-question.mp3"
+      }
+    },
+    {
+      "id": "q025",
+      "correct": true,
+      "promptText": "Moise a fost pus într-un coș pe râu când era bebeluș.",
+      "audio": {
+        "question": "audio/q025-question.mp3"
+      }
+    },
+    {
+      "id": "q026",
+      "correct": false,
+      "promptText": "Moise a vorbit cu Dumnezeu dintr-un copac de argint.",
+      "audio": {
+        "question": "audio/q026-question.mp3"
+      }
+    },
+    {
+      "id": "q027",
+      "correct": true,
+      "promptText": "Dumnezeu i-a dat lui Moise cele Zece Porunci pe munte.",
+      "audio": {
+        "question": "audio/q027-question.mp3"
+      }
+    },
+    {
+      "id": "q028",
+      "correct": false,
+      "promptText": "Poporul Israel a trecut Marea Roșie cu bicicleta.",
+      "audio": {
+        "question": "audio/q028-question.mp3"
+      }
+    },
+    {
+      "id": "q029",
+      "correct": true,
+      "promptText": "În pustie, Dumnezeu a dat poporului mană ca hrană.",
+      "audio": {
+        "question": "audio/q029-question.mp3"
+      }
+    },
+    {
+      "id": "q030",
+      "correct": false,
+      "promptText": "Iosua a făcut să cadă zidurile Ierihonului cu o minge de fotbal.",
+      "audio": {
+        "question": "audio/q030-question.mp3"
+      }
+    },
+    {
+      "id": "q031",
+      "correct": true,
+      "promptText": "Iosua a condus poporul în țara făgăduită după Moise.",
+      "audio": {
+        "question": "audio/q031-question.mp3"
+      }
+    },
+    {
+      "id": "q032",
+      "correct": false,
+      "promptText": "Samson avea putere pentru că mânca numai zahăr.",
+      "audio": {
+        "question": "audio/q032-question.mp3"
+      }
+    },
+    {
+      "id": "q033",
+      "correct": true,
+      "promptText": "Samson era foarte puternic și a doborât stâlpii unei case mari.",
+      "audio": {
+        "question": "audio/q033-question.mp3"
+      }
+    },
+    {
+      "id": "q034",
+      "correct": false,
+      "promptText": "Rut a cules grâu în Egipt, departe de Naomi.",
+      "audio": {
+        "question": "audio/q034-question.mp3"
+      }
+    },
+    {
+      "id": "q035",
+      "correct": true,
+      "promptText": "Rut a rămas alături de soacra ei, Naomi, cu dragoste și credință.",
+      "audio": {
+        "question": "audio/q035-question.mp3"
+      }
+    },
+    {
+      "id": "q036",
+      "correct": false,
+      "promptText": "Samuel a auzit vocea lui Dumnezeu doar o singură dată în viață, la bătrânețe.",
+      "audio": {
+        "question": "audio/q036-question.mp3"
+      }
+    },
+    {
+      "id": "q037",
+      "correct": true,
+      "promptText": "Samuel a uns pe David ca să fie rege, după voia lui Dumnezeu.",
+      "audio": {
+        "question": "audio/q037-question.mp3"
+      }
+    },
+    {
+      "id": "q038",
+      "correct": false,
+      "promptText": "David l-a învins pe Goliat cu o sabie mare de aur.",
+      "audio": {
+        "question": "audio/q038-question.mp3"
+      }
+    },
+    {
+      "id": "q039",
+      "correct": true,
+      "promptText": "David l-a învins pe uriașul Goliat cu o piatră și o praștie.",
+      "audio": {
+        "question": "audio/q039-question.mp3"
+      }
+    },
+    {
+      "id": "q040",
+      "correct": false,
+      "promptText": "Regele Saul a fost cel mai bun prieten al lui Goliat.",
+      "audio": {
+        "question": "audio/q040-question.mp3"
+      }
+    },
+    {
+      "id": "q041",
+      "correct": true,
+      "promptText": "Solomon a fost un rege foarte înțelept, fiul lui David.",
+      "audio": {
+        "question": "audio/q041-question.mp3"
+      }
+    },
+    {
+      "id": "q042",
+      "correct": false,
+      "promptText": "Templul din Ierusalim a fost construit din înghețată.",
+      "audio": {
+        "question": "audio/q042-question.mp3"
+      }
+    },
+    {
+      "id": "q043",
+      "correct": true,
+      "promptText": "Ilie a fost un prooroc care s-a rugat și Dumnezeu a trimis foc din cer.",
+      "audio": {
+        "question": "audio/q043-question.mp3"
+      }
+    },
+    {
+      "id": "q044",
+      "correct": false,
+      "promptText": "Ilie a plecat la cer cu un autobuz galben.",
+      "audio": {
+        "question": "audio/q044-question.mp3"
+      }
+    },
+    {
+      "id": "q045",
+      "correct": true,
+      "promptText": "Elisei a fost ucenic al lui Ilie și a făcut minuni cu ajutorul lui Dumnezeu.",
+      "audio": {
+        "question": "audio/q045-question.mp3"
+      }
+    },
+    {
+      "id": "q046",
+      "correct": false,
+      "promptText": "Iona a fugit de Dumnezeu cu un avion.",
+      "audio": {
+        "question": "audio/q046-question.mp3"
+      }
+    },
+    {
+      "id": "q047",
+      "correct": true,
+      "promptText": "Iona a fost înghițit de un pește mare, apoi a mers la Ninive.",
+      "audio": {
+        "question": "audio/q047-question.mp3"
+      }
+    },
+    {
+      "id": "q048",
+      "correct": false,
+      "promptText": "Daniel s-a închinat la idolul împăratului ca să scape de pedeapsă.",
+      "audio": {
+        "question": "audio/q048-question.mp3"
+      }
+    },
+    {
+      "id": "q049",
+      "correct": true,
+      "promptText": "Cei trei prieteni ai lui Daniel nu s-au închinat la idol și au fost salvați din cuptor.",
+      "audio": {
+        "question": "audio/q049-question.mp3"
+      }
+    },
+    {
+      "id": "q050",
+      "correct": false,
+      "promptText": "Estera a fost regină pe o planetă de jucărie.",
+      "audio": {
+        "question": "audio/q050-question.mp3"
+      }
+    },
+    {
+      "id": "q051",
+      "correct": true,
+      "promptText": "Estera a fost o regină curajoasă care și-a ajutat poporul.",
+      "audio": {
+        "question": "audio/q051-question.mp3"
+      }
+    },
+    {
+      "id": "q052",
+      "correct": false,
+      "promptText": "Neemia a reparat zidurile Ierusalimului cu bandă adezivă.",
+      "audio": {
+        "question": "audio/q052-question.mp3"
+      }
+    },
+    {
+      "id": "q053",
+      "correct": true,
+      "promptText": "Ioan Botezătorul a botezat oameni în râul Iordan.",
+      "audio": {
+        "question": "audio/q053-question.mp3"
+      }
+    },
+    {
+      "id": "q054",
+      "correct": false,
+      "promptText": "Isus s-a născut într-un palat de diamante.",
+      "audio": {
+        "question": "audio/q054-question.mp3"
+      }
+    },
+    {
+      "id": "q055",
+      "correct": true,
+      "promptText": "Isus s-a născut în Betleem.",
+      "audio": {
+        "question": "audio/q055-question.mp3"
+      }
+    },
+    {
+      "id": "q056",
+      "correct": false,
+      "promptText": "Păstorii au aflat despre nașterea lui Isus de la soldații romani.",
+      "audio": {
+        "question": "audio/q056-question.mp3"
+      }
+    },
+    {
+      "id": "q057",
+      "correct": true,
+      "promptText": "Magii au adus daruri lui Isus: aur, tămâie și smirnă.",
+      "audio": {
+        "question": "audio/q057-question.mp3"
+      }
+    },
+    {
+      "id": "q058",
+      "correct": false,
+      "promptText": "Iosif, tatăl adoptiv al lui Isus, era pilot de curse.",
+      "audio": {
+        "question": "audio/q058-question.mp3"
+      }
+    },
+    {
+      "id": "q059",
+      "correct": true,
+      "promptText": "Isus a fost botezat de Ioan în Iordan.",
+      "audio": {
+        "question": "audio/q059-question.mp3"
+      }
+    },
+    {
+      "id": "q060",
+      "correct": false,
+      "promptText": "Isus a mers pe apă cu rolele.",
+      "audio": {
+        "question": "audio/q060-question.mp3"
+      }
+    },
+    {
+      "id": "q061",
+      "correct": true,
+      "promptText": "Isus a mers pe apă, iar Petru a încercat să meargă după El.",
+      "audio": {
+        "question": "audio/q061-question.mp3"
+      }
+    },
+    {
+      "id": "q062",
+      "correct": false,
+      "promptText": "Isus a vindecat bolnavii doar pe cei bogați.",
+      "audio": {
+        "question": "audio/q062-question.mp3"
+      }
+    },
+    {
+      "id": "q063",
+      "correct": true,
+      "promptText": "Isus a vindecat oameni bolnavi și orbi.",
+      "audio": {
+        "question": "audio/q063-question.mp3"
+      }
+    },
+    {
+      "id": "q064",
+      "correct": false,
+      "promptText": "Lazăr a dormit o sută de ani într-un castel de gheață.",
+      "audio": {
+        "question": "audio/q064-question.mp3"
+      }
+    },
+    {
+      "id": "q065",
+      "correct": true,
+      "promptText": "Isus l-a înviat pe Lazăr din morți.",
+      "audio": {
+        "question": "audio/q065-question.mp3"
+      }
+    },
+    {
+      "id": "q066",
+      "correct": false,
+      "promptText": "Isus a avut doar trei ucenici.",
+      "audio": {
+        "question": "audio/q066-question.mp3"
+      }
+    },
+    {
+      "id": "q067",
+      "correct": true,
+      "promptText": "Petru, Iacov și Ioan au fost ucenici ai lui Isus.",
+      "audio": {
+        "question": "audio/q067-question.mp3"
+      }
+    },
+    {
+      "id": "q068",
+      "correct": false,
+      "promptText": "Pilda samariteanului milostiv spune că trebuie să-i ajutăm doar pe prietenii noștri.",
+      "audio": {
+        "question": "audio/q068-question.mp3"
+      }
+    },
+    {
+      "id": "q069",
+      "correct": true,
+      "promptText": "Isus a spus că trebuie să ne iubim aproapele ca pe noi înșine.",
+      "audio": {
+        "question": "audio/q069-question.mp3"
+      }
+    },
+    {
+      "id": "q070",
+      "correct": false,
+      "promptText": "La Cina cea de Taină, Isus a fost singur, fără ucenici.",
+      "audio": {
+        "question": "audio/q070-question.mp3"
+      }
+    },
+    {
+      "id": "q071",
+      "correct": true,
+      "promptText": "La Cina cea de Taină, Isus a frânt pâinea împreună cu ucenicii.",
+      "audio": {
+        "question": "audio/q071-question.mp3"
+      }
+    },
+    {
+      "id": "q072",
+      "correct": false,
+      "promptText": "Isus a fost răstignit în Betleem, acolo unde S-a născut.",
+      "audio": {
+        "question": "audio/q072-question.mp3"
+      }
+    },
+    {
+      "id": "q073",
+      "correct": true,
+      "promptText": "Isus a murit pe cruce și a înviat a treia zi.",
+      "audio": {
+        "question": "audio/q073-question.mp3"
+      }
+    },
+    {
+      "id": "q074",
+      "correct": false,
+      "promptText": "Mormântul lui Isus a rămas închis și nimeni nu L-a mai văzut după aceea.",
+      "audio": {
+        "question": "audio/q074-question.mp3"
+      }
+    },
+    {
+      "id": "q075",
+      "correct": true,
+      "promptText": "După înviere, Isus S-a arătat ucenicilor Săi.",
+      "audio": {
+        "question": "audio/q075-question.mp3"
+      }
+    },
+    {
+      "id": "q076",
+      "correct": false,
+      "promptText": "Isus S-a înălțat la cer în fața soldaților romani, în Ierusalim.",
+      "audio": {
+        "question": "audio/q076-question.mp3"
+      }
+    },
+    {
+      "id": "q077",
+      "correct": true,
+      "promptText": "La Rusalii, Duhul Sfânt a venit asupra ucenicilor.",
+      "audio": {
+        "question": "audio/q077-question.mp3"
+      }
+    },
+    {
+      "id": "q078",
+      "correct": false,
+      "promptText": "Pavel a fost mereu un prieten bun al creștinilor, încă de la început, fără să se schimbe.",
+      "audio": {
+        "question": "audio/q078-question.mp3"
+      }
+    },
+    {
+      "id": "q079",
+      "correct": true,
+      "promptText": "Pavel a întâlnit pe Isus pe drumul spre Damasc și s-a schimbat.",
+      "audio": {
+        "question": "audio/q079-question.mp3"
+      }
+    },
+    {
+      "id": "q080",
+      "correct": false,
+      "promptText": "Pavel a scris scrisori doar către familia lui din Tars.",
+      "audio": {
+        "question": "audio/q080-question.mp3"
+      }
+    },
+    {
+      "id": "q081",
+      "correct": true,
+      "promptText": "Pavel a călătorit în multe locuri ca să vestească Evanghelia.",
+      "audio": {
+        "question": "audio/q081-question.mp3"
+      }
+    },
+    {
+      "id": "q082",
+      "correct": false,
+      "promptText": "Barnaba a fost un vrăjitor din Galileea.",
+      "audio": {
+        "question": "audio/q082-question.mp3"
+      }
+    },
+    {
+      "id": "q083",
+      "correct": true,
+      "promptText": "Timotei a fost un tânăr ajutat și învățat de Pavel.",
+      "audio": {
+        "question": "audio/q083-question.mp3"
+      }
+    },
+    {
+      "id": "q084",
+      "correct": false,
+      "promptText": "Cartea Apocalipsa a fost scrisă de Moise pe munte.",
+      "audio": {
+        "question": "audio/q084-question.mp3"
+      }
+    },
+    {
+      "id": "q085",
+      "correct": true,
+      "promptText": "Biblia ne învață că Dumnezeu ne iubește.",
+      "audio": {
+        "question": "audio/q085-question.mp3"
+      }
+    },
+    {
+      "id": "q086",
+      "correct": false,
+      "promptText": "Rugăciunea înseamnă doar să ceri lucruri frumoase pentru tine.",
+      "audio": {
+        "question": "audio/q086-question.mp3"
+      }
+    },
+    {
+      "id": "q087",
+      "correct": true,
+      "promptText": "Ne putem ruga lui Dumnezeu oriunde, cu inima sinceră.",
+      "audio": {
+        "question": "audio/q087-question.mp3"
+      }
+    },
+    {
+      "id": "q088",
+      "correct": false,
+      "promptText": "Porunca „Să nu furi” înseamnă că e bine să iei jucăriile altora.",
+      "audio": {
+        "question": "audio/q088-question.mp3"
+      }
+    },
+    {
+      "id": "q089",
+      "correct": true,
+      "promptText": "Una dintre porunci spune să-ți cinstești tatăl și mama.",
+      "audio": {
+        "question": "audio/q089-question.mp3"
+      }
+    },
+    {
+      "id": "q090",
+      "correct": false,
+      "promptText": "David a cântat la harpă doar pentru Goliat.",
+      "audio": {
+        "question": "audio/q090-question.mp3"
+      }
+    },
+    {
+      "id": "q091",
+      "correct": true,
+      "promptText": "David a cântat la harpă și a scris multe psalmi.",
+      "audio": {
+        "question": "audio/q091-question.mp3"
+      }
+    },
+    {
+      "id": "q092",
+      "correct": false,
+      "promptText": "Ghedeon a ales ostașii după cine alerga cel mai repede la magazin.",
+      "audio": {
+        "question": "audio/q092-question.mp3"
+      }
+    },
+    {
+      "id": "q093",
+      "correct": true,
+      "promptText": "Ghedeon a învins cu un număr mic de ostași, cu ajutorul lui Dumnezeu.",
+      "audio": {
+        "question": "audio/q093-question.mp3"
+      }
+    },
+    {
+      "id": "q094",
+      "correct": false,
+      "promptText": "Rahav a ascuns iscoadele într-un submarin.",
+      "audio": {
+        "question": "audio/q094-question.mp3"
+      }
+    },
+    {
+      "id": "q095",
+      "correct": true,
+      "promptText": "Rahav a ajutat iscoadele lui Iosua în Ierihon.",
+      "audio": {
+        "question": "audio/q095-question.mp3"
+      }
+    },
+    {
+      "id": "q096",
+      "correct": false,
+      "promptText": "Faraonul din Egipt a lăsat de bunăvoie poporul să plece, fără nicio plagă.",
+      "audio": {
+        "question": "audio/q096-question.mp3"
+      }
+    },
+    {
+      "id": "q097",
+      "correct": true,
+      "promptText": "Dumnezeu a trimis plăgi asupra Egiptului ca faraonul să lase poporul să plece.",
+      "audio": {
+        "question": "audio/q097-question.mp3"
+      }
+    },
+    {
+      "id": "q098",
+      "correct": false,
+      "promptText": "Ana, mama lui Samuel, nu s-a rugat niciodată pentru un copil.",
+      "audio": {
+        "question": "audio/q098-question.mp3"
+      }
+    },
+    {
+      "id": "q099",
+      "correct": true,
+      "promptText": "Ana s-a rugat pentru un copil, și Dumnezeu i l-a dat pe Samuel.",
+      "audio": {
+        "question": "audio/q099-question.mp3"
+      }
+    },
+    {
+      "id": "q100",
+      "correct": false,
+      "promptText": "Cerul nou și pământul nou din Apocalipsa înseamnă doar o grădină pe pământ, fără Dumnezeu.",
+      "audio": {
+        "question": "audio/q100-question.mp3"
+      }
+    }
+  ]
+}
