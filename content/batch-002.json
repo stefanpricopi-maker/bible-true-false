@@ -1,0 +1,79 @@
+{
+  "id": "batch-002",
+  "locale": "ro",
+  "difficulty": "kids-familiar-stories",
+  "reviewStatus": "PLACEHOLDER — pending human biblical review",
+  "voiceNote": "Same kids-warm Romanian voice as batch-001",
+  "questions": [
+    {
+      "id": "q101",
+      "correct": true,
+      "promptText": "Moise a despărțit apele Mării Roșii, iar poporul a trecut pe uscat.",
+      "audioFile": "q101-question.mp3",
+      "topic": "moise"
+    },
+    {
+      "id": "q102",
+      "correct": false,
+      "promptText": "Poporul Israel a trecut Marea Roșie pe un pod de beton.",
+      "audioFile": "q102-question.mp3",
+      "topic": "moise"
+    },
+    {
+      "id": "q103",
+      "correct": true,
+      "promptText": "Neemia a reparat zidurile Ierusalimului, cu ajutorul poporului.",
+      "audioFile": "q103-question.mp3",
+      "topic": "neemia"
+    },
+    {
+      "id": "q104",
+      "correct": false,
+      "promptText": "Neemia a dărâmat zidurile Ierusalimului ca să facă un stadion.",
+      "audioFile": "q104-question.mp3",
+      "topic": "neemia"
+    },
+    {
+      "id": "q105",
+      "correct": true,
+      "promptText": "Barnaba a fost un prieten care l-a ajutat pe Pavel să vestească Evanghelia.",
+      "audioFile": "q105-question.mp3",
+      "topic": "biserica"
+    },
+    {
+      "id": "q106",
+      "correct": false,
+      "promptText": "Barnaba a fost regele Egiptului.",
+      "audioFile": "q106-question.mp3",
+      "topic": "biserica"
+    },
+    {
+      "id": "q107",
+      "correct": true,
+      "promptText": "Ioan a scris cartea Apocalipsa.",
+      "audioFile": "q107-question.mp3",
+      "topic": "apocalipsa"
+    },
+    {
+      "id": "q108",
+      "correct": false,
+      "promptText": "Cartea Apocalipsa spune că Dumnezeu nu mai există.",
+      "audioFile": "q108-question.mp3",
+      "topic": "apocalipsa"
+    },
+    {
+      "id": "q109",
+      "correct": true,
+      "promptText": "Ilie a fost luat la cer într-un car de foc.",
+      "audioFile": "q109-question.mp3",
+      "topic": "ilie"
+    },
+    {
+      "id": "q110",
+      "correct": false,
+      "promptText": "Ilie a locuit tot timpul într-un palat de aur, în Ierusalim.",
+      "audioFile": "q110-question.mp3",
+      "topic": "ilie"
+    }
+  ]
+}
