@@ -70,7 +70,7 @@ A = afirmația trebuie marcată Adevărat · F = Fals · OK = cheie + text în r
 | ID | Cheie | Verdict | Referință / de ce |
 |----|-------|---------|-------------------|
 | q001 | A | OK | Gen 6–8 |
-| q002 | F | OK | pește mare / chit, nu elefant (Iona 1) |
+| q002 | F | OK | pește mare / chit, nu rechin (Iona 1) |
 | q003 | A | OK | 1 Sam 16–17; 2 Sam 5 |
 | q004 | F | OK | Marea Roșie, nu Neagră (Ex 14) |
 | q005 | A | OK | Mt 14; In 6 |
