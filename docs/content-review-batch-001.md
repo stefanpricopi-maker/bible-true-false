@@ -82,11 +82,11 @@ A = afirmația trebuie marcată Adevărat · F = Fals · OK = cheie + text în r
 | q011 | A | OK | Gen 1–2 (textul biblic: șase zile + odihnă) |
 | q012 | F | OK | țărână, nu ciocolată (Gen 2) |
 | q013 | A | OK | Gen 2 |
-| q014 | F | OK | rodul pomului, nu înghețată (Gen 3) |
+| q014 | F | OK | rodul pomului oprit, nu o pară (Gen 3) |
 | q015 | A | OK | Gen 4 |
 | q016 | F | OK | din toate soiurile, nu doar pisici/câini (Gen 6–7) |
 | q017 | A | OK | Gen 9 |
-| q018 | F | OK | cărămidă/smoală, nu bomboane (Gen 11) |
+| q018 | F | OK | cărămidă/smoală, nu fier (Gen 11) |
 | q019 | A | OK | Gen 12 |
 | q020 | F | OK | Sara ≠ sora lui Moise |
 | q021 | A | OK | Gen 21 |

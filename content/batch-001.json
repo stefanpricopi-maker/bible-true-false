@@ -99,7 +99,7 @@
     {
       "id": "q014",
       "correct": false,
-      "promptText": "Șarpele din grădină i-a dat lui Adam o înghețată.",
+      "promptText": "Șarpele din grădină i-a dat lui Adam o pară.",
       "audioFile": "q014-question.mp3",
       "topic": "creatie"
     },
@@ -127,7 +127,7 @@
     {
       "id": "q018",
       "correct": false,
-      "promptText": "Turnul Babel a fost făcut din bomboane.",
+      "promptText": "Turnul Babel a fost făcut din fier.",
       "audioFile": "q018-question.mp3",
       "topic": "babel"
     },
