@@ -33,7 +33,12 @@ Trei texte au fost retușate la review (q036, q076, q091). Restul e OK la nivel 
 | **q076** | „în Ierusalim” e neclar: înălțarea e de pe Muntele Măslinilor, lângă cetate (Fapte 1:12) | Scos locul; rămâne pretinderea falsă „în fața soldaților romani” |
 | **q091** | Acord greșit: „multe psalmi” | „mulți psalmi” |
 
-Audio-ul existent pentru aceste 3 ID-uri **nu mai corespunde** textului. Regenerare: `npm run gen:questions -- --force` (sau doar aceste ID-uri, dacă scriptul o permite), apoi `npm run sync:batch`.
+Audio-ul existent pentru aceste 3 ID-uri **nu mai corespunde** textului. Regenerare:
+
+```bash
+npm run gen:questions -- --force --ids q036,q076,q091
+npm run sync:batch
+```
 
 ## Observații (fără schimbare de text)
 

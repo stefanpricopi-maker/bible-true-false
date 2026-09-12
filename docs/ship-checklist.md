@@ -11,7 +11,7 @@
 
 - [x] Content review of `content/batch-001.json` (biblical accuracy / tone) — [`docs/content-review-batch-001.md`](content-review-batch-001.md)
 - [x] PLACEHOLDER note updated in pack manifest after review
-- [ ] Spot-check random MP3s vs `promptText` (regen **q036, q076, q091** first)
+- [ ] Spot-check random MP3s vs `promptText` (regen **q036, q076, q091** first: `npm run gen:questions -- --force --ids q036,q076,q091`)
 
 ## Deploy PWA
 

@@ -1,6 +1,9 @@
 /**
  * Sync content/batch-001.json + generated MP3s into public/packs/demo-v1.
  * Preserves voiceover / feedback / sfx on the manifest.
+ *
+ * If a generated MP3 is missing but the pack already has that file, keep the
+ * pack copy (partial regen). Exits 1 only when a question has no audio at all.
  */
 import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
@@ -19,6 +22,7 @@ const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'))
 mkdirSync(packAudio, { recursive: true })
 
 let copied = 0
+let kept = 0
 let missing = 0
 
 const questions = []
@@ -26,12 +30,14 @@ for (const q of batch.questions ?? []) {
   const file = q.audioFile ?? `${q.id}-question.mp3`
   const from = join(srcAudio, file)
   const to = join(packAudio, file)
-  if (!existsSync(from)) {
-    console.warn(`missing audio: ${file}`)
-    missing += 1
-  } else {
+  if (existsSync(from)) {
     copyFileSync(from, to)
     copied += 1
+  } else if (existsSync(to)) {
+    kept += 1
+  } else {
+    console.warn(`missing audio: ${file}`)
+    missing += 1
   }
   questions.push({
     id: q.id,
@@ -42,8 +48,11 @@ for (const q of batch.questions ?? []) {
 }
 
 manifest.questions = questions
-manifest.note =
-  'Questions from content/batch-001.json (PLACEHOLDER pending human review). Engine draws random 10 per round.'
+const review = String(batch.reviewStatus ?? '').trim()
+const pending = !review || /PLACEHOLDER|pending/i.test(review)
+manifest.note = pending
+  ? 'Questions from content/batch-001.json (PLACEHOLDER pending human review). Engine draws random 10 per round.'
+  : `Questions from content/batch-001.json. Content review: ${review}. Engine draws random 10 per round.`
 manifest.rounds = {
   questionsPerPlayer: 5,
   questionsPerRound: 10,
@@ -52,6 +61,6 @@ manifest.rounds = {
 
 writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + '\n')
 console.log(
-  `Synced ${questions.length} questions → manifest; copied ${copied} mp3; missing ${missing}`,
+  `Synced ${questions.length} questions → manifest; copied ${copied} mp3; kept ${kept}; missing ${missing}`,
 )
 if (missing > 0) process.exit(1)

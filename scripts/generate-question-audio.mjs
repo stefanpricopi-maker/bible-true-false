@@ -6,6 +6,7 @@
  *
  * Flags: --force  regenerate existing files
  *         --limit N  only first N questions
+ *         --ids q036,q076,q091  only these question ids
  *         --batch path  override batch JSON (default content/batch-001.json)
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
@@ -35,6 +36,15 @@ if (!apiKey || !voiceId) {
 
 const batch = JSON.parse(readFileSync(batchPath, 'utf8'))
 let questions = batch.questions ?? []
+if (args.ids != null) {
+  const want = new Set(args.ids)
+  questions = questions.filter((q) => want.has(q.id))
+  const found = new Set(questions.map((q) => q.id))
+  const missingIds = args.ids.filter((id) => !found.has(id))
+  if (missingIds.length) {
+    throw new Error(`Unknown --ids: ${missingIds.join(', ')}`)
+  }
+}
 if (args.limit != null) {
   questions = questions.slice(0, args.limit)
 }
@@ -111,8 +121,17 @@ async function synthesize(text) {
   return Buffer.from(await res.arrayBuffer())
 }
 
+function parseIds(raw) {
+  const ids = String(raw)
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
+  if (!ids.length) throw new Error('--ids needs at least one id (e.g. q036,q076)')
+  return ids
+}
+
 function parseArgs(argv) {
-  const out = { force: false, limit: null, batch: null }
+  const out = { force: false, limit: null, batch: null, ids: null }
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i]
     if (a === '--force') out.force = true
@@ -121,10 +140,14 @@ function parseArgs(argv) {
       if (!Number.isFinite(out.limit) || out.limit < 1) {
         throw new Error('--limit must be a positive number')
       }
+    } else if (a === '--ids') {
+      out.ids = parseIds(argv[++i])
     } else if (a === '--batch') {
       out.batch = argv[++i]
     } else if (a.startsWith('--limit=')) {
       out.limit = Number(a.slice('--limit='.length))
+    } else if (a.startsWith('--ids=')) {
+      out.ids = parseIds(a.slice('--ids='.length))
     } else if (a.startsWith('--batch=')) {
       out.batch = a.slice('--batch='.length)
     }
