@@ -396,7 +396,7 @@
     {
       "id": "q032",
       "correct": false,
-      "promptText": "Samson avea putere pentru că mânca numai zahăr.",
+      "promptText": "Samson avea putere pentru că mânca numai miere.",
       "audio": {
         "question": "audio/q032-question.mp3"
       }
@@ -444,7 +444,7 @@
     {
       "id": "q038",
       "correct": false,
-      "promptText": "David l-a învins pe Goliat cu o sabie mare de aur.",
+      "promptText": "David l-a învins pe Goliat cu o sabie mare de lemn.",
       "audio": {
         "question": "audio/q038-question.mp3"
       }

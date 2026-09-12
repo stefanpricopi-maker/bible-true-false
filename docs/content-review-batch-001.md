@@ -100,7 +100,7 @@ A = afirmația trebuie marcată Adevărat · F = Fals · OK = cheie + text în r
 | q029 | A | OK | Ex 16 |
 | q030 | F | OK | trâmbițe / ocolirea zidurilor (Ios 6) |
 | q031 | A | OK | Ios 1 |
-| q032 | F | OK | nazireu / părul, nu zahăr (Jud 13–16) |
+| q032 | F | OK | nazireu / părul, nu „numai miere” (Jud 13–16) |
 | q033 | A | OK | Jud 16 — „casă” = templul filistean |
 | q034 | F | OK | a cules la Betleem, lângă Naomi (Rut 2) |
 | q035 | A | OK | Rut 1:16–17 |
