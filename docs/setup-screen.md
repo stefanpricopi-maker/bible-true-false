@@ -2,6 +2,25 @@
 
 Tabletop / opposite seating (single device between two kids).
 
+## 0. Host — age band (before colors)
+
+The **adult holding the phone** picks **one band for the whole game**. The other player does not pick a band. This screen is **not** tabletop-mirrored (parent can read).
+
+2×2 large tiles:
+
+| Id | Label | Age | v1 content |
+|----|-------|-----|------------|
+| `mic` | Mic | ~4–7 | empty — tile inert until 30 Q + MP3 |
+| `copii` | Copii | ~8–12 | all 100 from batch-001 |
+| `tineri` | Tineri | ~13–18 | empty until content |
+| `adulti` | Adulți | 18+ | empty until content |
+
+- Tap a **playable** band (currently only **Copii**) → color setup. No „Începe”.
+- Tap an inactive tile → stay on the host screen (subtle „în curând”).
+- A band is playable only when the entitled pool has at least 30 questions **with audio** for that `ageBand` (engine: `QUESTIONS_PER_ROUND * TOTAL_ROUNDS`).
+- Welcome VO plays on the **color** setup screen, not here.
+- **Acasă** returns to this host picker. **Din nou** keeps the band and returns to color setup.
+
 ## 1. Color pick
 
 1. **Jucătorul 2** card (rotated 180°) — 2×2 swatches + chip + ✓

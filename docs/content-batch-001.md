@@ -17,6 +17,7 @@
 | `promptText` | Textul citit de ElevenLabs |
 | `audioFile` | Numele MP3 de ieșire (ex. `q001-question.mp3`) |
 | `topic` | Etichetă opțională pentru review / filtre |
+| `ageBand` | `mic` / `copii` / `tineri` / `adulti` — batch-001 is **`copii`** |
 
 ## Generare audio (ElevenLabs API)
 

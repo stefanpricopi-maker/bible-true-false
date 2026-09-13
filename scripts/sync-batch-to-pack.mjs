@@ -43,6 +43,7 @@ for (const q of batch.questions ?? []) {
     id: q.id,
     correct: q.correct,
     promptText: q.promptText,
+    ageBand: q.ageBand,
     audio: { question: `audio/${file}` },
   })
 }

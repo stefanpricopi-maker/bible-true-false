@@ -2,6 +2,9 @@ export type PlayerId = 0 | 1
 
 export type Answer = boolean
 
+/** One band per game; host picks before colors. */
+export type AgeBand = 'mic' | 'copii' | 'tineri' | 'adulti'
+
 export type QuestionAudio = {
   question: string
   correct?: string
@@ -13,6 +16,7 @@ export type Question = {
   correct: Answer
   promptText?: string
   audio: QuestionAudio
+  ageBand: AgeBand
 }
 
 export type ClipRef = string | string[]

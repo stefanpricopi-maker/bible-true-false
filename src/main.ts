@@ -1,5 +1,10 @@
 import './style.css'
-import { loadPlayablePack } from './catalog'
+import {
+  isBandPlayable,
+  loadEntitledPack,
+  loadPlayablePack,
+  type AgeBand,
+} from './catalog'
 import { applyUnlockQueryParam } from './entitlements'
 import type { Pack } from './pack/types'
 import { SessionEngine, type SessionSnapshot, type StartRound } from './session/engine'
@@ -16,6 +21,18 @@ const SWATCHES = [
   { id: 'pink', color: '#EC4899', label: 'Roz' },
   { id: 'purple', color: '#8B5CF6', label: 'Mov' },
 ] as const
+
+/** Host (adult) picks one band before colors. Not tabletop-mirrored. */
+const HOST_BANDS: readonly {
+  id: AgeBand
+  label: string
+  ages: string
+}[] = [
+  { id: 'mic', label: 'Mic', ages: '4–7' },
+  { id: 'copii', label: 'Copii', ages: '8–12' },
+  { id: 'tineri', label: 'Tineri', ages: '13–18' },
+  { id: 'adulti', label: 'Adulți', ages: '18+' },
+]
 
 /** Yellow (and other light swatches) need dark score text. */
 function isLightColor(hex: string): boolean {
@@ -38,6 +55,10 @@ let starting = false
 let launchScheduled = false
 let roundBreakScheduled = false
 let cachedPack: Pack | null = null
+let entitledPack: Pack | null = null
+let entitledLoading = false
+/** Host choice — UI only, not an engine phase. */
+let selectedBand: AgeBand | null = null
 let welcomePlayed = false
 let welcomePlaying = false
 let answerCountdown: {
@@ -92,14 +113,22 @@ function syncAnswerCountdown(snap: SessionSnapshot): void {
   paintAnswerTimer(answerCountdown.left)
 }
 
+async function ensureEntitled(): Promise<Pack> {
+  if (entitledPack) return entitledPack
+  entitledPack = await loadEntitledPack()
+  return entitledPack
+}
+
 async function ensurePack(): Promise<Pack> {
   if (cachedPack) return cachedPack
-  cachedPack = await loadPlayablePack()
+  if (!selectedBand) throw new Error('Alege o grupă')
+  cachedPack = await loadPlayablePack(selectedBand)
   engine.bindAssets(cachedPack)
   return cachedPack
 }
 
 function playWelcomeIfNeeded(): void {
+  if (!selectedBand) return
   if (welcomePlayed || welcomePlaying || !cachedPack?.voiceover?.welcome) return
   if (engine.snapshot().phase !== 'setup') return
   welcomePlaying = true
@@ -118,7 +147,7 @@ function playWelcomeIfNeeded(): void {
 }
 
 async function startGame(): Promise<void> {
-  if (starting) return
+  if (starting || !selectedBand) return
   starting = true
   engine.stopAudio()
   render(engine.snapshot())
@@ -136,31 +165,46 @@ async function startGame(): Promise<void> {
   }
 }
 
-async function rematchGame(): Promise<void> {
-  if (starting) return
-  starting = true
-  clearAnswerCountdown()
-  roundBreakScheduled = false
-  engine.stopAudio()
-  render(engine.snapshot())
+async function pickBand(band: AgeBand): Promise<void> {
+  const entitled = await ensureEntitled()
+  if (!isBandPlayable(entitled.questions, band)) return
+  selectedBand = band
+  welcomePlayed = false
+  welcomePlaying = false
   try {
-    const pack = await ensurePack()
-    await engine.rematch(pack, QA_ENABLED ? { startRound: qaStartRound } : {})
+    cachedPack = await loadPlayablePack(band)
+    engine.bindAssets(cachedPack)
   } catch (err) {
     console.error(err)
-    alert(err instanceof Error ? err.message : 'Nu am putut reporni jocul')
-    engine.resetToSetup()
-  } finally {
-    starting = false
-    launchScheduled = false
+    selectedBand = null
+    cachedPack = null
     render(engine.snapshot())
+    return
   }
+  render(engine.snapshot())
+  playWelcomeIfNeeded()
+}
+
+/** End-screen „Din nou”: keep the band, return to color setup (no auto-start). */
+function playAgain(): void {
+  clearAnswerCountdown()
+  welcomePlayed = false
+  welcomePlaying = false
+  roundBreakScheduled = false
+  launchScheduled = false
+  starting = false
+  engine.resetToSetup()
+  playWelcomeIfNeeded()
 }
 
 function scheduleLaunch(): void {
   if (launchScheduled || starting) return
   launchScheduled = true
   window.setTimeout(() => {
+    if (!selectedBand || engine.snapshot().phase !== 'armed') {
+      launchScheduled = false
+      return
+    }
     void startGame()
   }, 500)
 }
@@ -182,8 +226,11 @@ function goHome(): void {
   welcomePlayed = false
   welcomePlaying = false
   cachedPack = null
+  selectedBand = null
+  roundBreakScheduled = false
+  launchScheduled = false
+  starting = false
   engine.resetToSetup()
-  void ensurePack().then(() => playWelcomeIfNeeded())
 }
 
 function render(snap: SessionSnapshot): void {
@@ -191,7 +238,9 @@ function render(snap: SessionSnapshot): void {
   const phone = document.createElement('div')
   phone.className = 'phone'
 
-  if (snap.phase === 'setup') {
+  if (!selectedBand) {
+    phone.append(renderHost())
+  } else if (snap.phase === 'setup') {
     phone.append(renderSetup(snap))
     void ensurePack().then(() => playWelcomeIfNeeded())
   } else if (snap.phase === 'armed') {
@@ -232,8 +281,6 @@ function renderTransportButton(): HTMLElement {
 }
 
 function renderRoundBreak(snap: SessionSnapshot): HTMLElement {
-  const wrap = document.createElement('div')
-  wrap.className = 'play-shell setup-shell arena-shell'
 
   wrap.append(
     chosenColorCard(1, 'Jucătorul 2', snap.playerColors[1], snap.scores[1], {
@@ -255,6 +302,107 @@ function renderRoundBreak(snap: SessionSnapshot): HTMLElement {
       active: false,
     }),
   )
+
+  return wrap
+}
+
+function bandIconSvg(band: AgeBand): string {
+  const sizes: Record<AgeBand, { head: number; cy: number; body: string }> = {
+    mic: { head: 7, cy: 26, body: 'M22 50c0-8 4.5-13 10-13s10 5 10 13' },
+    copii: { head: 9, cy: 22, body: 'M18 52c0-10 6-16 14-16s14 6 14 16' },
+    tineri: { head: 10, cy: 18, body: 'M16 54c0-12 7-18 16-18s16 6 16 18' },
+    adulti: { head: 11, cy: 16, body: 'M14 56c0-14 8-20 18-20s18 6 18 20' },
+  }
+  const s = sizes[band]
+  return `<svg class="host-icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="${s.cy}" r="${s.head}" fill="currentColor"/><path d="${s.body}" fill="currentColor"/></svg>`
+}
+
+/** Parent-facing 2×2 band picker — not mirrored, before color setup. */
+function renderHost(): HTMLElement {
+  const wrap = document.createElement('div')
+  wrap.className = 'host-shell'
+
+  const grid = document.createElement('div')
+  grid.className = 'host-grid'
+  grid.setAttribute('role', 'group')
+  grid.setAttribute('aria-label', 'Alege grupa')
+
+  for (const band of HOST_BANDS) {
+    const loaded = !!entitledPack
+    const playable = entitledPack
+      ? isBandPlayable(entitledPack.questions, band.id)
+      : false
+    const btn = document.createElement('button')
+    btn.type = 'button'
+    btn.className =
+      'host-tile' +
+      (playable ? ' is-playable' : loaded ? ' is-soon' : '')
+    btn.dataset.band = band.id
+    btn.setAttribute('aria-disabled', playable || !loaded ? 'false' : 'true')
+    btn.setAttribute(
+      'aria-label',
+      !loaded
+        ? `${band.label}, ${band.ages}`
+        : playable
+          ? `${band.label}, ${band.ages}`
+          : `${band.label}, în curând`,
+    )
+
+    btn.innerHTML = bandIconSvg(band.id)
+
+    const name = document.createElement('span')
+    name.className = 'host-label'
+    name.textContent = band.label
+    btn.append(name)
+
+    const ages = document.createElement('span')
+    ages.className = 'host-ages'
+    ages.textContent = band.ages
+    btn.append(ages)
+
+    if (loaded && !playable) {
+      const soon = document.createElement('span')
+      soon.className = 'host-soon'
+      soon.textContent = 'în curând'
+      btn.append(soon)
+    }
+
+    btn.addEventListener('click', () => {
+      void (async () => {
+        let pack: Pack
+        try {
+          pack = await ensureEntitled()
+        } catch (err) {
+          console.error(err)
+          return
+        }
+        if (!isBandPlayable(pack.questions, band.id)) {
+          btn.classList.remove('is-nudge')
+          void btn.offsetWidth
+          btn.classList.add('is-nudge')
+          return
+        }
+        await pickBand(band.id)
+      })()
+    })
+    grid.append(btn)
+  }
+
+  wrap.append(grid)
+
+  if (!entitledPack && !entitledLoading) {
+    entitledLoading = true
+    void ensureEntitled()
+      .then(() => {
+        entitledLoading = false
+        if (!selectedBand) render(engine.snapshot())
+      })
+      .catch((err) => {
+        entitledLoading = false
+        console.error(err)
+        if (!selectedBand) render(engine.snapshot())
+      })
+  }
 
   return wrap
 }
@@ -623,7 +771,7 @@ function renderEnd(snap: SessionSnapshot): HTMLElement {
   again.className = 'btn-start'
   again.textContent = 'Din nou'
   again.addEventListener('click', () => {
-    void rematchGame()
+    playAgain()
   })
   wrap.append(again)
 
@@ -640,11 +788,11 @@ function renderEnd(snap: SessionSnapshot): HTMLElement {
 
 /** Retry welcome until it plays (or leave setup). Gesture unlocks autoplay on iOS. */
 function onWelcomeGesture(): void {
-  const phase = engine.snapshot().phase
-  if (phase !== 'setup' || welcomePlayed) {
+  if (welcomePlayed) {
     document.removeEventListener('pointerdown', onWelcomeGesture)
     return
   }
+  if (!selectedBand || engine.snapshot().phase !== 'setup') return
   void ensurePack().then(() => playWelcomeIfNeeded())
 }
 

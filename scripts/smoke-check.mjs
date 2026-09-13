@@ -56,6 +56,74 @@ for (const id of free.questionIds.slice(0, 3)) {
   }
 }
 
+const BANDS = ['mic', 'copii', 'tineri', 'adulti']
+ok(
+  batch.questions.every((q) => q.ageBand === 'copii'),
+  'batch-001 questions tagged ageBand copii',
+)
+ok(
+  manifest.questions.every((q) => q.ageBand === 'copii'),
+  'manifest questions tagged ageBand copii',
+)
+ok(
+  manifest.questions.filter((q) => q.ageBand === 'copii').length === 100,
+  'manifest has 100 copii questions',
+)
+for (const band of BANDS.filter((b) => b !== 'copii')) {
+  const n = manifest.questions.filter((q) => q.ageBand === band).length
+  ok(n === 0, `manifest has 0 ${band} questions (got ${n})`)
+}
+
+const typesSrc = readFileSync(join(root, 'src/pack/types.ts'), 'utf8')
+ok(typesSrc.includes('export type AgeBand'), 'types export AgeBand')
+ok(typesSrc.includes('ageBand: AgeBand'), 'Question has ageBand')
+for (const band of BANDS) {
+  ok(typesSrc.includes(`'${band}'`), `AgeBand includes ${band}`)
+}
+
+const catalogSrc = readFileSync(join(root, 'src/catalog.ts'), 'utf8')
+ok(catalogSrc.includes('questionsInBand'), 'catalog filters questionsInBand')
+ok(catalogSrc.includes('loadPlayablePack(ageBand: AgeBand)'), 'loadPlayablePack takes ageBand')
+ok(catalogSrc.includes('isBandPlayable'), 'catalog exports isBandPlayable')
+ok(catalogSrc.includes('minQuestionsForSession'), 'catalog uses session minimum')
+
+const syncSrc = readFileSync(join(root, 'scripts/sync-batch-to-pack.mjs'), 'utf8')
+ok(syncSrc.includes('ageBand: q.ageBand'), 'sync-batch copies ageBand')
+
+const mainSrc = readFileSync(join(root, 'src/main.ts'), 'utf8')
+ok(mainSrc.includes('let selectedBand'), 'main keeps selectedBand UI state')
+ok(mainSrc.includes('function renderHost'), 'main has host band screen')
+ok(mainSrc.includes('host-tile'), 'main renders host tiles')
+ok(mainSrc.includes("id: 'mic'") && mainSrc.includes("id: 'copii'"), 'host tiles include Mic and Copii')
+ok(mainSrc.includes("id: 'tineri'") && mainSrc.includes("id: 'adulti'"), 'host tiles include Tineri and Adulți')
+ok(mainSrc.includes('în curând'), 'inactive tiles show în curând')
+ok(!mainSrc.includes('Începe'), 'no Începe button')
+ok(mainSrc.includes('playWelcomeIfNeeded'), 'welcome helper exists')
+ok(
+  /function playWelcomeIfNeeded[\s\S]*?if \(!selectedBand\) return/.test(mainSrc),
+  'welcome VO skipped on host (no selectedBand)',
+)
+
+const goHomeFn = mainSrc.split('function goHome')[1]?.split('\nfunction ')[0] ?? ''
+ok(goHomeFn.includes('selectedBand = null'), 'goHome returns to band picker')
+ok(!goHomeFn.includes('playWelcomeIfNeeded'), 'goHome does not play welcome on host')
+
+ok(mainSrc.includes('function playAgain'), 'Din nou uses playAgain')
+ok(!mainSrc.includes('rematchGame'), 'Din nou does not auto-start rematch')
+const playAgainFn = mainSrc.split('function playAgain')[1]?.split('\nfunction ')[0] ?? ''
+ok(!playAgainFn.includes('selectedBand = null'), 'Din nou keeps the selected band')
+ok(playAgainFn.includes('resetToSetup'), 'Din nou returns to color setup')
+
+const setupDoc = readFileSync(join(root, 'docs/setup-screen.md'), 'utf8')
+ok(setupDoc.includes('## 0. Host'), 'setup-screen documents host step 0')
+ok(setupDoc.includes('## 1. Color pick'), 'setup-screen keeps color pick as step 1')
+ok(setupDoc.includes('## 2. After both players pick'), 'setup-screen keeps step 2')
+ok(setupDoc.includes('not') && setupDoc.toLowerCase().includes('mirrored'), 'host is not tabletop-mirrored')
+
+const cssSrc = readFileSync(join(root, 'src/style.css'), 'utf8')
+ok(cssSrc.includes('.host-grid'), 'host 2×2 grid styles exist')
+ok(cssSrc.includes('.host-tile'), 'host tile styles exist')
+
 if (failed > 0) {
   console.error(`\n${failed} check(s) failed`)
   process.exit(1)
