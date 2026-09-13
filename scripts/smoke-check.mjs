@@ -62,12 +62,17 @@ ok(/<html[\s>]/i.test(indexHtml) && /<head[\s>]/i.test(indexHtml) && /<body[\s>]
 ok(existsSync(join(root, 'scripts/enable-cf-web-analytics.mjs')), 'analytics enable script exists')
 ok(readFileSync(join(root, 'package.json'), 'utf8').includes('analytics:enable'), 'package.json has analytics:enable')
 ok(readFileSync(join(root, 'docs/deploy.md'), 'utf8').includes('Web Analytics'), 'deploy.md documents Web Analytics')
+ok(readFileSync(join(root, 'docs/deploy.md'), 'utf8').includes('## Zaraz'), 'deploy.md documents Zaraz after mishak.ro')
 const analyticsSrc = readFileSync(join(root, 'src/analytics.ts'), 'utf8')
 ok(analyticsSrc.includes("'page_open'"), 'analytics tracks page_open')
 ok(analyticsSrc.includes("'setup_complete'"), 'analytics tracks setup_complete')
 ok(analyticsSrc.includes("'round_end'"), 'analytics tracks round_end')
 ok(analyticsSrc.includes("'game_end'"), 'analytics tracks game_end')
 ok(analyticsSrc.includes('zaraz'), 'analytics calls zaraz.track when present')
+ok(
+  /if \(zaraz\?\.track\) \{[\s\S]*zaraz\.track\(name, props\)[\s\S]*return/.test(analyticsSrc),
+  'zaraz.track skips /e/ URL fallback (one dashboard)',
+)
 const mainSrc = readFileSync(join(root, 'src/main.ts'), 'utf8')
 ok(mainSrc.includes("track('page_open')"), 'main fires page_open')
 ok(mainSrc.includes('trackPlayFunnel'), 'main maps phases to play events')

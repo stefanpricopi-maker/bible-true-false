@@ -65,6 +65,31 @@ Până e Zaraz pe domeniu, aceleași nume apar în Web Analytics → **Top pages
 
 Raportul util: câte `setup_complete` la 100 de vizite.
 
+## Zaraz (un dashboard, după `mishak.ro`)
+
+Zaraz **nu pornește pe** `*.pages.dev`. Cloudflare cere un **domeniu custom** pe zonă orange-cloud, lipit de Pages. Contul acum nu are nicio zonă DNS.
+
+Când ai `mishak.ro`:
+
+1. Adaugă domeniul în Cloudflare (nameservere Rotld → Cloudflare) și **Proxy** (nor portocaliu).
+2. Pages → `bible-true-false` → **Custom domains** → `mishak.ro` (și `www`).
+3. Zona `mishak.ro` → **Zaraz** → Tag setup:
+   - Auto-inject script: **on**
+   - Single Page Application: **on**
+   - **Monitoring**: on (Events / Triggers — funnel-ul de joc)
+4. Triggers (Variable = **Event Name**, Equals):
+
+   | Trigger | Match |
+   |---------|--------|
+   | Page open | `page_open` |
+   | Setup complete | `setup_complete` |
+   | Round end | `round_end` |
+   | Game end | `game_end` |
+
+5. Nu adăuga Google / Meta / pixeli. App-ul apelează deja `zaraz.track` cu numele de mai sus; când Zaraz e injectat, nu mai schimbă URL-ul (`/e/...` e doar fallback-ul de pe pages.dev).
+
+Web Analytics rămâne pentru țară / device / referrer. Zaraz Monitoring e pentru cele 4 evenimente. Totul e tot Cloudflare.
+
 ## Alte host-uri
 
 Netlify / Vercel: același `npm run build`, output `dist`, HTTPS pe subdomeniu gratuit.

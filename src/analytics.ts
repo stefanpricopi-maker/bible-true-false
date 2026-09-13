@@ -1,9 +1,10 @@
 /**
- * Play funnel, no ad pixels.
+ * Play funnel, no ad pixels. All Cloudflare.
  *
- * - `zaraz.track` when Zaraz is on the zone (mishak.ro).
- * - History `pushState` to `/e/<name>` so Cloudflare Web Analytics SPA
- *   mode shows the same names under Top pages (Web Analytics has no custom events yet).
+ * 1. Zaraz (`zaraz.track`) — one dashboard (Monitoring → Events) after
+ *    mishak.ro is on Cloudflare. No extra history URLs.
+ * 2. Fallback — Cloudflare Web Analytics SPA Top pages via `/e/<name>`
+ *    while the site is still only on *.pages.dev (Zaraz needs a custom domain).
  */
 export type PlayEvent =
   | 'page_open'
@@ -20,6 +21,10 @@ type Zaraz = {
 }
 
 const sent = new Set<string>()
+
+function getZaraz(): Zaraz | undefined {
+  return (window as Window & { zaraz?: Zaraz }).zaraz
+}
 
 export function resetPlayAnalytics(): void {
   for (const key of [...sent]) {
@@ -38,8 +43,11 @@ export function track(
   const props: Record<string, string | number | boolean> = {}
   if (opts?.round != null) props.round = opts.round
 
-  const zaraz = (window as Window & { zaraz?: Zaraz }).zaraz
-  zaraz?.track(name, props)
+  const zaraz = getZaraz()
+  if (zaraz?.track) {
+    zaraz.track(name, props)
+    return
+  }
 
   if (name === 'page_open') return
 
