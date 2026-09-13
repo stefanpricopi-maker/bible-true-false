@@ -5,7 +5,7 @@
  */
 export const PAYPAL_ME_URL = 'https://paypal.me/stefanpricopi'
 
-export const DONATE_LABEL = 'Invită-ne o cafea'
+export const DONATE_LABEL = 'Invită-ne la o cafea'
 
 export function createDonateLink(): HTMLAnchorElement {
   const link = document.createElement('a')

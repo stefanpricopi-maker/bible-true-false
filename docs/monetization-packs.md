@@ -47,7 +47,7 @@ Unlock pack poate folosi `"allFromShell": true` ca să includă toate întrebăr
 
 ## Donație (părinți, nu deblocare)
 
-Link PayPal.me pe ecranul de final (`renderEnd`) — „Invită-ne o cafea”. Deschide `https://paypal.me/stefanpricopi` într-un tab nou. **Nu** deblochează pack-uri; `?unlock=batch-001` rămâne QA. Fără Stripe, BuyMeACoffee.com sau IAP pentru donație. Suma o alege donatorul pe PayPal.
+Link PayPal.me pe ecranul de final (`renderEnd`) — „Invită-ne la o cafea”. Deschide `https://paypal.me/stefanpricopi` într-un tab nou. **Nu** deblochează pack-uri; `?unlock=batch-001` rămâne QA. Fără Stripe, BuyMeACoffee.com sau IAP pentru donație. Suma o alege donatorul pe PayPal.
 
 ## Plăți unlock (ulterior)
 

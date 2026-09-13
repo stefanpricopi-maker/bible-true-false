@@ -58,6 +58,7 @@ for (const id of free.questionIds.slice(0, 3)) {
 
 const donateSrc = readFileSync(join(root, 'src/donate.ts'), 'utf8')
 ok(donateSrc.includes("https://paypal.me/stefanpricopi"), 'donate.ts has PayPal.me URL')
+ok(donateSrc.includes('Invită-ne la o cafea'), 'donate label is Invită-ne la o cafea')
 ok(donateSrc.includes("target = '_blank'"), 'donate link opens in a new tab')
 ok(donateSrc.includes("noopener noreferrer"), 'donate link uses rel noopener noreferrer')
 ok(!donateSrc.includes('entitlements'), 'donate.ts does not mention entitlements')
