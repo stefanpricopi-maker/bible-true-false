@@ -58,18 +58,18 @@ for (const id of free.questionIds.slice(0, 3)) {
 
 const BANDS = ['mic', 'copii', 'tineri', 'adulti']
 ok(
-  batch.questions.every((q) => q.ageBand === 'copii'),
-  'batch-001 questions tagged ageBand copii',
+  batch.questions.every((q) => q.ageBand === 'mic'),
+  'batch-001 questions tagged ageBand mic',
 )
 ok(
-  manifest.questions.every((q) => q.ageBand === 'copii'),
-  'manifest questions tagged ageBand copii',
+  manifest.questions.every((q) => q.ageBand === 'mic'),
+  'manifest questions tagged ageBand mic',
 )
 ok(
-  manifest.questions.filter((q) => q.ageBand === 'copii').length === 100,
-  'manifest has 100 copii questions',
+  manifest.questions.filter((q) => q.ageBand === 'mic').length === 100,
+  'manifest has 100 mic questions',
 )
-for (const band of BANDS.filter((b) => b !== 'copii')) {
+for (const band of BANDS.filter((b) => b !== 'mic')) {
   const n = manifest.questions.filter((q) => q.ageBand === band).length
   ok(n === 0, `manifest has 0 ${band} questions (got ${n})`)
 }

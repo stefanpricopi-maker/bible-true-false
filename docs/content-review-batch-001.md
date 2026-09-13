@@ -2,7 +2,7 @@
 
 **Dată:** 2026-09-12  
 **Sursă:** [`content/batch-001.json`](../content/batch-001.json)  
-**Nivel:** povești biblice familiare, True/False, copii  
+**Nivel:** povești biblice familiare, True/False, **Mic** (~4–7, pre-literați) — tagged `ageBand: mic`; Copii (~8–12) has no pack yet. 
 **Metodă:** fiecare afirmație verificată pe narațiunea biblică standard (Geneza–Apocalipsa), plus ton / claritate T/F pentru copii. Nu e semnare pastorală oficială; e review de acuratețe a poveștii.
 
 ## Verdict

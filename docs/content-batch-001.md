@@ -4,7 +4,7 @@
 
 - Fișier: [`content/batch-001.json`](../content/batch-001.json)
 - Locale: `ro`
-- Dificultate: povești biblice familiare pentru copii (același nivel ca q001–q010 din demo)
+- Dificultate: povești biblice familiare, nivel **Mic** (~4–7, pre-literați; același nivel ca q001–q010 din demo)
 - **`reviewStatus`:** reviewed 2026-09-12 — vezi [`docs/content-review-batch-001.md`](content-review-batch-001.md)
 - Cablat în pack-ul de joc (`demo-v1`). Audio regenerat 2026-09-12 pentru textele retușate: q002, q014, q018, q026, q032, q036, q038, q042, q050, q060, q076, q091.
 
@@ -17,7 +17,7 @@
 | `promptText` | Textul citit de ElevenLabs |
 | `audioFile` | Numele MP3 de ieșire (ex. `q001-question.mp3`) |
 | `topic` | Etichetă opțională pentru review / filtre |
-| `ageBand` | `mic` / `copii` / `tineri` / `adulti` — batch-001 is **`copii`** |
+| `ageBand` | `mic` / `copii` / `tineri` / `adulti` — batch-001 is **`mic`** (Copii waits for a harder set) |
 
 ## Generare audio (ElevenLabs API)
 
