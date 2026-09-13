@@ -96,7 +96,16 @@ ok(mainSrc.includes('function renderHost'), 'main has host band screen')
 ok(mainSrc.includes('host-tile'), 'main renders host tiles')
 ok(mainSrc.includes("id: 'mic'") && mainSrc.includes("id: 'copii'"), 'host tiles include Mic and Copii')
 ok(mainSrc.includes("id: 'tineri'") && mainSrc.includes("id: 'adulti'"), 'host tiles include Tineri and Adulți')
-ok(mainSrc.includes('în curând'), 'inactive tiles show în curând')
+ok(mainSrc.includes('/bands/${band.id}.png'), 'host tiles use band illustrations')
+ok(!mainSrc.includes('host-label'), 'host tiles have no visible category names')
+ok(!mainSrc.includes('18+'), 'adults tile has no 18+ age')
+ok(mainSrc.includes('în curând'), 'inactive tiles keep în curând in aria-label')
+for (const band of BANDS) {
+  ok(
+    existsSync(join(root, 'public/bands', `${band}.png`)),
+    `public/bands/${band}.png exists`,
+  )
+}
 ok(!mainSrc.includes('Începe'), 'no Începe button')
 ok(mainSrc.includes('playWelcomeIfNeeded'), 'welcome helper exists')
 ok(

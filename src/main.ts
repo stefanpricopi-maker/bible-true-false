@@ -26,12 +26,11 @@ const SWATCHES = [
 const HOST_BANDS: readonly {
   id: AgeBand
   label: string
-  ages: string
 }[] = [
-  { id: 'mic', label: 'Mic', ages: '4–7' },
-  { id: 'copii', label: 'Copii', ages: '8–12' },
-  { id: 'tineri', label: 'Tineri', ages: '13–18' },
-  { id: 'adulti', label: 'Adulți', ages: '18+' },
+  { id: 'mic', label: 'Mic' },
+  { id: 'copii', label: 'Copii' },
+  { id: 'tineri', label: 'Tineri' },
+  { id: 'adulti', label: 'Adulți' },
 ]
 
 /** Yellow (and other light swatches) need dark score text. */
@@ -308,17 +307,6 @@ function renderRoundBreak(snap: SessionSnapshot): HTMLElement {
   return wrap
 }
 
-function bandIconSvg(band: AgeBand): string {
-  const sizes: Record<AgeBand, { head: number; cy: number; body: string }> = {
-    mic: { head: 7, cy: 26, body: 'M22 50c0-8 4.5-13 10-13s10 5 10 13' },
-    copii: { head: 9, cy: 22, body: 'M18 52c0-10 6-16 14-16s14 6 14 16' },
-    tineri: { head: 10, cy: 18, body: 'M16 54c0-12 7-18 16-18s16 6 16 18' },
-    adulti: { head: 11, cy: 16, body: 'M14 56c0-14 8-20 18-20s18 6 18 20' },
-  }
-  const s = sizes[band]
-  return `<svg class="host-icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="${s.cy}" r="${s.head}" fill="currentColor"/><path d="${s.body}" fill="currentColor"/></svg>`
-}
-
 /** Parent-facing 2×2 band picker — not mirrored, before color setup. */
 function renderHost(): HTMLElement {
   const wrap = document.createElement('div')
@@ -343,29 +331,22 @@ function renderHost(): HTMLElement {
     btn.setAttribute('aria-disabled', playable || !loaded ? 'false' : 'true')
     btn.setAttribute(
       'aria-label',
-      !loaded
-        ? `${band.label}, ${band.ages}`
-        : playable
-          ? `${band.label}, ${band.ages}`
-          : `${band.label}, în curând`,
+      loaded && !playable ? `${band.label}, în curând` : band.label,
     )
 
-    btn.innerHTML = bandIconSvg(band.id)
-
-    const name = document.createElement('span')
-    name.className = 'host-label'
-    name.textContent = band.label
-    btn.append(name)
-
-    const ages = document.createElement('span')
-    ages.className = 'host-ages'
-    ages.textContent = band.ages
-    btn.append(ages)
+    const art = document.createElement('img')
+    art.className = 'host-tile-art'
+    art.src = `/bands/${band.id}.png`
+    art.alt = ''
+    art.draggable = false
+    btn.append(art)
 
     if (loaded && !playable) {
       const soon = document.createElement('span')
       soon.className = 'host-soon'
-      soon.textContent = 'în curând'
+      soon.setAttribute('aria-hidden', 'true')
+      soon.innerHTML =
+        '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M17 8h-1V6a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2M9 6a3 3 0 0 1 6 0v2H9zm8 12H7v-8h10z"/></svg>'
       btn.append(soon)
     }
 
