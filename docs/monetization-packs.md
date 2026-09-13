@@ -45,9 +45,13 @@ Unlock pack poate folosi `"allFromShell": true` ca să includă toate întrebăr
 - API: `src/entitlements.ts` — `listUnlocked()`, `isUnlocked(id)`, `unlock(id)`, `lock(id)` (lock doar pentru debug)
 - Fără conturi; pe device local
 
-## Plăți (ulterior)
+## Donație (părinți, nu deblocare)
 
-Vezi [`docs/capacitor-iap.md`](capacitor-iap.md): același shell, Capacitor + IAP; entitlement-urile se scriu după receipt valid.
+Link PayPal.me pe ecranul de final (`renderEnd`) — „Invită-ne o cafea”. Deschide `https://paypal.me/stefanpricopi` într-un tab nou. **Nu** deblochează pack-uri; `?unlock=batch-001` rămâne QA. Fără Stripe, BuyMeACoffee.com sau IAP pentru donație. Suma o alege donatorul pe PayPal.
+
+## Plăți unlock (ulterior)
+
+Vezi [`docs/capacitor-iap.md`](capacitor-iap.md): același shell, Capacitor + IAP; entitlement-urile se scriu după receipt valid. Donația PayPal.me nu trece prin `entitlements.unlock`.
 
 ## Deploy
 
