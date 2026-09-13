@@ -34,6 +34,22 @@ npm run deploy:cf           # build + upload dist/
 
 Proiectul Pages se numește `bible-true-false` (vezi scriptul din `package.json`).
 
+## Web Analytics (trafic, fără cookie, fără Google)
+
+Cloudflare Web Analytics: page views, vizitatori unici (aprox.), țară, device, referrer. Nu e Google Analytics și nu pune cookie.
+
+```bash
+npm run analytics:enable
+```
+
+Dacă token-ul de deploy n-are dreptul *Account Settings Write*, pornești din dashboard (un click):
+
+1. [Workers & Pages](https://dash.cloudflare.com/) → proiectul `bible-true-false` → **Metrics** → **Enable** la Web Analytics.
+2. Graficele: dashboard → **Web Analytics**.
+3. `npm run deploy:cf` — Pages injectează beacon-ul în HTML la deploy (pagina trebuie să rămână HTML valid: `index.html` deja e).
+
+`*.pages.dev` și (când îl lipim) `mishak.ro` raportează în același loc. Asta măsoară **deschideri**, nu dacă s-a jucat o partidă.
+
 ## Alte host-uri
 
 Netlify / Vercel: același `npm run build`, output `dist`, HTTPS pe subdomeniu gratuit.

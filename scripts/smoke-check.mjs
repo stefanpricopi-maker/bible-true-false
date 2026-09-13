@@ -56,6 +56,13 @@ for (const id of free.questionIds.slice(0, 3)) {
   }
 }
 
+const indexHtml = readFileSync(join(root, 'index.html'), 'utf8')
+ok(/<!doctype html>/i.test(indexHtml), 'index.html has doctype (Pages can inject Web Analytics)')
+ok(/<html[\s>]/i.test(indexHtml) && /<head[\s>]/i.test(indexHtml) && /<body[\s>]/i.test(indexHtml), 'index.html has html/head/body')
+ok(existsSync(join(root, 'scripts/enable-cf-web-analytics.mjs')), 'analytics enable script exists')
+ok(readFileSync(join(root, 'package.json'), 'utf8').includes('analytics:enable'), 'package.json has analytics:enable')
+ok(readFileSync(join(root, 'docs/deploy.md'), 'utf8').includes('Web Analytics'), 'deploy.md documents Web Analytics')
+
 if (failed > 0) {
   console.error(`\n${failed} check(s) failed`)
   process.exit(1)
