@@ -5,6 +5,7 @@ import {
   loadPlayablePack,
   type AgeBand,
 } from './catalog'
+import { createDonateLink } from './donate'
 import { applyUnlockQueryParam } from './entitlements'
 import type { Pack } from './pack/types'
 import { SessionEngine, type SessionSnapshot, type StartRound } from './session/engine'
@@ -765,6 +766,8 @@ function renderEnd(snap: SessionSnapshot): HTMLElement {
   home.textContent = 'Acasă'
   home.addEventListener('click', () => goHome())
   wrap.append(home)
+
+  wrap.append(createDonateLink())
 
   return wrap
 }

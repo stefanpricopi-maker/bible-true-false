@@ -609,6 +609,30 @@ button.chosen-swatch--buzz:focus-visible {
   justify-content: center;
 }
 
+/* Parent-facing PayPal.me — not a kid T/F or player-color control */
+.btn-donate {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 14px 20px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #4a3728;
+  background: #f3e6d4;
+  border: 2px solid #c4a574;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.btn-donate:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+
 .end-title {
   text-align: center;
   font-size: 1.8rem;

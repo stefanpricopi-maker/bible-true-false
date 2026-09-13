@@ -26,7 +26,7 @@
 |-------|--------|
 | Free 30 Q | Live via `free-start` |
 | Full 100 Q | QA only: `?unlock=batch-001` (client-side; not payment) |
-| Stripe / donații | Not wired — `src/purchases.ts` stub |
-| Store IAP | Documented in `docs/capacitor-iap.md` — post-PWA |
+| Donație părinți | PayPal.me on **end screen** only (`src/donate.ts`) — donor picks amount; does **not** unlock packs |
+| Stripe / IAP unlock | Not wired — `src/purchases.ts` stub; store later (`docs/capacitor-iap.md`) |
 
-**Production note:** do not advertise paid unlock until Stripe or IAP exists; remove or gate `?unlock=` if you ship a paid offer.
+**Production note:** do not advertise paid unlock until Stripe or IAP exists; remove or gate `?unlock=` if you ship a paid offer. Donation is optional and separate from entitlements.

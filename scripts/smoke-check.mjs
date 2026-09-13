@@ -129,9 +129,26 @@ ok(setupDoc.includes('## 1. Color pick'), 'setup-screen keeps color pick as step
 ok(setupDoc.includes('## 2. After both players pick'), 'setup-screen keeps step 2')
 ok(setupDoc.includes('not') && setupDoc.toLowerCase().includes('mirrored'), 'host is not tabletop-mirrored')
 
+const donateSrc = readFileSync(join(root, 'src/donate.ts'), 'utf8')
+ok(donateSrc.includes("https://paypal.me/stefanpricopi"), 'donate.ts has PayPal.me URL')
+ok(donateSrc.includes('Invită-ne la o cafea'), 'donate label is Invită-ne la o cafea')
+ok(donateSrc.includes("target = '_blank'"), 'donate link opens in a new tab')
+ok(donateSrc.includes("noopener noreferrer"), 'donate link uses rel noopener noreferrer')
+ok(!donateSrc.includes('entitlements'), 'donate.ts does not mention entitlements')
+ok(!donateSrc.includes('unlock('), 'donate.ts does not call unlock')
+
+ok(mainSrc.includes("from './donate'"), 'main.ts imports donate helper')
+ok((mainSrc.match(/createDonateLink/g) || []).length === 2, 'donate used once (import + renderEnd)')
+const endBlock = mainSrc.split('function renderEnd')[1]?.split('\nfunction ')[0] ?? ''
+ok(endBlock.includes('createDonateLink()'), 'renderEnd appends donate link')
+ok(!endBlock.includes('unlock('), 'renderEnd does not unlock packs')
+
 const cssSrc = readFileSync(join(root, 'src/style.css'), 'utf8')
 ok(cssSrc.includes('.host-grid'), 'host 2×2 grid styles exist')
 ok(cssSrc.includes('.host-tile'), 'host tile styles exist')
+const donateRule = cssSrc.match(/\.btn-donate\s*\{[^}]+\}/)?.[0] ?? ''
+ok(donateRule.includes('background'), 'parent donate button styles exist')
+ok(!donateRule.includes('--adevarat') && !donateRule.includes('--fals'), 'donate button avoids true/false colors')
 
 if (failed > 0) {
   console.error(`\n${failed} check(s) failed`)
