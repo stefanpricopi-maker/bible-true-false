@@ -34,6 +34,62 @@ npm run deploy:cf           # build + upload dist/
 
 Proiectul Pages se numește `bible-true-false` (vezi scriptul din `package.json`).
 
+## Web Analytics (trafic, fără cookie, fără Google)
+
+Cloudflare Web Analytics: page views, vizitatori unici (aprox.), țară, device, referrer. Nu e Google Analytics și nu pune cookie.
+
+```bash
+npm run analytics:enable
+```
+
+Dacă token-ul de deploy n-are dreptul *Account Settings Write*, pornești din dashboard (un click):
+
+1. [Workers & Pages](https://dash.cloudflare.com/) → proiectul `bible-true-false` → **Metrics** → **Enable** la Web Analytics.
+2. Graficele: dashboard → **Web Analytics**.
+3. `npm run deploy:cf` — Pages injectează beacon-ul în HTML la deploy (pagina trebuie să rămână HTML valid: `index.html` deja e).
+
+`*.pages.dev` și (când îl lipim) `mishak.ro` raportează în același loc.
+
+### Funnel de joc (4 evenimente)
+
+Nu e tracking de reclame. App-ul trimite:
+
+| Eveniment | Când |
+|-----------|------|
+| `page_open` | s-a deschis app-ul |
+| `setup_complete` | amândoi au ales culoarea (jocul pornește) |
+| `round_end` | s-a terminat o rundă (`/e/round_end/1` … `/3`) |
+| `game_end` | ecranul final |
+
+Până e Zaraz pe domeniu, aceleași nume apar în Web Analytics → **Top pages** ca `/e/setup_complete`, `/e/round_end/…`, `/e/game_end`. `page_open` e vizita obișnuită (`/`). Când pornești Zaraz, `zaraz.track` e deja apelat cu aceleași nume.
+
+Raportul util: câte `setup_complete` la 100 de vizite.
+
+## Zaraz (un dashboard, după `mishak.ro`)
+
+Zaraz **nu pornește pe** `*.pages.dev`. Cloudflare cere un **domeniu custom** pe zonă orange-cloud, lipit de Pages. Contul acum nu are nicio zonă DNS.
+
+Când ai `mishak.ro`:
+
+1. Adaugă domeniul în Cloudflare (nameservere Rotld → Cloudflare) și **Proxy** (nor portocaliu).
+2. Pages → `bible-true-false` → **Custom domains** → `mishak.ro` (și `www`).
+3. Zona `mishak.ro` → **Zaraz** → Tag setup:
+   - Auto-inject script: **on**
+   - Single Page Application: **on**
+   - **Monitoring**: on (Events / Triggers — funnel-ul de joc)
+4. Triggers (Variable = **Event Name**, Equals):
+
+   | Trigger | Match |
+   |---------|--------|
+   | Page open | `page_open` |
+   | Setup complete | `setup_complete` |
+   | Round end | `round_end` |
+   | Game end | `game_end` |
+
+5. Nu adăuga Google / Meta / pixeli. App-ul apelează deja `zaraz.track` cu numele de mai sus; când Zaraz e injectat, nu mai schimbă URL-ul (`/e/...` e doar fallback-ul de pe pages.dev).
+
+Web Analytics rămâne pentru țară / device / referrer. Zaraz Monitoring e pentru cele 4 evenimente. Totul e tot Cloudflare.
+
 ## Alte host-uri
 
 Netlify / Vercel: același `npm run build`, output `dist`, HTTPS pe subdomeniu gratuit.

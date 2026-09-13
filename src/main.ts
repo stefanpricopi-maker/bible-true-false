@@ -1,4 +1,5 @@
 import './style.css'
+import { resetPlayAnalytics, track } from './analytics'
 import {
   isBandPlayable,
   loadEntitledPack,
@@ -68,6 +69,7 @@ let answerCountdown: {
 } | null = null
 
 engine.subscribe(render)
+track('page_open')
 
 function clearAnswerCountdown(): void {
   if (answerCountdown) {
@@ -157,6 +159,7 @@ async function startGame(): Promise<void> {
   } catch (err) {
     console.error(err)
     alert(err instanceof Error ? err.message : 'Nu am putut porni jocul')
+    resetPlayAnalytics()
     engine.resetToSetup()
   } finally {
     starting = false
@@ -193,6 +196,7 @@ function playAgain(): void {
   roundBreakScheduled = false
   launchScheduled = false
   starting = false
+  resetPlayAnalytics()
   engine.resetToSetup()
   playWelcomeIfNeeded()
 }
@@ -230,6 +234,7 @@ function goHome(): void {
   roundBreakScheduled = false
   launchScheduled = false
   starting = false
+  resetPlayAnalytics()
   engine.resetToSetup()
 }
 
@@ -258,6 +263,7 @@ function render(snap: SessionSnapshot): void {
   app!.append(phone)
   app!.append(renderTransportButton())
   syncAnswerCountdown(snap)
+  trackPlayFunnel(snap)
 }
 
 function renderTransportButton(): HTMLElement {
@@ -770,6 +776,21 @@ function renderEnd(snap: SessionSnapshot): HTMLElement {
   wrap.append(createDonateLink())
 
   return wrap
+}
+
+function trackPlayFunnel(snap: SessionSnapshot): void {
+  if (snap.phase === 'armed') {
+    track('setup_complete', { once: 'setup_complete' })
+    return
+  }
+  if (snap.phase === 'roundBreak') {
+    track('round_end', { once: `round_end:${snap.round}`, round: snap.round })
+    return
+  }
+  if (snap.phase === 'roundEnd') {
+    track('round_end', { once: `round_end:${snap.round}`, round: snap.round })
+    track('game_end', { once: 'game_end' })
+  }
 }
 
 /** Retry welcome until it plays (or leave setup). Gesture unlocks autoplay on iOS. */

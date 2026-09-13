@@ -136,6 +136,7 @@ ok(donateSrc.includes("target = '_blank'"), 'donate link opens in a new tab')
 ok(donateSrc.includes("noopener noreferrer"), 'donate link uses rel noopener noreferrer')
 ok(!donateSrc.includes('entitlements'), 'donate.ts does not mention entitlements')
 ok(!donateSrc.includes('unlock('), 'donate.ts does not call unlock')
+ok(donateSrc.includes("track('donate_click')"), 'donate click is tracked')
 
 ok(mainSrc.includes("from './donate'"), 'main.ts imports donate helper')
 ok((mainSrc.match(/createDonateLink/g) || []).length === 2, 'donate used once (import + renderEnd)')
@@ -149,6 +150,29 @@ ok(cssSrc.includes('.host-tile'), 'host tile styles exist')
 const donateRule = cssSrc.match(/\.btn-donate\s*\{[^}]+\}/)?.[0] ?? ''
 ok(donateRule.includes('background'), 'parent donate button styles exist')
 ok(!donateRule.includes('--adevarat') && !donateRule.includes('--fals'), 'donate button avoids true/false colors')
+
+const indexHtml = readFileSync(join(root, 'index.html'), 'utf8')
+ok(/<!doctype html>/i.test(indexHtml), 'index.html has doctype (Pages can inject Web Analytics)')
+ok(/<html[\s>]/i.test(indexHtml) && /<head[\s>]/i.test(indexHtml) && /<body[\s>]/i.test(indexHtml), 'index.html has html/head/body')
+ok(existsSync(join(root, 'scripts/enable-cf-web-analytics.mjs')), 'analytics enable script exists')
+ok(readFileSync(join(root, 'package.json'), 'utf8').includes('analytics:enable'), 'package.json has analytics:enable')
+ok(readFileSync(join(root, 'docs/deploy.md'), 'utf8').includes('Web Analytics'), 'deploy.md documents Web Analytics')
+ok(readFileSync(join(root, 'docs/deploy.md'), 'utf8').includes('## Zaraz'), 'deploy.md documents Zaraz after mishak.ro')
+const analyticsSrc = readFileSync(join(root, 'src/analytics.ts'), 'utf8')
+ok(analyticsSrc.includes("'page_open'"), 'analytics tracks page_open')
+ok(analyticsSrc.includes("'setup_complete'"), 'analytics tracks setup_complete')
+ok(analyticsSrc.includes("'round_end'"), 'analytics tracks round_end')
+ok(analyticsSrc.includes("'game_end'"), 'analytics tracks game_end')
+ok(analyticsSrc.includes('zaraz'), 'analytics calls zaraz.track when present')
+ok(
+  /if \(zaraz\?\.track\) \{[\s\S]*zaraz\.track\(name, props\)[\s\S]*return/.test(analyticsSrc),
+  'zaraz.track skips /e/ URL fallback (one dashboard)',
+)
+ok(mainSrc.includes("track('page_open')"), 'main fires page_open')
+ok(mainSrc.includes('trackPlayFunnel'), 'main maps phases to play events')
+ok(mainSrc.includes("track('setup_complete'"), 'main fires setup_complete on armed')
+ok(mainSrc.includes("track('game_end'"), 'main fires game_end on roundEnd')
+ok(mainSrc.includes('resetPlayAnalytics'), 'Acasă / Din nou reset play funnel')
 
 if (failed > 0) {
   console.error(`\n${failed} check(s) failed`)
