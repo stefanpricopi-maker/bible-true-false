@@ -281,6 +281,8 @@ function renderTransportButton(): HTMLElement {
 }
 
 function renderRoundBreak(snap: SessionSnapshot): HTMLElement {
+  const wrap = document.createElement('div')
+  wrap.className = 'play-shell setup-shell arena-shell'
 
   wrap.append(
     chosenColorCard(1, 'Jucătorul 2', snap.playerColors[1], snap.scores[1], {
