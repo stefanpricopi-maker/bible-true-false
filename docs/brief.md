@@ -1,4 +1,6 @@
-# Brief — Bible True/False Kids Quiz
+# Brief — Întrebări din Biblie — Adevărat sau Fals?
+
+Nume v1 (locked): **Întrebări din Biblie — Adevărat sau Fals?** · scurt: **Adevărat sau Fals?** · vezi [`docs/decisions/product-name.md`](decisions/product-name.md). Alias intern: Bible True/False Kids Quiz.
 
 ## Ce este
 
@@ -46,7 +48,7 @@ Scorul, tura activă și răspunsurile se comunică vizual prin aceste culori (�
 
 ## Necunoscute deschise
 
-- Nume produs.
+- Nume produs: **Întrebări din Biblie — Adevărat sau Fals?** (locked).
 - Platformă (web / PWA / native).
 - Sursa audio (fișiere locale bundled vs CDN).
 - Cine editează setul de întrebări (JSON hardcodat vs admin).

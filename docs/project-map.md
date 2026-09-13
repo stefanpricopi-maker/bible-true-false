@@ -2,7 +2,7 @@
 
 ## Product
 
-Bible True/False kids quiz (name TBD). Greenfield. Evidence: `docs/brief.md`, folder name `bible-true-false`.
+Întrebări din Biblie — Adevărat sau Fals? (name TBD). Greenfield. Evidence: `docs/brief.md`, folder name `bible-true-false`.
 
 ## Phase status
 
@@ -52,7 +52,7 @@ See `.claude/workflows/feedback-loops.md`.
 
 | Item | Status |
 |------|--------|
-| Product name | unknown |
+| Product name | locked — [`docs/decisions/product-name.md`](decisions/product-name.md) |
 | Platform (web / PWA / native) | unknown — web/PWA **recommended** |
 | Language | unknown (RO inferred) |
 | Audio delivery | bundled pack **recommended** |
@@ -73,3 +73,4 @@ See `.claude/workflows/feedback-loops.md`.
 | `docs/decisions/qa-engineer.md` | Risks, AC |
 | `docs/decisions/reviewer.md` | Conflicts kept visible |
 | `docs/decisions/orchestrator-merge.md` | Go/no-go + defaults |
+| `docs/decisions/product-name.md` | v1 name lock |

@@ -1,4 +1,4 @@
-# Bible True/False Kids Quiz
+# Întrebări din Biblie — Adevărat sau Fals?
 
 Aplicație pentru copii: cultură biblică **Adevărat / Fals**, audio, scor pe 2 jucători pe același device.
 

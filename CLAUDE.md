@@ -1,4 +1,4 @@
-# CLAUDE.md — Bible True/False Kids Quiz
+# CLAUDE.md — Întrebări din Biblie — Adevărat sau Fals?
 
 Greenfield kids quiz: biblical culture, True/False, audio, points. Local multi-agent workflow lives under `.claude/`.
 
