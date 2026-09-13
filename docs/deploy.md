@@ -48,7 +48,22 @@ Dacă token-ul de deploy n-are dreptul *Account Settings Write*, pornești din d
 2. Graficele: dashboard → **Web Analytics**.
 3. `npm run deploy:cf` — Pages injectează beacon-ul în HTML la deploy (pagina trebuie să rămână HTML valid: `index.html` deja e).
 
-`*.pages.dev` și (când îl lipim) `mishak.ro` raportează în același loc. Asta măsoară **deschideri**, nu dacă s-a jucat o partidă.
+`*.pages.dev` și (când îl lipim) `mishak.ro` raportează în același loc.
+
+### Funnel de joc (4 evenimente)
+
+Nu e tracking de reclame. App-ul trimite:
+
+| Eveniment | Când |
+|-----------|------|
+| `page_open` | s-a deschis app-ul |
+| `setup_complete` | amândoi au ales culoarea (jocul pornește) |
+| `round_end` | s-a terminat o rundă (`/e/round_end/1` … `/3`) |
+| `game_end` | ecranul final |
+
+Până e Zaraz pe domeniu, aceleași nume apar în Web Analytics → **Top pages** ca `/e/setup_complete`, `/e/round_end/…`, `/e/game_end`. `page_open` e vizita obișnuită (`/`). Când pornești Zaraz, `zaraz.track` e deja apelat cu aceleași nume.
+
+Raportul util: câte `setup_complete` la 100 de vizite.
 
 ## Alte host-uri
 

@@ -62,6 +62,17 @@ ok(/<html[\s>]/i.test(indexHtml) && /<head[\s>]/i.test(indexHtml) && /<body[\s>]
 ok(existsSync(join(root, 'scripts/enable-cf-web-analytics.mjs')), 'analytics enable script exists')
 ok(readFileSync(join(root, 'package.json'), 'utf8').includes('analytics:enable'), 'package.json has analytics:enable')
 ok(readFileSync(join(root, 'docs/deploy.md'), 'utf8').includes('Web Analytics'), 'deploy.md documents Web Analytics')
+const analyticsSrc = readFileSync(join(root, 'src/analytics.ts'), 'utf8')
+ok(analyticsSrc.includes("'page_open'"), 'analytics tracks page_open')
+ok(analyticsSrc.includes("'setup_complete'"), 'analytics tracks setup_complete')
+ok(analyticsSrc.includes("'round_end'"), 'analytics tracks round_end')
+ok(analyticsSrc.includes("'game_end'"), 'analytics tracks game_end')
+ok(analyticsSrc.includes('zaraz'), 'analytics calls zaraz.track when present')
+const mainSrc = readFileSync(join(root, 'src/main.ts'), 'utf8')
+ok(mainSrc.includes("track('page_open')"), 'main fires page_open')
+ok(mainSrc.includes('trackPlayFunnel'), 'main maps phases to play events')
+ok(mainSrc.includes("track('setup_complete'"), 'main fires setup_complete on armed')
+ok(mainSrc.includes("track('game_end'"), 'main fires game_end on roundEnd')
 
 if (failed > 0) {
   console.error(`\n${failed} check(s) failed`)

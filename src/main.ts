@@ -1,4 +1,5 @@
 import './style.css'
+import { resetPlayAnalytics, track } from './analytics'
 import { loadPlayablePack } from './catalog'
 import { applyUnlockQueryParam } from './entitlements'
 import type { Pack } from './pack/types'
@@ -47,6 +48,7 @@ let answerCountdown: {
 } | null = null
 
 engine.subscribe(render)
+track('page_open')
 
 function clearAnswerCountdown(): void {
   if (answerCountdown) {
@@ -128,6 +130,7 @@ async function startGame(): Promise<void> {
   } catch (err) {
     console.error(err)
     alert(err instanceof Error ? err.message : 'Nu am putut porni jocul')
+    resetPlayAnalytics()
     engine.resetToSetup()
   } finally {
     starting = false
@@ -141,6 +144,7 @@ async function rematchGame(): Promise<void> {
   starting = true
   clearAnswerCountdown()
   roundBreakScheduled = false
+  resetPlayAnalytics()
   engine.stopAudio()
   render(engine.snapshot())
   try {
@@ -149,6 +153,7 @@ async function rematchGame(): Promise<void> {
   } catch (err) {
     console.error(err)
     alert(err instanceof Error ? err.message : 'Nu am putut reporni jocul')
+    resetPlayAnalytics()
     engine.resetToSetup()
   } finally {
     starting = false
@@ -182,6 +187,7 @@ function goHome(): void {
   welcomePlayed = false
   welcomePlaying = false
   cachedPack = null
+  resetPlayAnalytics()
   engine.resetToSetup()
   void ensurePack().then(() => playWelcomeIfNeeded())
 }
@@ -209,6 +215,7 @@ function render(snap: SessionSnapshot): void {
   app!.append(phone)
   app!.append(renderTransportButton())
   syncAnswerCountdown(snap)
+  trackPlayFunnel(snap)
 }
 
 function renderTransportButton(): HTMLElement {
@@ -636,6 +643,21 @@ function renderEnd(snap: SessionSnapshot): HTMLElement {
   wrap.append(home)
 
   return wrap
+}
+
+function trackPlayFunnel(snap: SessionSnapshot): void {
+  if (snap.phase === 'armed') {
+    track('setup_complete', { once: 'setup_complete' })
+    return
+  }
+  if (snap.phase === 'roundBreak') {
+    track('round_end', { once: `round_end:${snap.round}`, round: snap.round })
+    return
+  }
+  if (snap.phase === 'roundEnd') {
+    track('round_end', { once: `round_end:${snap.round}`, round: snap.round })
+    track('game_end', { once: 'game_end' })
+  }
 }
 
 /** Retry welcome until it plays (or leave setup). Gesture unlocks autoplay on iOS. */
