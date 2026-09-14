@@ -173,6 +173,19 @@ ok(mainSrc.includes('trackPlayFunnel'), 'main maps phases to play events')
 ok(mainSrc.includes("track('setup_complete'"), 'main fires setup_complete on armed')
 ok(mainSrc.includes("track('game_end'"), 'main fires game_end on roundEnd')
 ok(mainSrc.includes('resetPlayAnalytics'), 'Acasă / Din nou reset play funnel')
+ok(mainSrc.includes('unlockAudio'), 'color/tap unlocks voiceover channel')
+const launchFn = mainSrc.split('function scheduleLaunch')[1]?.split('\nfunction ')[0] ?? ''
+ok(launchFn.includes('void startGame()'), 'scheduleLaunch starts the game')
+ok(!/\bsetTimeout\b/.test(launchFn), 'game start stays in the color-tap turn (no delayed start)')
+const playerSrc = readFileSync(join(root, 'src/audio/player.ts'), 'utf8')
+ok(playerSrc.includes('isAutoplayBlock'), 'audio player detects autoplay blocks')
+ok(playerSrc.includes('unlock()'), 'audio player can retry after a tap')
+const engineSrc = readFileSync(join(root, 'src/session/engine.ts'), 'utf8')
+ok(mainSrc.includes('dataset.round'), 'arena exposes data-round for play debugging')
+ok(
+  /if \(this\.phase === 'nextTurn'\) \{[\s\S]*playCurrentQuestion\(\)/.test(engineSrc),
+  'missing intro/handoff clip still plays the question',
+)
 
 if (failed > 0) {
   console.error(`\n${failed} check(s) failed`)

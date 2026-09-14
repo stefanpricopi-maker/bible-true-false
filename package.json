@@ -7,7 +7,7 @@
     "dev": "npm run sync:sfx && vite",
     "build": "npm run sync:sfx && tsc && vite build",
     "preview": "vite preview",
-    "test": "node scripts/smoke-check.mjs",
+    "test": "node scripts/smoke-check.mjs && npx --yes vite-node scripts/sim-session.mjs",
     "deploy:cf": "npm run build && npx wrangler pages deploy dist --project-name=bible-true-false",
     "analytics:enable": "node scripts/enable-cf-web-analytics.mjs",
     "gen:audio": "node scripts/gen-placeholder-audio.mjs",

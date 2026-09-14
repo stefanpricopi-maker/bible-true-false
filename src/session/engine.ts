@@ -162,6 +162,11 @@ export class SessionEngine {
     this.sessionPaused = false
   }
 
+  /** Call from a pointer/click gesture so VO can start after autoplay blocks. */
+  unlockAudio(): void {
+    this.audio.unlock()
+  }
+
   /** @returns true if now paused (session + timer) */
   toggleAudioPause(): boolean {
     const pausable =
@@ -207,6 +212,7 @@ export class SessionEngine {
 
   setPlayerColor(player: PlayerId, color: string): void {
     if (this.phase !== 'setup') return
+    this.audio.unlock()
     const other: PlayerId = player === 0 ? 1 : 0
     // Exclusive: cannot take the other player's confirmed color
     if (this.colorChosen[other] && sameColor(this.playerColors[other], color)) {
@@ -766,7 +772,13 @@ export class SessionEngine {
       this.startWaitingLoop()
       return
     }
-    if (this.phase === 'playingQuestion' || this.phase === 'nextTurn') {
+    // Intro / handoff clip missing: still play the question (do not burn the turn).
+    if (this.phase === 'nextTurn') {
+      this.error = null
+      this.playCurrentQuestion()
+      return
+    }
+    if (this.phase === 'playingQuestion') {
       this.skipQuestionNoScore()
       return
     }

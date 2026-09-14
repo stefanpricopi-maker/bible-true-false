@@ -140,7 +140,6 @@ function playWelcomeIfNeeded(): void {
     () => {
       welcomePlayed = true
       welcomePlaying = false
-      document.removeEventListener('pointerdown', onWelcomeGesture)
     },
     () => {
       welcomePlaying = false
@@ -204,13 +203,8 @@ function playAgain(): void {
 function scheduleLaunch(): void {
   if (launchScheduled || starting) return
   launchScheduled = true
-  window.setTimeout(() => {
-    if (!selectedBand || engine.snapshot().phase !== 'armed') {
-      launchScheduled = false
-      return
-    }
-    void startGame()
-  }, 500)
+  // Same tick as the color tap so the browser allows voiceover (no delayed start).
+  void startGame()
 }
 
 function scheduleRoundTwo(): void {
@@ -242,6 +236,8 @@ function render(snap: SessionSnapshot): void {
   app!.innerHTML = ''
   const phone = document.createElement('div')
   phone.className = 'phone'
+  phone.dataset.round = String(snap.round)
+  phone.dataset.phase = snap.phase
 
   if (!selectedBand) {
     phone.append(renderHost())
@@ -793,12 +789,10 @@ function trackPlayFunnel(snap: SessionSnapshot): void {
   }
 }
 
-/** Retry welcome until it plays (or leave setup). Gesture unlocks autoplay on iOS. */
+/** Unlock VO on every tap. Retry welcome while still on color setup. */
 function onWelcomeGesture(): void {
-  if (welcomePlayed) {
-    document.removeEventListener('pointerdown', onWelcomeGesture)
-    return
-  }
+  engine.unlockAudio()
+  if (welcomePlayed) return
   if (!selectedBand || engine.snapshot().phase !== 'setup') return
   void ensurePack().then(() => playWelcomeIfNeeded())
 }

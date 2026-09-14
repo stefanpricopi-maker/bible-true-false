@@ -1,104 +1,184 @@
 export type AudioEndedHandler = () => void
 export type AudioErrorHandler = (error: Error) => void
 
-/** Single-channel player: stop before next play; no overlapping sounds. */
+/** Tiny WAV so a user-gesture `play()` can unlock the VO channel. */
+const SILENT_WAV =
+  'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA'
+
+export function isAutoplayBlock(err: unknown): boolean {
+  if (err == null) return false
+  const name =
+    typeof err === 'object' && err !== null && 'name' in err
+      ? String((err as { name: unknown }).name)
+      : ''
+  const msg = err instanceof Error ? err.message : String(err)
+  if (name === 'NotAllowedError') return true
+  return /not allowed|user didn't interact|user hasn't interacted/i.test(msg)
+}
+
+type Pending = {
+  url: string
+  onEnded?: AudioEndedHandler
+  onError?: AudioErrorHandler
+}
+
+/**
+ * Single-channel player. Reuses one element so a tap can unlock later clips.
+ * Autoplay blocks wait for `unlock()` instead of failing the clip (which used
+ * to skip questions and burn through rounds).
+ */
 export class AudioPlayer {
-  private audio: HTMLAudioElement | null = null
+  private readonly el: HTMLAudioElement
+  private generation = 0
   private onEnded: AudioEndedHandler | null = null
+  private onError: AudioErrorHandler | null = null
+  private pending: Pending | null = null
+  private blocked = false
   private intentionallyPaused = false
+  private ended = true
+
+  constructor() {
+    this.el = new Audio()
+    this.el.preload = 'auto'
+    this.el.addEventListener('ended', () => {
+      if (this.blocked) return
+      this.ended = true
+      this.intentionallyPaused = false
+      const cb = this.onEnded
+      this.onEnded = null
+      this.onError = null
+      this.pending = null
+      cb?.()
+    })
+    this.el.addEventListener('error', () => {
+      if (this.blocked) return
+      this.handlePlayFailure(new Error(`Audio failed: ${this.el.currentSrc || this.el.src}`))
+    })
+  }
 
   play(url: string, onEnded?: AudioEndedHandler, onError?: AudioErrorHandler): void {
-    this.stop()
+    this.generation += 1
+    const gen = this.generation
     this.intentionallyPaused = false
-    const el = new Audio(url)
-    this.audio = el
+    this.blocked = false
+    this.ended = false
     this.onEnded = onEnded ?? null
-    let settled = false
+    this.onError = onError ?? null
+    this.pending = { url, onEnded, onError }
+    this.el.pause()
+    this.el.src = url
+    void this.el.play().then(
+      () => {
+        if (gen !== this.generation) return
+        this.blocked = false
+      },
+      (err: unknown) => {
+        if (gen !== this.generation) return
+        this.handlePlayFailure(err)
+      },
+    )
+  }
 
-    const reportError = (err: Error) => {
-      if (settled) return
-      settled = true
-      this.onEnded = null
-      this.intentionallyPaused = false
-      if (this.audio === el) {
-        this.audio = null
-      }
-      onError?.(err)
+  /** Call from a user gesture. Retries a blocked clip or warms the element. */
+  unlock(): void {
+    if (this.blocked && this.pending) {
+      const { url, onEnded, onError } = this.pending
+      this.play(url, onEnded, onError)
+      return
     }
-
-    el.addEventListener(
-      'ended',
+    if (this.pending) return
+    const gen = this.generation
+    this.el.muted = true
+    const prev = this.el.src
+    if (!prev) this.el.src = SILENT_WAV
+    void this.el.play().then(
       () => {
-        if (this.audio !== el || settled) return
-        settled = true
-        const cb = this.onEnded
-        this.onEnded = null
-        this.intentionallyPaused = false
-        this.audio = null
-        cb?.()
+        if (gen !== this.generation) {
+          this.el.muted = false
+          return
+        }
+        this.el.pause()
+        this.el.muted = false
+        if (this.el.src === SILENT_WAV) this.el.removeAttribute('src')
       },
-      { once: true },
-    )
-
-    el.addEventListener(
-      'error',
       () => {
-        reportError(new Error(`Audio failed: ${url}`))
+        if (gen !== this.generation) return
+        this.el.muted = false
       },
-      { once: true },
     )
-
-    void el.play().catch((err: unknown) => {
-      reportError(err instanceof Error ? err : new Error(String(err)))
-    })
   }
 
   /** Pause current clip; keeps position for resume. */
   pause(): void {
-    if (!this.audio || this.audio.paused) return
+    if (this.ended || this.el.paused) return
     this.intentionallyPaused = true
-    this.audio.pause()
+    this.el.pause()
   }
 
   /** Resume paused clip from the same position. */
   resume(): void {
-    if (!this.audio) return
+    if (this.ended && !this.pending) return
     this.intentionallyPaused = false
-    void this.audio.play().catch(() => {
-      /* ignore gesture/autoplay issues on resume */
-    })
+    const gen = this.generation
+    void this.el.play().then(
+      () => undefined,
+      (err: unknown) => {
+        if (gen !== this.generation) return
+        if (isAutoplayBlock(err)) {
+          this.blocked = true
+          return
+        }
+        /* ignore other resume failures */
+      },
+    )
   }
 
   togglePause(): boolean {
-    if (!this.audio) return false
-    if (this.audio.paused && this.intentionallyPaused) {
+    if (this.ended && !this.pending) return false
+    if (this.el.paused && this.intentionallyPaused) {
       this.resume()
       return false
     }
-    if (!this.audio.paused) {
+    if (!this.el.paused) {
       this.pause()
       return true
     }
-    // paused but not by us (e.g. ended) — try play
     this.resume()
     return false
   }
 
   get isPaused(): boolean {
-    return this.intentionallyPaused && !!this.audio?.paused
+    return this.intentionallyPaused && this.el.paused
   }
 
   get hasActiveClip(): boolean {
-    return this.audio !== null && !this.audio.ended
+    return !this.ended && !this.el.ended
   }
 
   stop(): void {
-    if (!this.audio) return
+    this.generation += 1
+    this.blocked = false
     this.intentionallyPaused = false
-    this.audio.pause()
-    this.audio.removeAttribute('src')
-    this.audio.load()
-    this.audio = null
+    this.ended = true
     this.onEnded = null
+    this.onError = null
+    this.pending = null
+    this.el.pause()
+    this.el.removeAttribute('src')
+  }
+
+  private handlePlayFailure(err: unknown): void {
+    if (isAutoplayBlock(err)) {
+      this.blocked = true
+      this.ended = false
+      return
+    }
+    this.ended = true
+    this.blocked = false
+    this.pending = null
+    const cb = this.onError
+    this.onEnded = null
+    this.onError = null
+    cb?.(err instanceof Error ? err : new Error(String(err)))
   }
 }
