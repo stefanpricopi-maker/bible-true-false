@@ -23,6 +23,8 @@ export type ClipRef = string | string[]
 
 export type PackVoiceover = {
   welcome?: ClipRef
+  /** After welcome on color setup: who may pick first. */
+  setupColorHint?: ClipRef
   gameStart?: ClipRef
   round1Start?: ClipRef
   firstQuestionCue?: ClipRef

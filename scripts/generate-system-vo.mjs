@@ -10,6 +10,7 @@
  *   --pack          write into public/packs/demo-v1/ + update manifest arrays
  *   --batch path    override JSON path
  *   --only-new      skip texts[0] if base file exists (generate only missing variants)
+ *   --ids a,b       only these clip ids (e.g. correct,incorrect)
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
@@ -37,6 +38,14 @@ if (!apiKey || !voiceId) {
 
 const batch = JSON.parse(readFileSync(batchPath, 'utf8'))
 let clips = batch.clips ?? []
+if (args.ids?.length) {
+  const want = new Set(args.ids)
+  clips = clips.filter((c) => want.has(c.id))
+  if (clips.length === 0) {
+    console.error(`No clips matched --ids ${args.ids.join(',')}`)
+    process.exit(1)
+  }
+}
 if (args.limit != null) clips = clips.slice(0, args.limit)
 
 mkdirSync(outRoot, { recursive: true })
@@ -181,15 +190,25 @@ async function synthesize(text) {
 }
 
 function parseArgs(argv) {
-  const out = { force: false, limit: null, batch: null, pack: false }
+  const out = { force: false, limit: null, batch: null, pack: false, ids: null }
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i]
     if (a === '--force') out.force = true
     else if (a === '--pack') out.pack = true
     else if (a === '--limit') out.limit = Number(argv[++i])
     else if (a === '--batch') out.batch = argv[++i]
+    else if (a === '--ids') out.ids = String(argv[++i] ?? '')
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean)
     else if (a.startsWith('--limit=')) out.limit = Number(a.slice(8))
     else if (a.startsWith('--batch=')) out.batch = a.slice(8)
+    else if (a.startsWith('--ids='))
+      out.ids = a
+        .slice(6)
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean)
   }
   if (out.limit != null && (!Number.isFinite(out.limit) || out.limit < 1)) {
     throw new Error('--limit must be a positive number')

@@ -8,7 +8,19 @@ import {
 } from './catalog'
 import { createDonateLink } from './donate'
 import { applyUnlockQueryParam } from './entitlements'
+import {
+  bandLabel,
+  formatPlayedAt,
+  getLastGame,
+  saveGame,
+} from './history'
 import type { Pack } from './pack/types'
+import {
+  getSettings,
+  setSkipWelcome,
+  setSfxVolume,
+  setVoVolume,
+} from './settings'
 import { SessionEngine, type SessionSnapshot, type StartRound } from './session/engine'
 
 applyUnlockQueryParam()
@@ -69,6 +81,11 @@ if (!app) throw new Error('#app missing')
 const ANSWER_SECONDS = 10
 
 const engine = new SessionEngine()
+{
+  const s = getSettings()
+  engine.setVoVolume(s.voVolume)
+  engine.setSfxVolume(s.sfxVolume)
+}
 let starting = false
 let launchScheduled = false
 let roundBreakScheduled = false
@@ -79,6 +96,8 @@ let entitledLoading = false
 let selectedBand: AgeBand | null = null
 let welcomePlayed = false
 let welcomePlaying = false
+/** One localStorage write per finished match. */
+let historySavedForGame = false
 let answerCountdown: {
   key: string
   left: number
@@ -146,10 +165,26 @@ async function ensurePack(): Promise<Pack> {
   return cachedPack
 }
 
+function playSetupColorHintIfNeeded(): void {
+  if (!selectedBand || !cachedPack) return
+  if (engine.snapshot().phase !== 'setup') return
+  const hint = cachedPack.voiceover?.setupColorHint
+  if (!hint) return
+  const snap = engine.snapshot()
+  // Skip if someone already picked during welcome.
+  if (snap.colorChosen[0] || snap.colorChosen[1]) return
+  engine.playClip(cachedPack, hint)
+}
+
 function playWelcomeIfNeeded(): void {
   if (!selectedBand) return
-  if (welcomePlayed || welcomePlaying || !cachedPack?.voiceover?.welcome) return
+  if (welcomePlayed || welcomePlaying) return
   if (engine.snapshot().phase !== 'setup') return
+  if (getSettings().skipWelcome) {
+    welcomePlayed = true
+    return
+  }
+  if (!cachedPack?.voiceover?.welcome) return
   welcomePlaying = true
   engine.playClip(
     cachedPack,
@@ -157,6 +192,7 @@ function playWelcomeIfNeeded(): void {
     () => {
       welcomePlayed = true
       welcomePlaying = false
+      playSetupColorHintIfNeeded()
     },
     () => {
       welcomePlaying = false
@@ -212,6 +248,7 @@ function playAgain(): void {
   roundBreakScheduled = false
   launchScheduled = false
   starting = false
+  historySavedForGame = false
   resetPlayAnalytics()
   engine.resetToSetup()
   playWelcomeIfNeeded()
@@ -245,43 +282,188 @@ function goHome(): void {
   roundBreakScheduled = false
   launchScheduled = false
   starting = false
+  historySavedForGame = false
   resetPlayAnalytics()
   engine.resetToSetup()
 }
 
+/** Confirm only once a round has started — setup can leave immediately. */
+function needsExitConfirm(): boolean {
+  if (!selectedBand) return false
+  const phase = engine.snapshot().phase
+  return phase !== 'setup' && phase !== 'roundEnd' && phase !== 'armed'
+}
+
+/** Stop audio/session chrome and leave the app for the Mishak hub. */
+function exitToHub(): void {
+  dismissExitConfirm()
+  clearAnswerCountdown()
+  try {
+    if (!engine.isSessionPaused()) engine.toggleAudioPause()
+  } catch {
+    /* ignore */
+  }
+  window.location.assign(hubUrl())
+}
+
+function dismissExitConfirm(): void {
+  const dlg = document.getElementById('exit-confirm')
+  if (dlg instanceof HTMLDialogElement && dlg.open) dlg.close()
+  dlg?.remove()
+}
+
+function showExitConfirm(): void {
+  dismissExitConfirm()
+  try {
+    if (!engine.isSessionPaused()) engine.toggleAudioPause()
+  } catch {
+    /* ignore */
+  }
+
+  const dlg = document.createElement('dialog')
+  dlg.id = 'exit-confirm'
+  dlg.className = 'exit-confirm'
+  dlg.setAttribute('aria-labelledby', 'exit-confirm-title')
+
+  const card = document.createElement('div')
+  card.className = 'exit-confirm__card'
+
+  const title = document.createElement('h2')
+  title.id = 'exit-confirm-title'
+  title.className = 'exit-confirm__title'
+  title.textContent = 'Ieși la hub?'
+
+  const body = document.createElement('p')
+  body.className = 'exit-confirm__body'
+  body.textContent = 'Jocul se oprește. Scorul acestei partide se pierde.'
+
+  const actions = document.createElement('div')
+  actions.className = 'exit-confirm__actions'
+
+  const stay = document.createElement('button')
+  stay.type = 'button'
+  stay.className = 'btn-start'
+  stay.textContent = 'Rămâi'
+  stay.addEventListener('click', (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    dismissExitConfirm()
+    syncChrome()
+  })
+
+  const leave = document.createElement('button')
+  leave.type = 'button'
+  leave.className = 'btn-start btn-start--hub'
+  leave.value = 'leave'
+  leave.textContent = 'Ieși'
+  leave.addEventListener('click', (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    exitToHub()
+  })
+
+  actions.append(stay, leave)
+  card.append(title, body, actions)
+  dlg.append(card)
+  dlg.addEventListener('cancel', (e) => {
+    e.preventDefault()
+    dismissExitConfirm()
+    syncChrome()
+  })
+  document.body.append(dlg)
+  dlg.showModal()
+}
+
 function render(snap: SessionSnapshot): void {
-  app!.innerHTML = ''
   const phone = document.createElement('div')
   phone.className = 'phone'
   phone.dataset.round = String(snap.round)
   phone.dataset.phase = snap.phase
+
+  // Side effects must run AFTER this paint — scheduleLaunch/startGame call
+  // render() again; doing that mid-build appended a second .phone (doubled UI).
+  let afterPaint: (() => void) | null = null
 
   if (!selectedBand) {
     phone.classList.add('is-host')
     phone.append(renderHost())
   } else if (snap.phase === 'setup') {
     phone.append(renderSetup(snap))
-    void ensurePack().then(() => playWelcomeIfNeeded())
+    afterPaint = () => {
+      void ensurePack().then(() => playWelcomeIfNeeded())
+    }
   } else if (snap.phase === 'armed') {
     phone.append(renderArena(snap, { interactive: false }))
-    scheduleLaunch()
+    afterPaint = () => scheduleLaunch()
   } else if (snap.phase === 'roundBreak') {
     phone.append(renderRoundBreak(snap))
-    scheduleRoundTwo()
+    afterPaint = () => scheduleRoundTwo()
   } else if (snap.phase === 'roundEnd') {
     phone.append(renderEnd(snap))
   } else {
     phone.append(renderArena(snap, { interactive: true }))
   }
 
-  document
-    .querySelector('meta[name="theme-color"]')
-    ?.setAttribute('content', selectedBand ? '#F7F5F2' : '#163830')
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#163830')
 
-  app!.append(phone)
-  app!.append(renderTransportButton())
+  // Phone only inside #app — chrome FABs live on document.body so replaceChildren
+  // never drops them and they stay above the playfield for clicks.
+  app!.replaceChildren(phone)
+  syncChrome()
   syncAnswerCountdown(snap)
   trackPlayFunnel(snap)
+  afterPaint?.()
+}
+
+/** Fixed Hub + pause controls on document.body (survives #app re-renders). */
+function syncChrome(): void {
+  let wrap = document.getElementById('chrome-fabs')
+  if (!wrap) {
+    wrap = document.createElement('div')
+    wrap.id = 'chrome-fabs'
+    wrap.className = 'chrome-fabs'
+    document.body.append(wrap)
+  }
+
+  wrap.replaceChildren()
+
+  // Host topbar already has ← Hub; FAB on setup + play (+ end).
+  if (selectedBand) {
+    const exit = document.createElement('a')
+    exit.className = 'exit-hub-btn'
+    exit.href = hubUrl()
+    exit.setAttribute('aria-label', 'Oprește și ieși la hub')
+    exit.title = '← Hub'
+    exit.textContent = '← Hub'
+    exit.addEventListener('click', (e) => {
+      // Mid-game: confirm first. Setup/end: let the browser follow href (reliable).
+      if (!needsExitConfirm()) return
+      e.preventDefault()
+      e.stopPropagation()
+      showExitConfirm()
+      syncChrome()
+    })
+    wrap.append(exit)
+  }
+
+  if (engine.canReplayQuestion()) {
+    const replay = document.createElement('button')
+    replay.type = 'button'
+    replay.className = 'replay-btn'
+    replay.setAttribute('aria-label', 'Ascultă din nou întrebarea')
+    replay.title = 'Ascultă din nou'
+    replay.innerHTML =
+      '<span class="transport-icon" aria-hidden="true">↻</span>'
+    replay.addEventListener('click', (e) => {
+      e.stopPropagation()
+      engine.unlockAudio()
+      engine.replayQuestion()
+      syncChrome()
+    })
+    wrap.append(replay)
+  }
+
+  wrap.append(renderTransportButton())
 }
 
 function renderTransportButton(): HTMLElement {
@@ -297,9 +479,7 @@ function renderTransportButton(): HTMLElement {
   btn.addEventListener('click', (e) => {
     e.stopPropagation()
     engine.toggleAudioPause()
-    // Refresh only the button, not the whole screen (avoids restarting timers)
-    const next = renderTransportButton()
-    btn.replaceWith(next)
+    syncChrome()
   })
   return btn
 }
@@ -350,17 +530,32 @@ function renderHost(): HTMLElement {
   brand.href = hubUrl()
   brand.textContent = 'Mishak'
   brand.title = 'Înapoi la hub'
+  const actions = document.createElement('div')
+  actions.className = 'host-topbar__actions'
+  const settingsBtn = document.createElement('button')
+  settingsBtn.type = 'button'
+  settingsBtn.className = 'host-hub-link'
+  settingsBtn.textContent = 'Setări'
+  settingsBtn.setAttribute('aria-label', 'Setări audio')
+  settingsBtn.addEventListener('click', (e) => {
+    e.stopPropagation()
+    openSettingsDialog()
+  })
   const hub = document.createElement('a')
   hub.className = 'host-hub-link'
   hub.href = hubUrl()
   hub.textContent = '← Hub'
-  topbar.append(brand, hub)
+  actions.append(settingsBtn, hub)
+  topbar.append(brand, actions)
   wrap.append(topbar)
 
   const heading = document.createElement('h1')
   heading.className = 'host-heading'
   heading.textContent = 'Alege grupa'
   wrap.append(heading)
+
+  const last = renderLastGameCard()
+  if (last) wrap.append(last)
 
   const grid = document.createElement('div')
   grid.className = 'host-grid'
@@ -453,6 +648,142 @@ function renderHost(): HTMLElement {
   return wrap
 }
 
+function openSettingsDialog(): void {
+  document.getElementById('settings-dialog')?.remove()
+  const s = getSettings()
+
+  const dlg = document.createElement('dialog')
+  dlg.id = 'settings-dialog'
+  dlg.className = 'settings-dialog'
+  dlg.setAttribute('aria-labelledby', 'settings-title')
+
+  const card = document.createElement('div')
+  card.className = 'settings-dialog__card'
+
+  const title = document.createElement('h2')
+  title.id = 'settings-title'
+  title.className = 'settings-dialog__title'
+  title.textContent = 'Setări'
+
+  const voLabel = document.createElement('label')
+  voLabel.className = 'settings-dialog__row'
+  const voText = document.createElement('span')
+  voText.textContent = 'Volum voce'
+  const vo = document.createElement('input')
+  vo.type = 'range'
+  vo.min = '0'
+  vo.max = '100'
+  vo.step = '5'
+  vo.value = String(Math.round(s.voVolume * 100))
+  vo.setAttribute('aria-label', 'Volum voce')
+  vo.addEventListener('input', () => {
+    const next = setVoVolume(Number(vo.value) / 100)
+    engine.setVoVolume(next.voVolume)
+  })
+  voLabel.append(voText, vo)
+
+  const sfxLabel = document.createElement('label')
+  sfxLabel.className = 'settings-dialog__row'
+  const sfxText = document.createElement('span')
+  sfxText.textContent = 'Volum sunete'
+  const sfx = document.createElement('input')
+  sfx.type = 'range'
+  sfx.min = '0'
+  sfx.max = '100'
+  sfx.step = '5'
+  sfx.value = String(Math.round(s.sfxVolume * 100))
+  sfx.setAttribute('aria-label', 'Volum sunete')
+  sfx.addEventListener('input', () => {
+    const next = setSfxVolume(Number(sfx.value) / 100)
+    engine.setSfxVolume(next.sfxVolume)
+  })
+  sfxLabel.append(sfxText, sfx)
+
+  const skipLabel = document.createElement('label')
+  skipLabel.className = 'settings-dialog__check'
+  const skip = document.createElement('input')
+  skip.type = 'checkbox'
+  skip.checked = s.skipWelcome
+  skip.addEventListener('change', () => {
+    setSkipWelcome(skip.checked)
+  })
+  const skipText = document.createElement('span')
+  skipText.textContent = 'Sari peste bun venit'
+  skipLabel.append(skip, skipText)
+
+  const close = document.createElement('button')
+  close.type = 'button'
+  close.className = 'btn-start'
+  close.textContent = 'Gata'
+  close.addEventListener('click', () => {
+    dlg.close()
+    dlg.remove()
+  })
+
+  card.append(title, voLabel, sfxLabel, skipLabel, close)
+  dlg.append(card)
+  dlg.addEventListener('cancel', () => {
+    dlg.remove()
+  })
+  document.body.append(dlg)
+  dlg.showModal()
+}
+
+/** Parent-facing last match summary on the host screen. */
+function renderLastGameCard(): HTMLElement | null {
+  const game = getLastGame()
+  if (!game) return null
+
+  const card = document.createElement('section')
+  card.className = 'last-game'
+  card.setAttribute('aria-label', 'Ultima partidă')
+
+  const kicker = document.createElement('p')
+  kicker.className = 'last-game__kicker'
+  kicker.textContent = 'Ultima partidă'
+
+  const meta = document.createElement('p')
+  meta.className = 'last-game__meta'
+  const when = formatPlayedAt(game.at)
+  meta.textContent = when
+    ? `${bandLabel(game.band)} · ${when}`
+    : bandLabel(game.band)
+
+  const row = document.createElement('div')
+  row.className = 'last-game__scores'
+
+  const p1 = document.createElement('div')
+  p1.className = 'last-game__side'
+  const c1 = document.createElement('span')
+  c1.className = 'last-game__swatch'
+  c1.style.background = game.colors[0]
+  c1.title = 'Jucătorul 1'
+  const s1 = document.createElement('span')
+  s1.className = 'last-game__score'
+  s1.textContent = String(game.scores[0])
+  p1.append(c1, s1)
+
+  const vs = document.createElement('span')
+  vs.className = 'last-game__vs'
+  vs.setAttribute('aria-hidden', 'true')
+  vs.textContent = '·'
+
+  const p2 = document.createElement('div')
+  p2.className = 'last-game__side'
+  const s2 = document.createElement('span')
+  s2.className = 'last-game__score'
+  s2.textContent = String(game.scores[1])
+  const c2 = document.createElement('span')
+  c2.className = 'last-game__swatch'
+  c2.style.background = game.colors[1]
+  c2.title = 'Jucătorul 2'
+  p2.append(s2, c2)
+
+  row.append(p1, vs, p2)
+  card.append(kicker, row, meta)
+  return card
+}
+
 function renderSetup(snap: SessionSnapshot): HTMLElement {
   const wrap = document.createElement('div')
   wrap.className = 'play-shell setup-shell'
@@ -532,7 +863,13 @@ function renderArena(
   opts: { interactive: boolean },
 ): HTMLElement {
   const wrap = document.createElement('div')
-  wrap.className = 'play-shell setup-shell arena-shell'
+  const buzzOpen = opts.interactive && snap.buzzEnabled
+  const answerOpen =
+    opts.interactive && snap.phase === 'awaitingAnswer' && snap.inputEnabled
+  wrap.className =
+    'play-shell setup-shell arena-shell' +
+    (buzzOpen ? ' arena-shell--buzz' : '') +
+    (answerOpen ? ' arena-shell--answer' : '')
 
   if (snap.error) {
     const err = document.createElement('p')
@@ -554,7 +891,7 @@ function renderArena(
     chosenColorCard(1, 'Jucătorul 2', snap.playerColors[1], snap.scores[1], {
       mirrored: true,
       active: blinkP2,
-      buzzable: opts.interactive && snap.buzzEnabled,
+      buzzable: buzzOpen,
     }),
   )
 
@@ -567,6 +904,7 @@ function renderArena(
         snap.phase === 'awaitingBuzz' || snap.phase === 'awaitingAnswer',
       timerSeconds: answerCountdown?.left ?? ANSWER_SECONDS,
       activePlayer: snap.activePlayer,
+      mode: buzzOpen ? 'buzz' : answerOpen ? 'answer' : 'idle',
     }),
   )
 
@@ -574,7 +912,7 @@ function renderArena(
     chosenColorCard(0, 'Jucătorul 1', snap.playerColors[0], snap.scores[0], {
       mirrored: false,
       active: blinkP1,
-      buzzable: opts.interactive && snap.buzzEnabled,
+      buzzable: buzzOpen,
     }),
   )
 
@@ -589,17 +927,37 @@ function splitCircle(opts: {
   timerSeconds: number
   /** When set, taps in the wrong tabletop half (P2 top / P1 bottom) are ignored. */
   activePlayer?: 0 | 1
+  mode?: 'idle' | 'buzz' | 'answer'
 }): HTMLElement {
   const circle = document.createElement('div')
-  circle.className = 'split-circle' + (opts.large ? ' split-circle--large' : '')
+  const mode = opts.mode ?? 'idle'
+  circle.className =
+    'split-circle' +
+    (opts.large ? ' split-circle--large' : '') +
+    (mode === 'buzz' ? ' split-circle--buzz-wait' : '') +
+    (mode === 'answer' ? ' split-circle--answer-hot' : '')
   circle.setAttribute('role', opts.interactive ? 'group' : 'img')
   circle.setAttribute('aria-label', 'Fals sau Adevărat')
 
-  const label = (text: string) => {
+  /** Shape + optional text — shape carries meaning without reading (colorblind). */
+  const face = (kind: 'fals' | 'adevarat', text: string) => {
+    const wrap = document.createElement('span')
+    wrap.className = 'split-face'
+    const shape = document.createElement('span')
+    shape.className = `split-shape split-shape--${kind}`
+    shape.setAttribute('aria-hidden', 'true')
+    if (kind === 'fals') {
+      shape.innerHTML =
+        '<svg viewBox="0 0 32 32" focusable="false"><rect x="3" y="3" width="26" height="26" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><path d="M10 10l12 12M22 10L10 22" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>'
+    } else {
+      shape.innerHTML =
+        '<svg viewBox="0 0 32 32" focusable="false"><circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor" stroke-width="3"/><path d="M9.5 16.5l4.2 4.2L22.5 11" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    }
     const span = document.createElement('span')
     span.className = 'split-label'
     span.textContent = text
-    return span
+    wrap.append(shape, span)
+    return wrap
   }
 
   const tryAnswer = (choice: boolean, e: MouseEvent) => {
@@ -618,7 +976,7 @@ function splitCircle(opts: {
     falsBtn.className = 'split-half fals'
     falsBtn.disabled = !opts.enabled
     falsBtn.setAttribute('aria-label', 'Fals')
-    falsBtn.append(label('Fals'))
+    falsBtn.append(face('fals', 'Fals'))
     falsBtn.addEventListener('click', (e) => tryAnswer(false, e))
 
     const trueBtn = document.createElement('button')
@@ -626,17 +984,17 @@ function splitCircle(opts: {
     trueBtn.className = 'split-half adevarat'
     trueBtn.disabled = !opts.enabled
     trueBtn.setAttribute('aria-label', 'Adevărat')
-    trueBtn.append(label('Adevărat'))
+    trueBtn.append(face('adevarat', 'Adevărat'))
     trueBtn.addEventListener('click', (e) => tryAnswer(true, e))
 
     circle.append(falsBtn, trueBtn)
   } else {
     const fals = document.createElement('span')
     fals.className = 'split-half fals'
-    fals.append(label('Fals'))
+    fals.append(face('fals', 'Fals'))
     const adevarat = document.createElement('span')
     adevarat.className = 'split-half adevarat'
-    adevarat.append(label('Adevărat'))
+    adevarat.append(face('adevarat', 'Adevărat'))
     circle.append(fals, adevarat)
   }
 
@@ -823,11 +1181,17 @@ function renderEnd(snap: SessionSnapshot): HTMLElement {
 
   const home = document.createElement('button')
   home.type = 'button'
-  home.className = 'btn-start'
-  home.style.background = '#64748b'
-  home.textContent = 'Acasă'
+  home.className = 'btn-start btn-start--muted'
+  home.textContent = 'Altă grupă'
   home.addEventListener('click', () => goHome())
   wrap.append(home)
+
+  const hub = document.createElement('button')
+  hub.type = 'button'
+  hub.className = 'btn-start btn-start--hub'
+  hub.textContent = '← Hub'
+  hub.addEventListener('click', () => exitToHub())
+  wrap.append(hub)
 
   wrap.append(createDonateLink())
 
@@ -846,15 +1210,27 @@ function trackPlayFunnel(snap: SessionSnapshot): void {
   if (snap.phase === 'roundEnd') {
     track('round_end', { once: `round_end:${snap.round}`, round: snap.round })
     track('game_end', { once: 'game_end' })
+    if (!historySavedForGame && selectedBand) {
+      historySavedForGame = true
+      saveGame({
+        band: selectedBand,
+        scores: [snap.scores[0], snap.scores[1]],
+        colors: [snap.playerColors[0], snap.playerColors[1]],
+      })
+    }
   }
 }
 
-/** Unlock VO on every tap. Retry welcome while still on color setup. */
-function onWelcomeGesture(): void {
+/** Unlock VO on every tap/key. Retry welcome while still on color setup. */
+function onAudioGesture(): void {
   engine.unlockAudio()
   if (welcomePlayed) return
   if (!selectedBand || engine.snapshot().phase !== 'setup') return
   void ensurePack().then(() => playWelcomeIfNeeded())
 }
 
-document.addEventListener('pointerdown', onWelcomeGesture)
+document.addEventListener('pointerdown', onAudioGesture)
+document.addEventListener('keydown', onAudioGesture)
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') engine.unlockAudio()
+})

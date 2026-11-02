@@ -99,7 +99,10 @@ ok(mainSrc.includes("id: 'tineri'") && mainSrc.includes("id: 'adulti'"), 'host t
 ok(mainSrc.includes('/bands/${band.id}.png'), 'host tiles use band illustrations')
 ok(!mainSrc.includes('host-label'), 'host tiles have no visible category names')
 ok(!mainSrc.includes('18+'), 'adults tile has no 18+ age')
-ok(mainSrc.includes('în curând'), 'inactive tiles keep în curând in aria-label')
+ok(
+  /în curând/i.test(mainSrc),
+  'inactive tiles keep în curând in aria-label',
+)
 for (const band of BANDS) {
   ok(
     existsSync(join(root, 'public/bands', `${band}.png`)),

@@ -19,8 +19,13 @@ class FakeAudio {
     this.ended = false
     this.muted = false
     this.preload = 'auto'
+    this.volume = 1
+    /** HAVE_ENOUGH_DATA — dual-slot player may gate on readyState / canplay. */
+    this.readyState = 4
+    this.error = null
     this._ended = []
     this._error = []
+    this._canplay = []
   }
 
   get currentSrc() {
@@ -30,6 +35,21 @@ class FakeAudio {
   addEventListener(type, cb) {
     if (type === 'ended') this._ended.push(cb)
     if (type === 'error') this._error.push(cb)
+    if (type === 'canplay') this._canplay.push(cb)
+  }
+
+  removeEventListener(type, cb) {
+    const bucket =
+      type === 'ended'
+        ? this._ended
+        : type === 'error'
+          ? this._error
+          : type === 'canplay'
+            ? this._canplay
+            : null
+    if (!bucket) return
+    const i = bucket.indexOf(cb)
+    if (i >= 0) bucket.splice(i, 1)
   }
 
   play() {
@@ -52,12 +72,20 @@ class FakeAudio {
     this.paused = true
   }
 
-  load() {}
+  load() {
+    this.readyState = 4
+    queueMicrotask(() => {
+      for (const cb of [...this._canplay]) cb()
+    })
+  }
 
   removeAttribute() {
     this.src = ''
   }
 }
+
+globalThis.MediaError = { MEDIA_ERR_ABORTED: 1, MEDIA_ERR_NETWORK: 2, MEDIA_ERR_DECODE: 3, MEDIA_ERR_SRC_NOT_SUPPORTED: 4 }
+globalThis.HTMLMediaElement = { HAVE_NOTHING: 0, HAVE_METADATA: 1, HAVE_CURRENT_DATA: 2, HAVE_FUTURE_DATA: 3, HAVE_ENOUGH_DATA: 4 }
 
 globalThis.Audio = FakeAudio
 

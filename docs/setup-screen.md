@@ -18,8 +18,13 @@ Screen heading: **Alege grupa**. 2×2 tiles: illustration + **title** + **captio
 - Tap a **playable** band (currently only **Copii**) → color setup. No „Începe”.
 - Tap an inactive tile → stay on the host screen (dimmed art + lock mark; `aria-label` includes „În curând”).
 - A band is playable only when the entitled pool has at least 30 questions **with audio** for that `ageBand` (engine: `QUESTIONS_PER_ROUND * TOTAL_ROUNDS`).
-- Welcome VO plays on the **color** setup screen, not here.
-- **Acasă** returns to this host picker. **Din nou** keeps the band and returns to color setup.
+- Welcome VO plays on the **color** setup screen, not here; then a short **setupColorHint** clip says either player may pick first (other picks a different color). Skip hint if a color was already chosen during welcome.
+  - Audio variants are PLACEHOLDER (`say` Ioana) until ElevenLabs regen: `npm run gen:system-vo -- --force --pack` (needs API keys).
+- **Altă grupă** (end screen) returns to this host picker. **Din nou** keeps the band and returns to color setup.
+- **← Hub** (FAB on setup/play + end button) leaves to the Mishak hub — parent control, not a kid T/F answer. Setup / end / host go straight to hub; mid-round FAB asks **Ieși la hub?** (Rămâi / Ieși) via a modal and pauses audio.
+- **↻** (FAB while a question is active) replays the current question audio; does not change scores or R3 locks; answer timer restarts after the clip.
+- **Ultima partidă** (parent card under the heading): last finished match from `localStorage` (`btf.history.v1`) — band, colors, scores, relative time. Keeps up to 5 games; UI shows the newest.
+- **Setări** (host topbar): VO volume, SFX volume, skip welcome — stored in `btf.settings.v1`. Skip welcome also skips the color-hint clip.
 
 ## 1. Color pick
 
@@ -34,9 +39,10 @@ Each player sees all four swatches with **none selected**. After a tap, that col
 - Circle **grows**
 - Each player shows a **large chosen-color box** (P2 above circle, P1 below)
 - Score is shown on the color box
-- Circle halves become the True/False answer controls (etichete Fals / Adevărat)
+- Circle halves become the True/False answer controls (etichete Fals / Adevărat) + **forme** (pătrat+X = Fals, cerc+✓ = Adevărat) pe lângă culoare — sprijin daltonism, fără a cere citit
 - Countdown diamond only while waiting for buzz or T/F
 - Tabletop turn guard: tap on the **top** half of the screen counts as P2; **bottom** as P1 — wrong side ignored during the other player's turn
+- Turn / buzz cues: active color box pulses + glow; R2 buzz dims the T/F circle and rings both color boxes; after claim the circle pops back to answer-ready
 
 ## Removed
 
