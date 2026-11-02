@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "packs": [
+    {
+      "id": "free-clase-4-5",
+      "title": "Clasele 4–5 — start gratuit",
+      "priceTier": "free",
+      "category": "clase_4_5",
+      "packId": "clase-4-5",
+      "description": "Set PLACEHOLDER de antrenament (neoficial) pentru tipurile I–V"
+    }
+  ]
+}
