@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "node scripts/smoke-check.mjs && npx --yes vite-node scripts/sim-score.mjs",
-    "deploy:cf": "npm run build && npx wrangler pages deploy dist --project-name=mishak-talantul-clasic"
+    "deploy:cf": "npm run build && npx wrangler pages deploy dist --project-name=mishak-talantul-clasic --branch=main --commit-dirty=true"
   },
   "devDependencies": {
     "typescript": "~5.9.3",

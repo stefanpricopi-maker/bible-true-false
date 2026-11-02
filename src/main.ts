@@ -28,11 +28,28 @@ const SWATCHES = [
 const HOST_BANDS: readonly {
   id: AgeBand
   label: string
+  caption: string
 }[] = [
-  { id: 'mic', label: 'Mic' },
-  { id: 'copii', label: 'Copii' },
-  { id: 'tineri', label: 'Tineri' },
-  { id: 'adulti', label: 'Adulți' },
+  {
+    id: 'mic',
+    label: 'Mic',
+    caption: 'Întrebări pentru cei mai mici (~4–7 ani)',
+  },
+  {
+    id: 'copii',
+    label: 'Copii',
+    caption: 'Întrebări pentru școală (~8–12 ani)',
+  },
+  {
+    id: 'tineri',
+    label: 'Tineri',
+    caption: 'Întrebări pentru adolescenți (~13–18 ani)',
+  },
+  {
+    id: 'adulti',
+    label: 'Adulți',
+    caption: 'Întrebări pentru părinți și adulți',
+  },
 ]
 
 /** Yellow (and other light swatches) need dark score text. */
@@ -240,6 +257,7 @@ function render(snap: SessionSnapshot): void {
   phone.dataset.phase = snap.phase
 
   if (!selectedBand) {
+    phone.classList.add('is-host')
     phone.append(renderHost())
   } else if (snap.phase === 'setup') {
     phone.append(renderSetup(snap))
@@ -255,6 +273,10 @@ function render(snap: SessionSnapshot): void {
   } else {
     phone.append(renderArena(snap, { interactive: true }))
   }
+
+  document
+    .querySelector('meta[name="theme-color"]')
+    ?.setAttribute('content', selectedBand ? '#F7F5F2' : '#163830')
 
   app!.append(phone)
   app!.append(renderTransportButton())
@@ -310,10 +332,35 @@ function renderRoundBreak(snap: SessionSnapshot): HTMLElement {
   return wrap
 }
 
+function hubUrl(): string {
+  const h = window.location.hostname
+  if (h === 'localhost' || h === '127.0.0.1') return 'http://localhost:5174/'
+  return 'https://mishak-hub.pages.dev/'
+}
+
 /** Parent-facing 2×2 band picker — not mirrored, before color setup. */
 function renderHost(): HTMLElement {
   const wrap = document.createElement('div')
   wrap.className = 'host-shell'
+
+  const topbar = document.createElement('div')
+  topbar.className = 'host-topbar'
+  const brand = document.createElement('a')
+  brand.className = 'host-brand'
+  brand.href = hubUrl()
+  brand.textContent = 'Mishak'
+  brand.title = 'Înapoi la hub'
+  const hub = document.createElement('a')
+  hub.className = 'host-hub-link'
+  hub.href = hubUrl()
+  hub.textContent = '← Hub'
+  topbar.append(brand, hub)
+  wrap.append(topbar)
+
+  const heading = document.createElement('h1')
+  heading.className = 'host-heading'
+  heading.textContent = 'Alege grupa'
+  wrap.append(heading)
 
   const grid = document.createElement('div')
   grid.className = 'host-grid'
@@ -332,9 +379,10 @@ function renderHost(): HTMLElement {
       (playable ? ' is-playable' : loaded ? ' is-soon' : '')
     btn.dataset.band = band.id
     btn.setAttribute('aria-disabled', playable || !loaded ? 'false' : 'true')
+    const ariaCore = `${band.label}. ${band.caption}`
     btn.setAttribute(
       'aria-label',
-      loaded && !playable ? `${band.label}, în curând` : band.label,
+      loaded && !playable ? `${ariaCore}. În curând` : ariaCore,
     )
 
     const art = document.createElement('img')
@@ -343,6 +391,18 @@ function renderHost(): HTMLElement {
     art.alt = ''
     art.draggable = false
     btn.append(art)
+
+    const copy = document.createElement('span')
+    copy.className = 'host-tile-copy'
+    copy.setAttribute('aria-hidden', 'true')
+    const title = document.createElement('span')
+    title.className = 'host-tile-title'
+    title.textContent = band.label
+    const caption = document.createElement('span')
+    caption.className = 'host-tile-caption'
+    caption.textContent = band.caption
+    copy.append(title, caption)
+    btn.append(copy)
 
     if (loaded && !playable) {
       const soon = document.createElement('span')
