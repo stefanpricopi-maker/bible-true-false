@@ -1,0 +1,743 @@
+{
+  "id": "clase-4-5",
+  "title": "Clasele 4–5 — antrenament 2027",
+  "locale": "ro",
+  "category": "clase_4_5",
+  "note": "PLACEHOLDER practice on 2027 biblio (1–2 Samuel + 1 Petru), plus full I–V drill set on 1 Samuel 1. Not official CBTN items. Style calibration vs past papers pending.",
+  "questions": [
+    {
+      "id": "tf01",
+      "type": "true_false",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Ana I-a cerut Domnului un fiu și l-a numit Samuel.",
+      "correct": true,
+      "ref": "1 Samuel 1:20"
+    },
+    {
+      "id": "tf02",
+      "type": "true_false",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 3,
+      "prompt": "Samuel a auzit glasul Domnului în templu când era băiat.",
+      "correct": true,
+      "ref": "1 Samuel 3"
+    },
+    {
+      "id": "tf03",
+      "type": "true_false",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 17,
+      "prompt": "David l-a învins pe Goliat cu sabia lui Saul.",
+      "correct": false,
+      "ref": "1 Samuel 17:40-50"
+    },
+    {
+      "id": "tf04",
+      "type": "true_false",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 16,
+      "prompt": "Samuel l-a uns pe David ca împărat în casa lui Isai.",
+      "correct": true,
+      "ref": "1 Samuel 16"
+    },
+    {
+      "id": "tf05",
+      "type": "true_false",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 18,
+      "prompt": "Ionatan, fiul lui Saul, a fost dușmanul lui David.",
+      "correct": false,
+      "ref": "1 Samuel 18:1-4"
+    },
+    {
+      "id": "tf06",
+      "type": "true_false",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["2_samuel"],
+      "chapter": 5,
+      "prompt": "David a fost uns împărat peste tot Israelul la Hebron.",
+      "correct": true,
+      "ref": "2 Samuel 5:1-3"
+    },
+    {
+      "id": "tf07",
+      "type": "true_false",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["2_samuel"],
+      "chapter": 6,
+      "prompt": "Chivotul Domnului a fost adus la Ierusalim cu bucurie.",
+      "correct": true,
+      "ref": "2 Samuel 6"
+    },
+    {
+      "id": "tf08",
+      "type": "true_false",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["2_samuel"],
+      "chapter": 11,
+      "prompt": "David a păcătuit luând pe Bat-Șeba, soția lui Urie.",
+      "correct": true,
+      "ref": "2 Samuel 11"
+    },
+    {
+      "id": "tf09",
+      "type": "true_false",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_petru"],
+      "chapter": 1,
+      "prompt": "1 Petru spune că moștenirea credincioșilor se poate strica și se ofilește.",
+      "correct": false,
+      "ref": "1 Petru 1:4"
+    },
+    {
+      "id": "tf10",
+      "type": "true_false",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_petru"],
+      "chapter": 5,
+      "prompt": "Petru îndeamnă pe bătrâni să păstorească turma lui Dumnezeu de bunăvoie.",
+      "correct": true,
+      "ref": "1 Petru 5:2"
+    },
+    {
+      "id": "sc01",
+      "type": "single_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "În 1 Samuel 1, la Silo, cine era preotul care a văzut-o pe Ana rugându-se în tăcere?",
+      "choices": ["Eli", "Samuel", "Natan"],
+      "correctIndex": 0,
+      "ref": "1 Samuel 1:9-17"
+    },
+    {
+      "id": "sc02",
+      "type": "single_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 17,
+      "prompt": "Cu ce a venit Goliat împotriva oștirii lui Israel?",
+      "choices": ["Cu o praștie", "Cu armură și suliță", "Doar cu un toiag"],
+      "correctIndex": 1,
+      "ref": "1 Samuel 17:4-7"
+    },
+    {
+      "id": "sc03",
+      "type": "single_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 16,
+      "prompt": "Câți fii ai lui Isai a trecut Samuel înainte să-l ungă pe David?",
+      "choices": ["Trei", "Șapte frați mai mari, apoi David", "Doar pe David din start"],
+      "correctIndex": 1,
+      "ref": "1 Samuel 16:6-13"
+    },
+    {
+      "id": "sc04",
+      "type": "single_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 9,
+      "prompt": "Ce căuta Saul când l-a întâlnit pe Samuel?",
+      "choices": ["Măgărițele tatălui său", "O coroană", "Un temple"],
+      "correctIndex": 0,
+      "ref": "1 Samuel 9"
+    },
+    {
+      "id": "sc05",
+      "type": "single_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["2_samuel"],
+      "chapter": 9,
+      "prompt": "Cui i-a arătat David bunătate de dragul lui Ionatan?",
+      "choices": ["Mephiboșet", "Absalom", "Ioab"],
+      "correctIndex": 0,
+      "ref": "2 Samuel 9"
+    },
+    {
+      "id": "sc06",
+      "type": "single_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["2_samuel"],
+      "chapter": 12,
+      "prompt": "Care prooroc l-a mustrat pe David pentru păcatul cu Bat-Șeba?",
+      "choices": ["Samuel", "Natan", "Ilie"],
+      "correctIndex": 1,
+      "ref": "2 Samuel 12"
+    },
+    {
+      "id": "sc07",
+      "type": "single_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["2_samuel"],
+      "chapter": 15,
+      "prompt": "Cine s-a răsculat împotriva tatălui său, David?",
+      "choices": ["Absalom", "Solomon", "Adonia"],
+      "correctIndex": 0,
+      "ref": "2 Samuel 15"
+    },
+    {
+      "id": "sc08",
+      "type": "single_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_petru"],
+      "chapter": 2,
+      "prompt": "Cum îi numește Petru pe credincioși în legătură cu o piatră vie?",
+      "choices": [
+        "Pietre vii zidite o casă duhovnicească",
+        "Stâlpi de templu",
+        "Nisipul mării"
+      ],
+      "correctIndex": 0,
+      "ref": "1 Petru 2:5"
+    },
+    {
+      "id": "sc09",
+      "type": "single_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_petru"],
+      "chapter": 3,
+      "prompt": "Ce spune Petru despre frumusețea femeilor creștine?",
+      "choices": [
+        "Să fie doar podoabe de aur",
+        "Omul ascuns al inimii, un duh blând și liniștit",
+        "Să nu se roage niciodată"
+      ],
+      "correctIndex": 1,
+      "ref": "1 Petru 3:3-4"
+    },
+    {
+      "id": "sc10",
+      "type": "single_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_petru"],
+      "chapter": 5,
+      "prompt": "Cui spune Petru să-i stați împotrivă, tari în credință?",
+      "choices": ["Îngerului", "Diavolului, care umblă ca un leu", "Împăratului"],
+      "correctIndex": 1,
+      "ref": "1 Petru 5:8-9"
+    },
+    {
+      "id": "mt01",
+      "type": "matching",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel", "2_samuel"],
+      "prompt": "Asociază persoana cu descrierea potrivită (1–2 Samuel).",
+      "left": ["Samuel", "Saul", "David", "Ionatan", "Natan"],
+      "right": [
+        "Prieten credincios al lui David",
+        "Prooroc care l-a mustrat pe David",
+        "Primul împărat uns al lui Israel",
+        "Judecător și prooroc care l-a uns pe Saul și pe David",
+        "Păstor uns împărat, a învins pe Goliat"
+      ],
+      "correctMap": [3, 2, 4, 0, 1],
+      "ref": "1–2 Samuel"
+    },
+    {
+      "id": "sa01",
+      "type": "short_answer",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 17,
+      "prompt": "Cum se numea uriașul filistean învins de David?",
+      "accepted": ["Goliat", "Goliath"],
+      "ref": "1 Samuel 17"
+    },
+    {
+      "id": "sa02",
+      "type": "short_answer",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Cum se numea mama lui Samuel?",
+      "accepted": ["Ana", "Hana", "Hannah"],
+      "ref": "1 Samuel 1"
+    },
+    {
+      "id": "sa03",
+      "type": "short_answer",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["2_samuel"],
+      "chapter": 5,
+      "prompt": "Care a devenit capitala lui David după ce a fost uns peste tot Israelul?",
+      "accepted": ["Ierusalim", "Ierusalimul"],
+      "ref": "2 Samuel 5"
+    },
+    {
+      "id": "sa04",
+      "type": "short_answer",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["2_samuel"],
+      "chapter": 12,
+      "prompt": "Cum se numea proorocul care i-a spus lui David pilda cu oile?",
+      "accepted": ["Natan"],
+      "ref": "2 Samuel 12"
+    },
+    {
+      "id": "sa05",
+      "type": "short_answer",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_petru"],
+      "chapter": 5,
+      "prompt": "Cui îi scrie Petru să se smerescă sub mâna tare a lui Dumnezeu?",
+      "accepted": ["credinciosilor", "credincioșilor", "vouă", "tinerilor", "tuturor"],
+      "ref": "1 Petru 5:6"
+    },
+    {
+      "id": "mc01",
+      "type": "multi_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 17,
+      "prompt": "Ce a luat David cu el împotriva lui Goliat? (poate fi mai mult de un răspuns)",
+      "choices": ["Praștia", "Cinci pietre din pârâu", "Armura completă a lui Saul", "Toiagul"],
+      "correctIndices": [0, 1, 3],
+      "ref": "1 Samuel 17:40"
+    },
+    {
+      "id": "mc02",
+      "type": "multi_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["2_samuel"],
+      "prompt": "Care dintre acestea apar în istoria lui David din 2 Samuel?",
+      "choices": [
+        "Aducerea chivotului la Ierusalim",
+        "Răscoala lui Absalom",
+        "Construirea templului de către David",
+        "Mustrarea lui Natan"
+      ],
+      "correctIndices": [0, 1, 3],
+      "ref": "2 Samuel"
+    },
+    {
+      "id": "mc03",
+      "type": "multi_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_petru"],
+      "prompt": "Care teme apar în 1 Petru?",
+      "choices": [
+        "Nădejdea vie prin învierea lui Isus",
+        "Suferința pentru neprihănire",
+        "Construirea arcei lui Noe ca temă principală a cărții",
+        "Împotrivirea față de diavol"
+      ],
+      "correctIndices": [0, 1, 3],
+      "ref": "1 Petru"
+    },
+    {
+      "id": "1s1-tf01",
+      "type": "true_false",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Elcana avea două neveste: Ana și Penina.",
+      "correct": true,
+      "ref": "1 Samuel 1:2"
+    },
+    {
+      "id": "1s1-tf02",
+      "type": "true_false",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Penina nu avea copii, iar Ana avea mulți fii.",
+      "correct": false,
+      "ref": "1 Samuel 1:2"
+    },
+    {
+      "id": "1s1-tf03",
+      "type": "true_false",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Elcana se ducea în fiecare an să se închine la Silo.",
+      "correct": true,
+      "ref": "1 Samuel 1:3"
+    },
+    {
+      "id": "1s1-tf04",
+      "type": "true_false",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Hofni și Fineas, fiii lui Eli, erau preoți ai Domnului la Silo.",
+      "correct": true,
+      "ref": "1 Samuel 1:3"
+    },
+    {
+      "id": "1s1-tf05",
+      "type": "true_false",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Ana mânca bucuroasă la jertfele de la Silo, pentru că avea deja un fiu.",
+      "correct": false,
+      "ref": "1 Samuel 1:7-8"
+    },
+    {
+      "id": "1s1-tf06",
+      "type": "true_false",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Eli a crezut la început că Ana este beată când se ruga.",
+      "correct": true,
+      "ref": "1 Samuel 1:13-14"
+    },
+    {
+      "id": "1s1-tf07",
+      "type": "true_false",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Ana I-a făgăduit Domnului că, dacă îi dă un fiu, îl va închina Domnului pentru toate zilele vieții lui.",
+      "correct": true,
+      "ref": "1 Samuel 1:11"
+    },
+    {
+      "id": "1s1-tf08",
+      "type": "true_false",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Ana l-a numit pe fiul ei Saul.",
+      "correct": false,
+      "ref": "1 Samuel 1:20"
+    },
+    {
+      "id": "1s1-tf09",
+      "type": "true_false",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "După ce l-a înțărcat pe Samuel, Ana l-a dus la Silo, la Domnul.",
+      "correct": true,
+      "ref": "1 Samuel 1:24"
+    },
+    {
+      "id": "1s1-tf10",
+      "type": "true_false",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Ana l-a lăsat pe Samuel acasă la Elcana și nu l-a adus la preot.",
+      "correct": false,
+      "ref": "1 Samuel 1:25-28"
+    },
+    {
+      "id": "1s1-sc01",
+      "type": "single_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "La începutul cărții 1 Samuel, din ce ținut era Elcana, soțul Anei?",
+      "choices": [
+        "Din muntele lui Efraim (Ramataim-Țofim)",
+        "Din Betleemul lui Iuda",
+        "Din Ierusalim"
+      ],
+      "correctIndex": 0,
+      "ref": "1 Samuel 1:1"
+    },
+    {
+      "id": "1s1-sc02",
+      "type": "single_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Elcana avea două neveste, Ana și Penina. Care dintre ele nu avea copii la început?",
+      "choices": ["Penina", "Ana", "Amândouă aveau copii"],
+      "correctIndex": 1,
+      "ref": "1 Samuel 1:2"
+    },
+    {
+      "id": "1s1-sc03",
+      "type": "single_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Înainte de nașterea lui Samuel, unde se suia Elcana cu familia în fiecare an ca să se închine Domnului?",
+      "choices": ["La Ierusalim", "La Betel", "La Silo"],
+      "correctIndex": 2,
+      "ref": "1 Samuel 1:3"
+    },
+    {
+      "id": "1s1-sc04",
+      "type": "single_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Când Ana s-a sculat să se roage la Silo, cine era preotul care ședea lângă ușiorul Templului Domnului?",
+      "choices": ["Samuel (încă băiat)", "Eli", "Fineas, fiul lui Eli"],
+      "correctIndex": 1,
+      "ref": "1 Samuel 1:9"
+    },
+    {
+      "id": "1s1-sc05",
+      "type": "single_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "La Silo, de ce a crezut preotul Eli că Ana este beată în timp ce se ruga?",
+      "choices": [
+        "Pentru că vorbea tare cu Penina",
+        "Pentru că doar buzele i se mișcau, iar glasul nu i se auzea",
+        "Pentru că adusese vin la altar"
+      ],
+      "correctIndex": 1,
+      "ref": "1 Samuel 1:12-13"
+    },
+    {
+      "id": "1s1-sc06",
+      "type": "single_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Când Eli a acuzat-o că e beată, ce a răspuns Ana că face de fapt?",
+      "choices": [
+        "Că se ceartă cu Penina",
+        "Că își varsă sufletul înaintea Domnului",
+        "Că cântă un psalm"
+      ],
+      "correctIndex": 1,
+      "ref": "1 Samuel 1:15"
+    },
+    {
+      "id": "1s1-sc07",
+      "type": "single_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "La Silo, după ce Ana i-a spus lui Eli că își varsă sufletul înaintea Domnului (nu că e beată), ce i-a răspuns preotul?",
+      "choices": [
+        "Du-te acasă fără nădejde",
+        "Du-te în pace; Dumnezeul lui Israel să-ți împlinească cererea",
+        "Adu mâine o jertfă mai mare"
+      ],
+      "correctIndex": 1,
+      "ref": "1 Samuel 1:17"
+    },
+    {
+      "id": "1s1-sc08",
+      "type": "single_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "După ce Domnul i-a dat un fiu, de ce l-a numit Ana pe copil Samuel?",
+      "choices": [
+        "Pentru că „l-am cerut de la Domnul”",
+        "Pentru că Eli i-a ales numele",
+        "Pentru că însemna „împărat”"
+      ],
+      "correctIndex": 0,
+      "ref": "1 Samuel 1:20"
+    },
+    {
+      "id": "1s1-sc09",
+      "type": "single_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "După nașterea lui Samuel, Ana i-a spus soțului ei, Elcana, că nu se suie încă la jertfa anuală. Când a zis că îl va aduce pe copil înaintea Domnului la Silo?",
+      "choices": [
+        "Imediat după naștere",
+        "După ce îl va înțărca",
+        "Când va împlini doisprezece ani"
+      ],
+      "correctIndex": 1,
+      "ref": "1 Samuel 1:22"
+    },
+    {
+      "id": "1s1-sc10",
+      "type": "single_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "După ce l-a înțărcat pe Samuel, Ana l-a suit la Casa Domnului din Silo, cu jertfe, ca să-l lase acolo Domnului. Cui i l-a încredințat pe copil?",
+      "choices": ["Lui Hofni", "Lui Eli", "Lui Elcana să-l crească acolo"],
+      "correctIndex": 1,
+      "ref": "1 Samuel 1:25-28"
+    },
+    {
+      "id": "1s1-mt01",
+      "type": "matching",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Asociază persoana din 1 Samuel 1 cu descrierea potrivită.",
+      "left": ["Elcana", "Ana", "Penina", "Eli", "Samuel"],
+      "right": [
+        "Preotul care a crezut că Ana e beată",
+        "Nevasta care o necăjea pe Ana",
+        "Copilul cerut de la Domnul și dus la Silo",
+        "Tatăl care se ducea anual să se închine",
+        "Nevasta care s-a rugat pentru un fiu"
+      ],
+      "correctMap": [3, 4, 1, 0, 2],
+      "ref": "1 Samuel 1"
+    },
+    {
+      "id": "1s1-sa01",
+      "type": "short_answer",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Cum se numea soțul Anei?",
+      "accepted": ["Elcana", "Elkanah"],
+      "ref": "1 Samuel 1:1-2"
+    },
+    {
+      "id": "1s1-sa02",
+      "type": "short_answer",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "În ce localitate (loc de închinare) se ducea familia în fiecare an?",
+      "accepted": ["Silo", "Șilo", "Shiloh"],
+      "ref": "1 Samuel 1:3"
+    },
+    {
+      "id": "1s1-sa03",
+      "type": "short_answer",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Cum se numeau cei doi fii ai lui Eli menționați ca preoți?",
+      "accepted": [
+        "Hofni și Fineas",
+        "Hofni si Fineas",
+        "Fineas și Hofni",
+        "Fineas si Hofni"
+      ],
+      "ref": "1 Samuel 1:3"
+    },
+    {
+      "id": "1s1-sa04",
+      "type": "short_answer",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Cum se numea cealaltă nevastă a lui Elcana, dar nu Ana?",
+      "accepted": ["Penina", "Peninna"],
+      "ref": "1 Samuel 1:2"
+    },
+    {
+      "id": "1s1-sa05",
+      "type": "short_answer",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Cum se numea fiul cerut de Ana, soția lui Elcana?",
+      "accepted": ["Samuel"],
+      "ref": "1 Samuel 1:20"
+    },
+    {
+      "id": "1s1-mc01",
+      "type": "multi_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Ce personaje apar în 1 Samuel 1? (poate fi mai mult de un răspuns)",
+      "choices": ["Elcana", "Ana", "David", "Eli"],
+      "correctIndices": [0, 1, 3],
+      "ref": "1 Samuel 1"
+    },
+    {
+      "id": "1s1-mc02",
+      "type": "multi_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Ce face Ana în 1 Samuel 1? (poate fi mai mult de un răspuns)",
+      "choices": [
+        "Se roagă Domnului pentru un fiu",
+        "Îl duce pe Samuel la Silo după înțărcare",
+        "Îl unge pe Saul ca împărat",
+        "Îi făgăduiește Domnului pe copil"
+      ],
+      "correctIndices": [0, 1, 3],
+      "ref": "1 Samuel 1"
+    },
+    {
+      "id": "1s1-mc03",
+      "type": "multi_choice",
+      "category": "clase_4_5",
+      "reviewStatus": "PLACEHOLDER",
+      "books": ["1_samuel"],
+      "chapter": 1,
+      "prompt": "Cum se ruga Ana în 1 Samuel 1? (poate fi mai mult de un răspuns)",
+      "choices": [
+        "Buzele i se mișcau, dar glasul nu i se auzea",
+        "Eli a crezut la început că este beată",
+        "S-a rugat în piața din Ierusalim",
+        "I-a făgăduit Domnului pe fiul cerut"
+      ],
+      "correctIndices": [0, 1, 3],
+      "ref": "1 Samuel 1:10-17"
+    }
+  ]
+}
