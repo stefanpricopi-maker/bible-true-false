@@ -48,6 +48,14 @@ Ordinea întrebărilor: **1=J1, 2=J2, 3=J1, 4=J2, 5=J1, 6=J2, 7=J1, 8=J2, 9=J1, 
 Bun venit la jocul Întrebări din Biblie - Adevărat sau Fals? Sunteți doi jucători. Fiecare trebuie să alegeți o culoare, apăsând pe un pătrat colorat. În cercul din mijloc Verde înseamnă adevărat iar Roșu înseamnă fals. Când amândoi ați ales culoarea, jocul începe.
 ```
 
+### A1b — Cine alege primul (imediat după welcome, pe ecranul de culori)
+
+**Fișier:** `vo/setup-color-hint.mp3` · `voiceover.setupColorHint`
+
+```text
+Oricare dintre voi poate alege primul. Apoi celălalt alege o altă culoare.
+```
+
 ### A2 — (Opțional) Reminder scurt dacă stau pe ecran
 
 **Fișier:** `vo/setup-nudge.mp3`
@@ -118,10 +126,12 @@ Prima întrebare. Ascultă cu atenție.
 
 ## C. Feedback după răspuns (reutilizabil)
 
+**Regulă:** în `feedback/correct` și `feedback/incorrect` **nu** spune „Adevărat” / „Fals” / „Așa este” ca laudă. Astea sunt etichetele T/F ale afirmației — induc în eroare când afirmația e falsă dar copilul a răspuns corect (sau invers). Folosește „Corect”, „Bravo”, „Ai răspuns bine”, „Greșit”.
+
 | Fișier | Text | Când |
 |--------|------|------|
-| `feedback/correct.mp3` | Bravo! Ai răspuns corect. | Răspuns = adevărul afirmației |
-| `feedback/incorrect.mp3` | Greșit! Nu-i nimic! Răspunzi mai bine data viitoare! | Răspuns greșit |
+| `feedback/correct.mp3` | Bravo! Ai răspuns corect. | Alegerea jucătorului = cheia |
+| `feedback/incorrect.mp3` | Greșit! Nu-i nimic! Răspunzi mai bine data viitoare! | Alegerea jucătorului ≠ cheia |
 
 **Variante mai scurte (SFX + VO scurt):**
 
@@ -129,6 +139,8 @@ Prima întrebare. Ascultă cu atenție.
 |--------|------|
 | `feedback/correct-short.mp3` | Corect! |
 | `feedback/incorrect-short.mp3` | Greșit. |
+
+„Răspunsul este adevărat/fals” rămâne doar pe `vo/answer-is-true` / `vo/answer-is-false` (reveal R3).
 
 ---
 

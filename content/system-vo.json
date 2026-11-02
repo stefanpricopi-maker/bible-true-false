@@ -17,6 +17,18 @@
       ]
     },
     {
+      "id": "setup-color-hint",
+      "audioFile": "vo/setup-color-hint.mp3",
+      "manifestKey": "voiceover.setupColorHint",
+      "texts": [
+        "Oricare dintre voi poate alege primul. Apoi celălalt alege o altă culoare.",
+        "Nu contează cine alege primul. Fiecare apasă pe o culoare diferită.",
+        "Alegeți pe rând: unul primul, apoi celălalt — fiecare altă culoare.",
+        "Primul care vrea, alege culoarea. Apoi prietenul alege altă culoare.",
+        "Puteți alege amândoi, pe rând. Cine începe primul e liber — doar nu luați aceeași culoare."
+      ]
+    },
+    {
       "id": "setup-nudge",
       "audioFile": "vo/setup-nudge.mp3",
       "manifestKey": null,
@@ -127,10 +139,11 @@
       "id": "correct",
       "audioFile": "feedback/correct.mp3",
       "manifestKey": "feedback.correct",
+      "note": "Never say Adevărat/Fals here — that is the T/F answer, not ‘you were right’.",
       "texts": [
         "Foarte bine! Ai răspuns corect.",
-        "Adevărat! Cunoști foarte bine această întâmplare din Biblie!",
-        "Așa este! Ai dat răspunsul bun. Bravo!",
+        "Bravo! Cunoști foarte bine această întâmplare din Biblie!",
+        "Ai dat răspunsul bun. Bravo!",
         "Răspuns perfect! Mă bucur că ai fost atent!",
         "Minunat! Ai răspuns exact cum trebuie!"
       ]
@@ -139,8 +152,9 @@
       "id": "incorrect",
       "audioFile": "feedback/incorrect.mp3",
       "manifestKey": "feedback.incorrect",
+      "note": "Never imply the biblical claim’s truth with Adevărat/Fals — only that the player’s choice was wrong.",
       "texts": [
-        "Nu este chiar așa! Nu-i nimic, vei ști mai bine data viitoare!",
+        "Nu este răspunsul bun! Nu-i nimic, vei ști mai bine data viitoare!",
         "Răspunsul nu este corect. Dar ne bucurăm că ai încercat!",
         "Acest răspuns a fost greșit. La următoarea întrebare va fi mult mai bine!",
         "Nu este acesta răspunsul. Fii puțin mai atent la următoarea poveste!",
@@ -214,7 +228,7 @@
       "texts": [
         "Răspunsul este adevărat!",
         "Soluția: este adevărat!",
-        "Adevărat! Acesta este răspunsul corect."
+        "Afirmația este adevărată!"
       ]
     },
     {
@@ -224,7 +238,7 @@
       "texts": [
         "Răspunsul este fals!",
         "Soluția: este fals!",
-        "Fals! Acesta este răspunsul corect."
+        "Afirmația este falsă!"
       ]
     }
   ]

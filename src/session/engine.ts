@@ -88,6 +88,8 @@ export class SessionEngine {
   private readonly audio = new AudioPlayer()
   private readonly sfx = new SfxPlayer()
   private readonly listeners = new Set<Listener>()
+  /** One automatic retry when a question clip fails to start. */
+  private questionPlayRetries = 0
 
   subscribe(listener: Listener): () => void {
     this.listeners.add(listener)
@@ -167,6 +169,14 @@ export class SessionEngine {
     this.audio.unlock()
   }
 
+  setVoVolume(v: number): void {
+    this.audio.setVolume(v)
+  }
+
+  setSfxVolume(v: number): void {
+    this.sfx.setVolume(v)
+  }
+
   /** @returns true if now paused (session + timer) */
   toggleAudioPause(): boolean {
     const pausable =
@@ -204,6 +214,47 @@ export class SessionEngine {
 
   hasAudioClip(): boolean {
     return this.audio.hasActiveClip
+  }
+
+  /** True while a question is playing or waiting for buzz/answer. */
+  canReplayQuestion(): boolean {
+    if (!this.pack || this.questionIndex < 0) return false
+    return (
+      this.phase === 'playingQuestion' ||
+      this.phase === 'awaitingBuzz' ||
+      this.phase === 'awaitingAnswer'
+    )
+  }
+
+  /**
+   * Replay the current question VO (parent control).
+   * Does not reset scores or R3 locks — only the clip, then back to buzz/answer.
+   */
+  replayQuestion(): void {
+    if (!this.canReplayQuestion() || !this.pack) return
+    const q = this.pack.questions[this.questionIndex]
+    if (!q?.audio?.question) return
+
+    this.audio.unlock()
+    this.clearPause()
+    this.stopWaitingLoop()
+    this.phase = 'playingQuestion'
+    this.lastCorrect = null
+    this.emit()
+
+    this.audio.play(
+      assetUrl(this.pack, q.audio.question),
+      () => {
+        if (this.round === 2) {
+          this.phase = 'awaitingBuzz'
+        } else {
+          this.phase = 'awaitingAnswer'
+        }
+        this.emit()
+        this.startWaitingLoop()
+      },
+      (err) => this.fail(err),
+    )
   }
 
   private clearPause(): void {
@@ -666,11 +717,17 @@ export class SessionEngine {
 
     this.phase = 'playingQuestion'
     this.lastCorrect = null
+    this.questionPlayRetries = 0
     this.emit()
+    this.playQuestionClip(q.audio.question)
+  }
 
+  private playQuestionClip(relative: string): void {
+    if (!this.pack) return
     this.audio.play(
-      assetUrl(this.pack, q.audio.question),
+      assetUrl(this.pack, relative),
       () => {
+        this.questionPlayRetries = 0
         if (this.round === 2) {
           this.phase = 'awaitingBuzz'
         } else {
@@ -779,6 +836,14 @@ export class SessionEngine {
       return
     }
     if (this.phase === 'playingQuestion') {
+      const q = this.pack?.questions[this.questionIndex]
+      if (q?.audio.question && this.questionPlayRetries < 1) {
+        this.questionPlayRetries += 1
+        this.error = null
+        this.playQuestionClip(q.audio.question)
+        return
+      }
+      this.questionPlayRetries = 0
       this.skipQuestionNoScore()
       return
     }
