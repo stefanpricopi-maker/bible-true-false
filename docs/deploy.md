@@ -69,10 +69,10 @@ Raportul util: câte `setup_complete` la 100 de vizite.
 
 Zaraz **nu pornește pe** `*.pages.dev`. Cloudflare cere un **domeniu custom** pe zonă orange-cloud, lipit de Pages. Contul acum nu are nicio zonă DNS.
 
-Când ai `mishak.ro`:
+Când ai `mishak.ro` (țintă: **hub**, nu T/F direct — vezi [`mishak-hub.md`](mishak-hub.md)):
 
 1. Adaugă domeniul în Cloudflare (nameservere Rotld → Cloudflare) și **Proxy** (nor portocaliu).
-2. Pages → `bible-true-false` → **Custom domains** → `mishak.ro` (și `www`).
+2. Pages → proiectul **hub** (`mishak-hub`, când există) → **Custom domains** → `mishak.ro` (și `www`). T/F rămâne pe `bible-true-false.pages.dev` sau subdomeniu.
 3. Zona `mishak.ro` → **Zaraz** → Tag setup:
    - Auto-inject script: **on**
    - Single Page Application: **on**

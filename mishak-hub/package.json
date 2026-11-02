@@ -1,0 +1,16 @@
+{
+  "name": "mishak-hub",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy:cf": "npm run build && npx wrangler pages deploy dist --project-name=mishak-hub --branch=main --commit-dirty=true"
+
+  },
+  "devDependencies": {
+    "vite": "^7.3.1"
+  }
+}

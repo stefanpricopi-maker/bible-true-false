@@ -28,3 +28,5 @@ Deschide `http://localhost:5173/`.
 - Brief: [`docs/brief.md`](docs/brief.md)
 - Go: [`docs/decisions/orchestrator-merge.md`](docs/decisions/orchestrator-merge.md)
 - Walkthrough: [`walkthrough.md`](walkthrough.md)
+- Hub Mishak (draft): [`mishak-hub/`](mishak-hub/) · plan: [`docs/mishak-hub.md`](docs/mishak-hub.md)
+- Antrenament Clasic (sibling): [`mishak-talantul-clasic/`](mishak-talantul-clasic/)

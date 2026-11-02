@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Mishak — jocuri biblice: Adevărat sau Fals? și antrenament Talantul în Negoț (Clasic + Memorare)."
+    />
+    <title>Mishak</title>
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <p class="brand" aria-label="Mishak">Mishak</p>
+        <p class="etymon">
+          Din ebraică: <span lang="he">מִשְׂחָק</span> (miśḥāq) — „joc”.
+        </p>
+        <h1>Jocuri biblice pentru familie</h1>
+      </header>
+
+      <section class="catalog" aria-label="Jocuri disponibile">
+        <a class="game game--tf" href="https://bible-true-false.pages.dev">
+          <span class="game__kicker">2 pe un ecran · audio</span>
+          <span class="game__title">Biblia · Adevărat / Fals</span>
+          <span class="game__desc"
+            >Quiz verde / roșu pentru copii, cu puncte pe rânduri.</span
+          >
+          <span class="game__cta">Joacă</span>
+        </a>
+
+        <section class="family" aria-labelledby="talantul-heading">
+          <header class="family__head">
+            <p class="family__kicker">Concurs biblic</p>
+            <h2 id="talantul-heading" class="family__title">
+              Antrenament (neoficial) Talantul în Negoț
+            </h2>
+            <p class="family__desc">
+              Două secțiuni din concurs — fiecare ca app separat.
+            </p>
+          </header>
+
+          <div class="family__games">
+            <a
+              class="game game--clasic"
+              href="https://mishak-talantul-clasic.pages.dev"
+            >
+              <span class="game__kicker">Părinte + copil · tipuri I–V</span>
+              <span class="game__title">Clasic</span>
+              <span class="game__desc"
+                >Exercițiu și simulare pe pliantul 2027.</span
+              >
+              <span class="game__cta">Antrenează</span>
+            </a>
+
+            <a
+              class="game game--memorare"
+              href="https://mishak-memorare.pages.dev"
+            >
+              <span class="game__kicker">Memorare · pe vârstă</span>
+              <span class="game__title">Memorare</span>
+              <span class="game__desc"
+                >Apocalipsa 1–5 — exerciții pe grupa de vârstă.</span
+              >
+              <span class="game__cta">Memorează</span>
+            </a>
+          </div>
+
+          <p class="family__note">
+            Clasic și Memorare nu sunt aplicațiile oficiale ale concursului. Site
+            oficial:
+            <a href="https://talantulinnegot.com/" rel="noopener noreferrer"
+              >talantulinnegot.com</a
+            >.
+          </p>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
