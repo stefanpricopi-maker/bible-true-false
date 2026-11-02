@@ -1,0 +1,307 @@
+:root {
+  --bg-deep: #0f2a24;
+  --bg-mid: #163830;
+  --ink: #f4f7f4;
+  --muted: #b7c7c0;
+  --line: rgba(244, 247, 244, 0.14);
+  --tf: #2f9e6a;
+  --tf-deep: #1d6b47;
+  --tal: #3d7ea6;
+  --tal-deep: #2a5f7f;
+  --mem: #c4a35a;
+  --mem-deep: #8a6f2f;
+  --glow: rgba(95, 180, 140, 0.22);
+  --radius: 1.25rem;
+  --font-brand: 'Fraunces', Georgia, serif;
+  --font-ui: 'Nunito', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  color: var(--ink);
+  font-family: var(--font-ui);
+  background:
+    radial-gradient(ellipse 80% 55% at 50% -10%, var(--glow), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 100% 80%, rgba(61, 126, 166, 0.18), transparent 50%),
+    linear-gradient(165deg, var(--bg-mid) 0%, var(--bg-deep) 55%, #0b1f1b 100%);
+  background-attachment: fixed;
+}
+
+.shell {
+  width: min(42rem, calc(100% - 2rem));
+  margin: 0 auto;
+  min-height: 100dvh;
+  padding: 2.5rem 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  justify-content: center;
+}
+
+.hero {
+  text-align: center;
+  animation: rise 0.7s ease-out both;
+}
+
+.brand {
+  margin: 0;
+  font-family: var(--font-brand);
+  font-size: clamp(2.75rem, 10vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.etymon {
+  margin: 0.55rem 0 0.85rem;
+  color: var(--muted);
+  font-family: var(--font-brand);
+  font-size: clamp(0.95rem, 2.8vw, 1.05rem);
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+}
+
+.etymon span[lang='he'] {
+  font-style: normal;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--ink) 75%, var(--muted));
+}
+
+h1 {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: clamp(1.05rem, 3.2vw, 1.25rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.lead {
+  margin: 0.55rem 0 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.catalog {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: rise 0.7s ease-out 0.12s both;
+}
+
+.family {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.15rem 1.1rem 1.1rem;
+  border-radius: calc(var(--radius) + 0.15rem);
+  border: 1px solid color-mix(in srgb, var(--tal) 40%, var(--line));
+  background: rgba(61, 126, 166, 0.08);
+}
+
+.family__head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0 0.15rem;
+}
+
+.family__kicker {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--tal) 70%, var(--muted));
+}
+
+.family__title {
+  margin: 0;
+  font-family: var(--font-brand);
+  font-size: clamp(1.35rem, 4vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.family__desc {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.family__games {
+  display: grid;
+  gap: 0.85rem;
+}
+
+@media (min-width: 640px) {
+  .family__games {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.45rem;
+  min-height: 10.5rem;
+  padding: 1.25rem 1.2rem 1.15rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.game:hover,
+.game:focus-visible {
+  transform: translateY(-3px);
+  outline: none;
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+}
+
+.game--tf {
+  border-color: color-mix(in srgb, var(--tf) 45%, var(--line));
+}
+
+.game--tf:hover,
+.game--tf:focus-visible {
+  border-color: var(--tf);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.28),
+    0 0 0 1px color-mix(in srgb, var(--tf) 35%, transparent);
+}
+
+.game--clasic {
+  border-color: color-mix(in srgb, var(--tal) 45%, var(--line));
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.game--clasic:hover,
+.game--clasic:focus-visible {
+  border-color: var(--tal);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.28),
+    0 0 0 1px color-mix(in srgb, var(--tal) 35%, transparent);
+}
+
+.game--memorare {
+  border-color: color-mix(in srgb, var(--mem) 45%, var(--line));
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.game--memorare:hover,
+.game--memorare:focus-visible {
+  border-color: var(--mem);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.28),
+    0 0 0 1px color-mix(in srgb, var(--mem) 35%, transparent);
+}
+
+.game__kicker {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.game__title {
+  font-family: var(--font-brand);
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.game__desc {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.game__cta {
+  margin-top: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #0b1f1b;
+}
+
+.game--tf .game__cta {
+  background: linear-gradient(135deg, var(--tf), var(--tf-deep));
+}
+
+.game--clasic .game__cta {
+  background: linear-gradient(135deg, var(--tal), var(--tal-deep));
+  color: #f4f7f4;
+}
+
+.game--memorare .game__cta {
+  background: linear-gradient(135deg, var(--mem), var(--mem-deep));
+  color: #0b1f1b;
+}
+
+.family__note {
+  margin: 0.15rem 0 0;
+  padding: 0 0.15rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.family__note a {
+  color: var(--ink);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero,
+  .catalog,
+  .game {
+    animation: none;
+    transition: none;
+  }
+
+  .game:hover,
+  .game:focus-visible {
+    transform: none;
+  }
+}

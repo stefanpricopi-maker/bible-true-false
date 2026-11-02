@@ -26,6 +26,19 @@
 - Accounts / online leaderboards
 - Live AI question generation
 
+## Sibling under Mishak
+
+Plan locked: hub separat + jocuri ca apps — vezi [`docs/mishak-hub.md`](mishak-hub.md).
+
+| Produs | Status |
+|--------|--------|
+| **Mishak Hub** ([`mishak-hub/`](../mishak-hub/)) | draft v0 · T/F + grup Talantul → `mishak.ro` pending |
+| **Adevărat sau Fals?** (root) | playable |
+| **Talantul → Clasic** ([`mishak-talantul-clasic/`](../mishak-talantul-clasic/)) | playable (neoficial) |
+| **Talantul → Memorare** ([`mishak-memorare/`](../mishak-memorare/)) | în lucru (sub Talantul pe hub) |
+
+Non-goals: transforma T/F în platformă; un singur app Talantul care amestecă Clasic+Memorare.
+
 ## Role graph
 
 ```text
