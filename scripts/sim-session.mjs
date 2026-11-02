@@ -67,7 +67,7 @@ function makePack() {
   const questions = Array.from({ length: 30 }, (_, i) => ({
     id: `q${String(i + 1).padStart(3, '0')}`,
     correct: true,
-    ageBand: 'mic',
+    ageBand: 'copii',
     audio: { question: `audio/q${i + 1}.mp3` },
   }))
   return {
