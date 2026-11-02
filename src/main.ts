@@ -257,6 +257,7 @@ function render(snap: SessionSnapshot): void {
   phone.dataset.phase = snap.phase
 
   if (!selectedBand) {
+    phone.classList.add('is-host')
     phone.append(renderHost())
   } else if (snap.phase === 'setup') {
     phone.append(renderSetup(snap))
@@ -272,6 +273,10 @@ function render(snap: SessionSnapshot): void {
   } else {
     phone.append(renderArena(snap, { interactive: true }))
   }
+
+  document
+    .querySelector('meta[name="theme-color"]')
+    ?.setAttribute('content', selectedBand ? '#F7F5F2' : '#163830')
 
   app!.append(phone)
   app!.append(renderTransportButton())
@@ -327,10 +332,30 @@ function renderRoundBreak(snap: SessionSnapshot): HTMLElement {
   return wrap
 }
 
+function hubUrl(): string {
+  const h = window.location.hostname
+  if (h === 'localhost' || h === '127.0.0.1') return 'http://localhost:5174/'
+  return 'https://mishak-hub.pages.dev/'
+}
+
 /** Parent-facing 2×2 band picker — not mirrored, before color setup. */
 function renderHost(): HTMLElement {
   const wrap = document.createElement('div')
   wrap.className = 'host-shell'
+
+  const topbar = document.createElement('div')
+  topbar.className = 'host-topbar'
+  const brand = document.createElement('a')
+  brand.className = 'host-brand'
+  brand.href = hubUrl()
+  brand.textContent = 'Mishak'
+  brand.title = 'Înapoi la hub'
+  const hub = document.createElement('a')
+  hub.className = 'host-hub-link'
+  hub.href = hubUrl()
+  hub.textContent = '← Hub'
+  topbar.append(brand, hub)
+  wrap.append(topbar)
 
   const heading = document.createElement('h1')
   heading.className = 'host-heading'

@@ -72,11 +72,29 @@ function shell(): HTMLElement {
   return el
 }
 
+function hubUrl(): string {
+  const h = window.location.hostname
+  if (h === 'localhost' || h === '127.0.0.1') return 'http://localhost:5174/'
+  return 'https://mishak-hub.pages.dev/'
+}
+
 function brand(): HTMLElement {
-  const b = document.createElement('div')
-  b.className = 'brand'
-  b.textContent = 'Mishak'
-  return b
+  const bar = document.createElement('div')
+  bar.className = 'topbar'
+
+  const name = document.createElement('a')
+  name.className = 'brand'
+  name.href = hubUrl()
+  name.textContent = 'Mishak'
+  name.title = 'Înapoi la hub'
+
+  const hub = document.createElement('a')
+  hub.className = 'hub-link'
+  hub.href = hubUrl()
+  hub.textContent = '← Hub'
+
+  bar.append(name, hub)
+  return bar
 }
 
 function clear() {
